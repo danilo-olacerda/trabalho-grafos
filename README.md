@@ -1,4 +1,4 @@
-<h1 align="center">Trabalho de Grafos - Turma ..</h1>
+<h1 align="center">Trabalho de Grafos - Turma A</h1>
 <figure>
   <figcaption>Discentes:</figcaption>
   <ul>
