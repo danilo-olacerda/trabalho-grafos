@@ -88,7 +88,7 @@ bool Grafo::procurarNoPeloId(int idFindNo) {
  * @param peso (peso do No)
  */
 No *Grafo::insereNo(int idNo, int peso) {
-    
+
     if ( !procurarNoPeloId(idNo) ) {
         No *novoNo = new No(idNo, peso);
 
@@ -112,7 +112,7 @@ bool Grafo::removeNo(int idNo, bool isDigrafo) {
     // Pesquisa o No a ser excluido
     // Remove todas as arestas/arcos onde este nó ocorre
     // Remove o no
-    
+
     this->decOrdem();
 }
 
@@ -129,12 +129,12 @@ bool Grafo::insertAresta(int idNoOrigem, int idNoDestino, int pesoAresta, bool w
 
     No *noFonte, *noDestino;
     //Verifica se já existem os dois nós com esses ids no grafo
-    // Se ja existem, eé so inserir a aresta em cada um se o grafo for nao direcionado ou apenas de 
+    // Se ja existem, eé so inserir a aresta em cada um se o grafo for nao direcionado ou apenas de
     //   origem pra destino, caso o grafo seja orientado.
     //Se para algum ou ambos os ids não existe o no no grafo, e preciso inserir nos com esses ids antes de incluir a aresta
-    
+
     //if ( procurarNoPeloId(noFonteNome) ) {
-    
+
 
 }
 
@@ -156,7 +156,7 @@ bool Grafo::insertAresta(int idNoOrigem, int idNoDestino, int pesoAresta, bool w
 int Grafo::removeArestas(int idNoOrigem, int idNoDestino, bool isDirected) {
  // Procura o nó origem e busca na sua lista de arestas o idNoDestino
  // Se encontrar, remove. Se não, retorna zero
- 
+
 }
 
 
@@ -260,6 +260,3 @@ string Grafo::getGrau() {
 bool Grafo::isDigraph() {
     return this->digrafo;
 }
-
-
-

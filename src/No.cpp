@@ -30,9 +30,9 @@ No::~No() {
     while ( auxEdge != NULL ) {
         Aresta* auxNextEdge = auxEdge->getProxAresta();
         delete( auxEdge );
-        auxEdge = auxNextEdge;       
+        auxEdge = auxNextEdge;
     }
-    delete( searchInfo );
+    //delete( searchInfo );
 }
 
 void No::setIdNo(int valor) {
@@ -99,4 +99,3 @@ void No::setPrimeiraAresta(Aresta *novaAresta) {
 Aresta* No::getPrimeiraAresta(){
     return this->primeiraAresta;
 }
-

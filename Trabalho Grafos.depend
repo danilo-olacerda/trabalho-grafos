@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1694902705 source:c:\users\danda\downloads\trabalho-grafos\src\aresta.cpp
+	<iostream>
+	<stdlib.h>
+	<string>
+	"Aresta.h"
+
+1694902704 c:\users\danda\downloads\trabalho-grafos\include\aresta.h
+	<iostream>
+	<stdlib.h>
+	<string>
+	"No.h"
+
+1694902731 c:\users\danda\downloads\trabalho-grafos\include\no.h
+	<iostream>
+	<stdlib.h>
+	<string>
+	"Aresta.h"
+

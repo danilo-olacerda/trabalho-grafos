@@ -11,14 +11,14 @@ class No;
 
 class Aresta {
 public:
-    Aresta(int noDestino);
-    Aresta(int noDestino, int pesoAresta);
+    Aresta(int noDestino, Aresta *proxAresta);
+    ~Aresta();
 
     int getPesoAresta();
-
-
     Aresta *getProxAresta();
     void setProxAresta(Aresta *valor);
+    void setNoDestino(int noDestino);
+    int getNoDestino();
 
 private:
     int pesoAresta;

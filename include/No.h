@@ -15,7 +15,8 @@ public:
     virtual ~No();
 
     int getIdNo () {return idNo;}
-
+    Aresta* getPrimeiraAresta();
+    void setIdNo(int id);
 private:
     int idNo;
     int pesoNo;

@@ -30,7 +30,7 @@ public:
     //--- Funcoes de Aresta ---
     bool insertAresta(int idNoOrigem, int idNoDestino, int pesoAresta, bool weigthArc, bool isDirected);
     bool removeAresta(int idNoOrigem, int idNoDestino, bool isDirected);
-    
+
 
     //--- Caracteristica do Grafo ---
     int getNumAresta();
@@ -38,7 +38,7 @@ public:
     int getOrdem();
     int getGrauEntrada();
     int getGrauSaida();
-    
+
 
 
 private:
