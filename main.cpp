@@ -5,7 +5,6 @@
 #include <fstream>
 #include <vector>
 #include "Grafo.h"
-#include "utils.h"
 
 using namespace std;
 
@@ -37,16 +36,16 @@ int main(int argc, const char* argv[])
     cout << '\n' << endl;
     g->setPonderado(ehPonderado);
 
-    
+
     // Criando grafo a partir de uma lista de adjacencia
     cout << "Aguarde enquanto o grafo esta sendo criado..." << endl;
     criaGrafoListaAdj(g, entrada);
 
     // Print de arestas (apenas para testes)
     // g->printArestas();
-    
+
     while(menu(g,saida));
-    
+
 
     return 0;
 }
