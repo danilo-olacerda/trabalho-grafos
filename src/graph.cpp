@@ -7,10 +7,10 @@ Graph::Graph(int order)
   this->order = order;
   nEdges = 0;
 
-  hash = new Node()[nHash];
-  for (int i; i < nHash; i++)
+  nodeList = new Node()[nNodeHash];
+  for (int i; i < nNodeHash; i++)
   {
-    hash[i] = NULL;
+    nodeList[i] = NULL;
   }
 }
 
@@ -24,26 +24,31 @@ int Graph::getNEdges()
   return nEdges;
 }
 
+int Graph::getnNodeHash()
+{
+  return nNodeHash;
+}
+
 void Graph::InsertNode(int id)
 {
   Node node = new Node(id);
   int idHash = node->idHash;
-  node->next = hash[idHash];
-  hash[idHash] = node;
+  node->next = nodeList[idHash];
+  nodeList[idHash] = node;
   order++;
 }
 
 void Graph::removeNode(int id)
 {
-  Node p = hash[id % nHash];
+  Node p = hash[getHash(id)];
 
   for (p; p->next != NULL; p = p->next)
   {
     if (p->next->id == id)
     {
-      Node aux = p->next->next;
+      Node temp = p->next->next;
       delete p->next;
-      p->next = aux;
+      p->next = temp;
       order--;
     }
   }

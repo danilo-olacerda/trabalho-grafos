@@ -8,8 +8,8 @@ class Graph
 private:
     int order;
     int nEdges;
-    Node *hash;
-    int nHash;
+    Node *nodeList;
+    int nNodeHash;
 
 public:
     Graph(int order);
@@ -19,6 +19,8 @@ public:
     int getOrder();
 
     int getNEdges();
+
+    int getNNodeHash();
 
     void insertNode(int id);
 
