@@ -39,21 +39,18 @@ void LinkedList<T>::addItem(int id, T data)
 template <typename T>
 void LinkedList<T>::removeItem(int id)
 {
-  Item *item = first;
-
-  if (item->id == id)
+  if (first->id == id)
   {
-    Item *temp = item;
-    delete item;
+    Item *temp = first->next;
+    delete first;
     first = temp;
     --length;
     return;
   }
 
+  Item *item = first->next;
   while (item->next != item->last)
   {
-    item = item->next;
-
     if (item->next->id == id)
     {
       Item temp = item->next->next;
@@ -62,6 +59,7 @@ void LinkedList<T>::removeItem(int id)
       --length;
       return;
     }
+    item = item->next;
   }
 
   if (last->id == id)

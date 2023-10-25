@@ -6,6 +6,5 @@ private:
   Item *next;
 
 public:
-  Item();
-  ~Item();
+  Item(int id, void *data);
 };
