@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include "Graph.h"
 
-Graph::Graph(int order)
+Graph::Graph()
 {
   nodes = new HashTable<Node>;
 
-  this->order = order;
+  order = 0;
   nEdges = 0;
 }
 
@@ -33,5 +33,8 @@ void Graph::addNode(int label)
 
 void Graph::removeNode(int id)
 {
-  nodes->removeItem(id);
+  u_int8_t status;
+  nodes->removeItem(id, &status);
+  if (status == 0)
+    --order;
 }

@@ -37,7 +37,7 @@ void LinkedList<T>::addItem(int id, T data)
 }
 
 template <typename T>
-void LinkedList<T>::removeItem(int id)
+void LinkedList<T>::removeItem(int id, u_int8_t *status)
 {
   if (n == 0)
     return;
@@ -50,6 +50,7 @@ void LinkedList<T>::removeItem(int id)
     --length;
     if (n == 0)
       last = NULL;
+    *status = 0;
     return;
   }
   if (n == 1)
@@ -65,6 +66,7 @@ void LinkedList<T>::removeItem(int id)
       delete item->next;
       item->next = temp;
       --length;
+      *status = 0;
       return;
     }
   }
@@ -74,5 +76,9 @@ void LinkedList<T>::removeItem(int id)
     item->next = NULL;
     delete last;
     --length;
+    *status = 0;
+    return;
   }
+
+  *status = 1;
 }

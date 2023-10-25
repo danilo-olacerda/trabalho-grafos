@@ -11,8 +11,8 @@ public:
   HashTable(int length);
   ~HashTable();
 
-  int getHash(int id);
+  int hash(int id);
 
   void addItem(int id, T data);
-  void removeItem(int id);
+  void removeItem(int id, u_int8_t *status);
 };

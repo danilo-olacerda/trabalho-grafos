@@ -13,5 +13,5 @@ public:
   ~LinkedList();
 
   void addItem(int id, T data);
-  void removeItem(int id);
+  void removeItem(int id, u_int8_t *status);
 };

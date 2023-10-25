@@ -1,5 +1,5 @@
 #include "stdlib.h"
-#include "HashTable.h"
+#include "../../include/DataStructures/HashTable.h"
 
 template <typename T>
 HashTable<T>::HashTable(int length)
@@ -19,7 +19,7 @@ HashTable<T>::~HashTable()
 }
 
 template <typename T>
-int HashTable<T>::getHash(int id)
+int HashTable<T>::hash(int id)
 {
   return id % length;
 }
@@ -27,17 +27,17 @@ int HashTable<T>::getHash(int id)
 template <typename T>
 void HashTable<T>::addItem(int id, T data)
 {
-  array[getHash(id)]->addItem(id, data);
+  array[hash(id)]->addItem(id, data);
 }
 
 template <typename T>
 void HashTable<T>::addItem(int id, T data)
 {
-  array[getHash(id)]->addItem(id, data);
+  array[hash(id)]->addItem(id, data);
 }
 
 template <typename T>
-void HashTable<T>::removeItem(int id)
+void HashTable<T>::removeItem(int id, u_int8_t *status)
 {
-  array[getHash(id)]->removeItem(id);
+  array[hash(id)]->removeItem(id, status);
 }

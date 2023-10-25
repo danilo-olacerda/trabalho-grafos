@@ -1,4 +1,4 @@
-#include "HashTable.h"
+#include "DataStructures/HashTable.h"
 #include "Node.h"
 
 class Graph
@@ -9,7 +9,7 @@ private:
     int nEdges;
 
 public:
-    Graph(int order);
+    Graph();
     ~Graph();
 
     int getOrder();

@@ -1,5 +1,5 @@
 #include "Edge.h"
-#include "HashTable.h"
+#include "DataStructures/HashTable.h"
 
 using namespace std;
 
