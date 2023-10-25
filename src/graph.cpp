@@ -1,7 +1,5 @@
 #include <stdlib.h>
-#include <string>
 #include "Graph.h"
-#include "HashTable.h"
 
 Graph::Graph(int order)
 {
@@ -9,6 +7,11 @@ Graph::Graph(int order)
 
   this->order = order;
   nEdges = 0;
+}
+
+Graph::~Graph()
+{
+  delete nodes;
 }
 
 int Graph::getOrder()
@@ -21,10 +24,14 @@ int Graph::getNEdges()
   return nEdges;
 }
 
-void Graph::InsertNode(int id)
+void Graph::addNode(int label)
 {
+  Node *node = new Node(label);
+  nodes->addItem(label, node);
+  ++order;
 }
 
 void Graph::removeNode(int id)
 {
+  nodes->removeItem(id);
 }

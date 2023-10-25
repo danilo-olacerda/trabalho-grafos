@@ -1,8 +1,10 @@
+#include "LinkedList.h"
+
 template <typename T>
 class HashTable
 {
 private:
-  T *array;
+  LinkedList<T> *array;
   int length;
 
 public:
@@ -10,4 +12,7 @@ public:
   ~HashTable();
 
   int getHash(int id);
+
+  void addItem(int id, T data);
+  void removeItem(int id);
 };
