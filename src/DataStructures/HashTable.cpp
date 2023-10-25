@@ -1,10 +1,11 @@
 #include "stdlib.h"
 #include "HashTable.h"
+#include "LinkedList.h"
 
 template <typename T>
 HashTable<T>::HashTable(int length)
 {
-  array = new T[length];
+  array = new LinkedList<T>()[length];
   this->length = length;
 }
 

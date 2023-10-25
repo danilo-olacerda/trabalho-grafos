@@ -1,15 +1,12 @@
-#ifndef GRAPH_H_INCLUDED
-#define GRAPH_H_INCLUDED
-
+#include "HashTable.h"
 #include "Node.h"
 
 class Graph
 {
 private:
+    HashTable<Node> *nodes;
     int order;
     int nEdges;
-    Node *nodeList;
-    int nNodeHash;
 
 public:
     Graph(int order);
@@ -34,5 +31,3 @@ public:
 
     bool searchEdge(int id, int target_id);
 };
-
-#endif
