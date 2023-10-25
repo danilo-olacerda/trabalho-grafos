@@ -12,10 +12,10 @@ LinkedList<T>::LinkedList()
 template <typename T>
 LinkedList<T>::~LinkedList()
 {
-  Item *item = first;
+  Item<T> *item = first;
   while (item != NULL)
   {
-    Item *temp = item->next;
+    Item<T> *temp = item->next;
     delete item;
     item = temp;
   }
@@ -24,7 +24,7 @@ LinkedList<T>::~LinkedList()
 template <typename T>
 void LinkedList<T>::addItem(int id, T data)
 {
-  Item *item = new Item(id, data);
+  Item<T> *item = new Item(id, data);
   if (length == 0)
   {
     first = last = item;
@@ -41,19 +41,19 @@ void LinkedList<T>::removeItem(int id)
 {
   if (first->id == id)
   {
-    Item *temp = first->next;
+    Item<T> *temp = first->next;
     delete first;
     first = temp;
     --length;
     return;
   }
 
-  Item *item = first->next;
+  Item<T> *item = first->next;
   while (item->next != item->last)
   {
     if (item->next->id == id)
     {
-      Item temp = item->next->next;
+      Item<T> temp = item->next->next;
       delete item->next;
       item->next = temp;
       --length;

@@ -2,7 +2,8 @@
 #include "Item.h"
 #include "HashTable.h"
 
-Item::Item(int id, void *data)
+template <typename T>
+Item<T>::Item(int id, T *data)
 {
   this->id = id;
   this->data = data;

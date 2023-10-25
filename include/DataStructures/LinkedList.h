@@ -4,8 +4,8 @@ template <typename T>
 class LinkedList
 {
 private:
-  Item *first;
-  Item *last;
+  Item<T> *first;
+  Item<T> *last;
   int length;
 
 public:

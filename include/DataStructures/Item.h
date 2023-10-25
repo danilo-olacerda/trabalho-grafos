@@ -1,10 +1,11 @@
+template <typename T>
 class Item
 {
 private:
   int id;
-  void *data;
+  T *data;
   Item *next;
 
 public:
-  Item(int id, void *data);
+  Item(int id, T *data);
 };
