@@ -1,3 +1,0 @@
-/home/luiz/trabalho-grafos/build/CMakeFiles/rebuild_cache.dir
-/home/luiz/trabalho-grafos/build/CMakeFiles/edit_cache.dir
-/home/luiz/trabalho-grafos/build/CMakeFiles/PROJ.dir
