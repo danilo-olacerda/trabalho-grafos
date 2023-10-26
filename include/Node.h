@@ -1,3 +1,6 @@
+#ifndef Node_H
+#define Node_H
+
 #include "Edge.h"
 #include "DataStructures/HashTable.h"
 
@@ -18,3 +21,5 @@ public:
     void addEdge(int head);
     void removeEdge(int head);
 };
+
+#endif

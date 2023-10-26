@@ -1,0 +1,37 @@
+[
+{
+  "directory": "/home/luiz/trabalho-grafos/build",
+  "command": "/usr/bin/c++   -I/home/luiz/trabalho-grafos/include  -g   -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Wconversion -o CMakeFiles/PROJ.dir/src/DataStructures/HashTable.cpp.o -c /home/luiz/trabalho-grafos/src/DataStructures/HashTable.cpp",
+  "file": "/home/luiz/trabalho-grafos/src/DataStructures/HashTable.cpp"
+},
+{
+  "directory": "/home/luiz/trabalho-grafos/build",
+  "command": "/usr/bin/c++   -I/home/luiz/trabalho-grafos/include  -g   -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Wconversion -o CMakeFiles/PROJ.dir/src/DataStructures/Item.cpp.o -c /home/luiz/trabalho-grafos/src/DataStructures/Item.cpp",
+  "file": "/home/luiz/trabalho-grafos/src/DataStructures/Item.cpp"
+},
+{
+  "directory": "/home/luiz/trabalho-grafos/build",
+  "command": "/usr/bin/c++   -I/home/luiz/trabalho-grafos/include  -g   -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Wconversion -o CMakeFiles/PROJ.dir/src/DataStructures/LinkedList.cpp.o -c /home/luiz/trabalho-grafos/src/DataStructures/LinkedList.cpp",
+  "file": "/home/luiz/trabalho-grafos/src/DataStructures/LinkedList.cpp"
+},
+{
+  "directory": "/home/luiz/trabalho-grafos/build",
+  "command": "/usr/bin/c++   -I/home/luiz/trabalho-grafos/include  -g   -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Wconversion -o CMakeFiles/PROJ.dir/src/edge.cpp.o -c /home/luiz/trabalho-grafos/src/edge.cpp",
+  "file": "/home/luiz/trabalho-grafos/src/edge.cpp"
+},
+{
+  "directory": "/home/luiz/trabalho-grafos/build",
+  "command": "/usr/bin/c++   -I/home/luiz/trabalho-grafos/include  -g   -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Wconversion -o CMakeFiles/PROJ.dir/src/graph.cpp.o -c /home/luiz/trabalho-grafos/src/graph.cpp",
+  "file": "/home/luiz/trabalho-grafos/src/graph.cpp"
+},
+{
+  "directory": "/home/luiz/trabalho-grafos/build",
+  "command": "/usr/bin/c++   -I/home/luiz/trabalho-grafos/include  -g   -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Wconversion -o CMakeFiles/PROJ.dir/src/main.cpp.o -c /home/luiz/trabalho-grafos/src/main.cpp",
+  "file": "/home/luiz/trabalho-grafos/src/main.cpp"
+},
+{
+  "directory": "/home/luiz/trabalho-grafos/build",
+  "command": "/usr/bin/c++   -I/home/luiz/trabalho-grafos/include  -g   -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Wconversion -o CMakeFiles/PROJ.dir/src/node.cpp.o -c /home/luiz/trabalho-grafos/src/node.cpp",
+  "file": "/home/luiz/trabalho-grafos/src/node.cpp"
+}
+]

@@ -1,3 +1,6 @@
+#ifndef Graph_H
+#define Graph_H
+
 #include "DataStructures/HashTable.h"
 #include "Node.h"
 
@@ -18,3 +21,5 @@ public:
     void addNode(int id);
     void removeNode(int id);
 };
+
+#endif

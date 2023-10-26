@@ -1,3 +1,6 @@
+#ifndef LinkedList_H
+#define LinkedList_H
+
 #include "Item.h"
 
 template <typename T>
@@ -13,5 +16,7 @@ public:
   ~LinkedList();
 
   void addItem(int id, T data);
-  void removeItem(int id, u_int8_t *status);
+  void removeItem(int id, int *status);
 };
+
+#endif

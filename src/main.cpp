@@ -7,8 +7,5 @@ int main()
 
     Graph *graph = new Graph();
 
-    for (int i = 0; i < order; i++)
-    {
-        graph->addNode(i);
-    }
+    graph->addNode(1);
 }

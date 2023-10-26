@@ -1,26 +1,15 @@
-#ifndef EDGE_H_INCLUDED
-#define EDGE_H_INCLUDED
-
-using namespace std;
+#ifndef Edge_H
+#define Edge_H
 
 class Edge
 {
 private:
-    int source;
-    int target_id;
-    Edge *next_edge;
+    int tail;
+    int head;
     float weight;
 
 public:
-    Edge(int target_id);
-    ~Edge();
-    int getTargetId();
-    int getSource();
-    Edge *getNextEdge();
-    float getWeight();
-    void setNextEdge(Edge *edge);
-    void setWeight(float weight);
-    void setSource(int source);
+    Edge(int tail, int head);
 };
 
 #endif
