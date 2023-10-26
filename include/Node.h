@@ -12,10 +12,14 @@ private:
     HashTable<Edge> *edges;
     unsigned int inDegree;
     unsigned int outDegree;
+    int visited;
 
 public:
     Node();
     ~Node();
+
+    int getVisited();
+    void setVisited(int switcher);
 
     void incrementInDegree();
     void decrementInDegree();

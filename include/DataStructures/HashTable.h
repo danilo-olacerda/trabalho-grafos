@@ -19,7 +19,7 @@ public:
   void addItem(int id, T data);
   void removeItem(int id, int *status);
 
-  T *getData(int id);
+  Item<T> *getItem(int id);
 };
 
 #endif // HASHTABLE_H

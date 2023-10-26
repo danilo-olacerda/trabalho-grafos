@@ -3,7 +3,7 @@
 
 Node::Node()
 {
-  edges = new HashTable<Edge>;
+  edges = new HashTable<Edge>();
   inDegree = 0;
   outDegree = 0;
 }
@@ -11,6 +11,16 @@ Node::Node()
 Node::~Node()
 {
   delete edges;
+}
+
+int Node::getVisited()
+{
+  return visited;
+}
+
+void Node::setVisited(int switcher)
+{
+  visited = switcher;
 }
 
 void Node::incrementInDegree()
@@ -33,7 +43,6 @@ void Node::addEdge(int head, Node *headPointer)
 
 void Node::removeEdge(int head, int *status)
 {
-  edges->getItem(head)->data->decrementOutDegree();
   edges->removeItem(head, status);
   outDegree -= 1;
   // Não conferimos o status, pois a validação feita em graph.cpp garante que o head existe

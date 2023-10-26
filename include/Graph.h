@@ -10,19 +10,22 @@ private:
     HashTable<Node> *nodes;
     int order;
     int nEdges;
+    bool isOriented;
 
 public:
-    Graph();
+    Graph(bool isOriented);
     ~Graph();
 
     int getOrder();
     int getNEdges();
 
-    void addNode(int id);
-    void removeNode(int id);
+    void addNode(int label);
+    void removeNode(int label);
 
     void addEdge(int tail, int head);
     void removeEdge(int tail, int head);
+
+    void directTransitiveClosure(int label);
 };
 
 #endif // GRAPH_H

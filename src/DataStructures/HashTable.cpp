@@ -37,14 +37,14 @@ void HashTable<T>::removeItem(int id, int *status)
 }
 
 template <typename T>
-T *HashTable<T>::getData(int id)
+Item<T> *HashTable<T>::getItem(int id)
 {
   Item<T> item = array[hash(id)]->first;
   while (item != NULL)
   {
     if (item->id == id)
     {
-      return item->data;
+      return item;
     }
     item = item->next;
   }
