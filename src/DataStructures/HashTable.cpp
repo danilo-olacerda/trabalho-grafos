@@ -27,17 +27,26 @@ int HashTable<T>::hash(int id)
 template <typename T>
 void HashTable<T>::addItem(int id, T data)
 {
-  array[hash(id)]->addItem(id, data);
+  array[hash(id)]->addItemInList(id, data);
 }
 
 template <typename T>
-void HashTable<T>::addItem(int id, T data)
+void HashTable<T>::removeItem(int id, int *status)
 {
-  array[hash(id)]->addItem(id, data);
+  array[hash(id)]->removeItemFromList(id, status);
 }
 
 template <typename T>
-void HashTable<T>::removeItem(int id, u_int8_t *status)
+T *HashTable<T>::getData(int id)
 {
-  array[hash(id)]->removeItem(id, status);
+  Item<T> item = array[hash(id)]->first;
+  while (item != NULL)
+  {
+    if (item->id == id)
+    {
+      return item->data;
+    }
+    item = item->next;
+  }
+  return NULL;
 }

@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "LinkedList.h"
+#include "../../include/DataStructures/LinkedList.h"
 
 template <typename T>
 LinkedList<T>::LinkedList()
@@ -22,7 +22,7 @@ LinkedList<T>::~LinkedList()
 }
 
 template <typename T>
-void LinkedList<T>::addItem(int id, T data)
+void LinkedList<T>::addItemInList(int id, T data)
 {
   Item<T> *item = new Item(id, data);
   if (length == 0)
@@ -37,7 +37,7 @@ void LinkedList<T>::addItem(int id, T data)
 }
 
 template <typename T>
-void LinkedList<T>::removeItem(int id, u_int8_t *status)
+void LinkedList<T>::removeItemFromList(int id, int *status)
 {
   if (n == 0)
     return;

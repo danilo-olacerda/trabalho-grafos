@@ -1,5 +1,5 @@
-#ifndef LinkedList_H
-#define LinkedList_H
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
 
 #include "Item.h"
 
@@ -15,8 +15,8 @@ public:
   LinkedList();
   ~LinkedList();
 
-  void addItem(int id, T data);
-  void removeItem(int id, int *status);
+  void addItemInList(int id, T data);
+  void removeItemFromList(int id, int *status);
 };
 
-#endif
+#endif // LINKEDLIST_H

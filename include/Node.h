@@ -1,5 +1,5 @@
-#ifndef Node_H
-#define Node_H
+#ifndef NODE_H
+#define NODE_H
 
 #include "Edge.h"
 #include "DataStructures/HashTable.h"
@@ -9,17 +9,19 @@ using namespace std;
 class Node
 {
 private:
-    int label;
     HashTable<Edge> *edges;
     unsigned int inDegree;
     unsigned int outDegree;
 
 public:
-    Node(int label);
+    Node();
     ~Node();
 
-    void addEdge(int head);
-    void removeEdge(int head);
+    void incrementInDegree();
+    void decrementInDegree();
+
+    void addEdge(int head, Node *headPointer);
+    void removeEdge(int head, int *status);
 };
 
-#endif
+#endif // NODE_H

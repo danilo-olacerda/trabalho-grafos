@@ -33,8 +33,35 @@ void Graph::addNode(int label)
 
 void Graph::removeNode(int id)
 {
-  u_int8_t status;
+  int status;
   nodes->removeItem(id, &status);
   if (status == 0)
+  {
     --order;
+  }
+}
+
+void Graph::addEdge(int tail, int head)
+{
+  Node *tailPointer = nodes->getData(tail);
+  Node *headPointer = nodes->getData(head);
+  if (tailPointer != NULL && headPointer != NULL)
+  {
+    tailPointer->addEdge(head, headPointer);
+    headPointer->incrementInDegree();
+    ++nEdges;
+  }
+}
+
+void Graph::removeEdge(int tail, int head)
+{
+  Node *tailPointer = nodes->getData(tail);
+  Node *headPointer = nodes->getData(head);
+  if (tailPointer != NULL && headPointer != NULL)
+  {
+    int status;
+    tailPointer->removeEdge(head, &status);
+    headPointer->decrementInDegree();
+    --nEdges;
+  }
 }

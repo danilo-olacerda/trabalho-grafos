@@ -1,15 +1,16 @@
-#ifndef Edge_H
-#define Edge_H
+#ifndef EDGE_H
+#define EDGE_H
+
+#include "Node.h"
 
 class Edge
 {
 private:
-    int tail;
-    int head;
+    Node *headPointer;
     float weight;
 
 public:
-    Edge(int tail, int head);
+    Edge(Node *headPointer);
 };
 
-#endif
+#endif // EDGE_H

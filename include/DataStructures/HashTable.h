@@ -1,5 +1,5 @@
-#ifndef HashTable_H
-#define HashTable_H
+#ifndef HASHTABLE_H
+#define HASHTABLE_H
 
 #include "LinkedList.h"
 
@@ -18,6 +18,8 @@ public:
 
   void addItem(int id, T data);
   void removeItem(int id, int *status);
+
+  T *getData(int id);
 };
 
-#endif
+#endif // HASHTABLE_H

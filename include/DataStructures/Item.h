@@ -1,5 +1,5 @@
-#ifndef Item_H
-#define Item_H
+#ifndef ITEM_H
+#define ITEM_H
 
 template <typename T>
 class Item
@@ -13,4 +13,4 @@ public:
   Item(int id, T *data);
 };
 
-#endif
+#endif // ITEM_H

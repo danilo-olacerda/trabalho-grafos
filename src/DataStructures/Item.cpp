@@ -1,6 +1,5 @@
 #include "stdlib.h"
-#include "Item.h"
-#include "HashTable.h"
+#include "../../include/DataStructures/Item.h"
 
 template <typename T>
 Item<T>::Item(int id, T *data)
