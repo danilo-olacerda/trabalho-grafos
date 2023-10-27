@@ -20,6 +20,8 @@ public:
   void removeItem(int id, int *status);
 
   Item<T> *getItem(int id);
+  Item<T> *getFirstItem();
+  Item<T> *getNextItem(Item<T> *item);
 };
 
 #endif // HASHTABLE_H

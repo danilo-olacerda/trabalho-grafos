@@ -8,3 +8,21 @@ Item<T>::Item(int id, T *data)
   this->data = data;
   next = NULL;
 }
+
+template <typename T>
+int Item<T>::getId()
+{
+  return id;
+}
+
+template <typename T>
+T *Item<T>::getData()
+{
+  return data;
+}
+
+template <typename T>
+Item<T> *Item<T>::getNext()
+{
+  return next;
+}

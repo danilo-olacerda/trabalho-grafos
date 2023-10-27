@@ -15,6 +15,11 @@ Node::~Node()
   delete edges;
 }
 
+HashTable<Edge> *Node::getEdges()
+{
+  return edges;
+}
+
 int Node::getIn()
 {
   return in;

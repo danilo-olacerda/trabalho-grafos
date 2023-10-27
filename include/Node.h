@@ -20,8 +20,7 @@ public:
     Node();
     ~Node();
 
-    Edge *getFirstEdge();
-    Edge *getNextEdge();
+    HashTable<Edge> *getEdges();
 
     int getIn();
     void setIn(int phase);

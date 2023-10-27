@@ -50,3 +50,40 @@ Item<T> *HashTable<T>::getItem(int id)
   }
   return NULL;
 }
+
+template <typename T>
+Item<T> *HashTable<T>::getFirstItem()
+{
+  Item<T> item = array[0]->getFirstInList();
+
+  if (item == NULL)
+  {
+    int hash = 1;
+    while (item != NULL && hash < length - 1)
+    {
+      item = array[++hash]->getFirstInList();
+    }
+  }
+
+  return item;
+}
+
+template <typename T>
+Item<T> *HashTable<T>::getNextItem(Item<T> *item)
+{
+  if (item != NULL)
+  {
+    int hash = hash(item->id);
+    item = item->next;
+
+    if (item == NULL && hash < length - 1)
+    {
+      while (item != NULL && hash < length - 1)
+      {
+        item = array[++hash]->getFirstInList();
+      }
+    }
+  }
+
+  return item;
+}

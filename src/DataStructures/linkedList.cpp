@@ -22,6 +22,12 @@ LinkedList<T>::~LinkedList()
 }
 
 template <typename T>
+Item<T> *LinkedList<T>::getFirstItemInList()
+{
+  return first;
+}
+
+template <typename T>
 void LinkedList<T>::addItemInList(int id, T *data)
 {
   Item<T> *item = new Item(id, data);

@@ -15,6 +15,8 @@ public:
   LinkedList();
   ~LinkedList();
 
+  Item<T> *getFirstItemInList();
+
   void addItemInList(int id, T *data);
   void removeItemFromList(int id, int *status);
 };

@@ -11,6 +11,10 @@ private:
 
 public:
   Item(int id, T *data);
+
+  int getId();
+  T *getData();
+  Item<T> *getNext();
 };
 
 #endif // ITEM_H

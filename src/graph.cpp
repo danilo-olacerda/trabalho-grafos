@@ -118,9 +118,11 @@ void Graph::depthSearch(int label)
     {
       node->setIn(0);
 
-      while ()
+      HashTable<Edge> *edges = node->getEdges();
+      Item<Edge> edge = edges->getFirstItem();
+      while (edge != NULL)
       {
-        /* code */
+        if (edge->)
       }
     }
   }
