@@ -24,8 +24,8 @@ public:
     void incrementInDegree();
     void decrementInDegree();
 
-    void addEdge(int head, Node *headPointer);
-    void removeEdge(int head, int *status);
+    void addEdge(int neighbor, Node *neighborPointer);
+    void removeEdge(int neighbor, int *status);
 };
 
 #endif // NODE_H

@@ -1,8 +1,8 @@
 #include "stdlib.h"
 #include "../include/Edge.h"
 
-Edge::Edge(Node *headPointer)
+Edge::Edge(Node *neighborPointer)
 {
-  this->headPointer = headPointer;
+  this->neighborPointer = neighborPointer;
   this->weight = 1.0;
 }

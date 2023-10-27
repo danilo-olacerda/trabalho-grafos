@@ -6,11 +6,11 @@
 class Edge
 {
 private:
-    Node *headPointer;
+    Node *neighborPointer;
     float weight;
 
 public:
-    Edge(Node *headPointer);
+    Edge(Node *neighborPointer);
 };
 
 #endif // EDGE_H

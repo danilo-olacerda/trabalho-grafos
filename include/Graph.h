@@ -11,9 +11,10 @@ private:
     int order;
     int nEdges;
     bool isOriented;
+    bool isSucessionAdj;
 
 public:
-    Graph(bool isOriented);
+    Graph(bool isOriented, bool isSucessionAdj);
     ~Graph();
 
     int getOrder();
@@ -25,7 +26,7 @@ public:
     void addEdge(int tail, int head);
     void removeEdge(int tail, int head);
 
-    void directTransitiveClosure(int label);
+    void transitiveClosure(int label);
 };
 
 #endif // GRAPH_H

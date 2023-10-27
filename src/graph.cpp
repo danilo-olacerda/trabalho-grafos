@@ -1,13 +1,14 @@
 #include <stdlib.h>
 #include "Graph.h"
 
-Graph::Graph(bool isOriented)
+Graph::Graph(bool isOriented, bool isSucessionAdj)
 {
   nodes = new HashTable<Node>();
 
   order = 0;
   nEdges = 0;
   this->isOriented = isOriented;
+  this->isSucessionAdj = isSucessionAdj;
 }
 
 Graph::~Graph()
@@ -48,12 +49,25 @@ void Graph::addEdge(int tail, int head)
   Node *headPointer = nodes->getItem(head)->data;
   if (tailPointer != NULL && headPointer != NULL)
   {
-    tailPointer->addEdge(head, headPointer);
-    headPointer->incrementInDegree();
-    if (isOriented == 0)
+    if (isSucessionAdj == true)
+    {
+      tailPointer->addEdge(head, headPointer);
+      headPointer->incrementInDegree();
+      if (isOriented == false)
+      {
+        headPointer->addEdge(tail, tailPointer);
+        tailPointer->incrementInDegree();
+      }
+    }
+    else
     {
       headPointer->addEdge(tail, tailPointer);
       tailPointer->incrementInDegree();
+      if (isOriented == false)
+      {
+        tailPointer->addEdge(head, headPointer);
+        headPointer->incrementInDegree();
+      }
     }
     ++nEdges;
   }
@@ -66,20 +80,34 @@ void Graph::removeEdge(int tail, int head)
   if (tailPointer != NULL && headPointer != NULL)
   {
     int status;
-    tailPointer->removeEdge(head, &status);
-    headPointer->decrementInDegree();
-    if (isOriented == 0)
+    if (isSucessionAdj == true)
+    {
+      tailPointer->removeEdge(head, &status);
+      headPointer->decrementInDegree();
+      if (isOriented == false)
+      {
+        headPointer->removeEdge(tail, &status);
+        tailPointer->decrementInDegree();
+      }
+    }
+    else
     {
       headPointer->removeEdge(tail, &status);
       tailPointer->decrementInDegree();
+      if (isOriented == false)
+      {
+        tailPointer->removeEdge(head, &status);
+        headPointer->decrementInDegree();
+      }
     }
+
     --nEdges;
   }
 }
 
-void Graph::directTransitiveClosure(int label)
+void Graph::transitiveClosure(int label)
 {
-  if (isOriented == 0)
+  if (isOriented == false)
   {
     return;
   }
