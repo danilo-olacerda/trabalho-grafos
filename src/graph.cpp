@@ -122,7 +122,6 @@ void Graph::depthSearch(int label)
       Item<Edge> edge = edges->getFirstItem();
       while (edge != NULL)
       {
-        if (edge->)
       }
     }
   }

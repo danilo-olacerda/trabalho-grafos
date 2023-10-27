@@ -15,7 +15,7 @@ LinkedList<T>::~LinkedList()
   Item<T> *item = first;
   while (item != NULL)
   {
-    Item<T> *temp = item->next;
+    Item<T> *temp = item->getNext();
     delete item;
     item = temp;
   }
@@ -37,7 +37,7 @@ void LinkedList<T>::addItemInList(int id, T *data)
   }
   else
   {
-    last->next = item;
+    last->setNext(item);
   }
   ++length;
 }
@@ -50,12 +50,14 @@ void LinkedList<T>::removeItemFromList(int id, int *status)
 
   if (first->id == id)
   {
-    Item<T> *temp = first->next;
+    Item<T> *temp = first->getNext();
     delete first;
     first = temp;
     --length;
     if (n == 0)
+    {
       last = NULL;
+    }
     *status = 0;
     return;
   }
@@ -63,23 +65,23 @@ void LinkedList<T>::removeItemFromList(int id, int *status)
     return;
 
   Item<T> *item = first;
-  while (item->next != item->last)
+  while (item->getNext() != last)
   {
-    item = item->next;
-    if (item->next->id == id)
+    item = item->getNext();
+    if (item->getNext()->getId() == id)
     {
-      Item<T> temp = item->next->next;
-      delete item->next;
-      item->next = temp;
+      Item<T> temp = item->getNext()->getNext();
+      delete item->getNext();
+      item->setNext(temp);
       --length;
       *status = 0;
       return;
     }
   }
 
-  if (last->id == id)
+  if (last->getId() == id)
   {
-    item->next = NULL;
+    item->setNext(NULL);
     delete last;
     --length;
     *status = 0;

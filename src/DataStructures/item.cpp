@@ -26,3 +26,9 @@ Item<T> *Item<T>::getNext()
 {
   return next;
 }
+
+template <typename T>
+void Item<T>::setNext(Item<T> *next)
+{
+  this->next = next;
+}

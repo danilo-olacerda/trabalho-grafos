@@ -42,11 +42,11 @@ Item<T> *HashTable<T>::getItem(int id)
   Item<T> item = array[hash(id)]->first;
   while (item != NULL)
   {
-    if (item->id == id)
+    if (item->getId() == id)
     {
       return item;
     }
-    item = item->next;
+    item = item->getNext();
   }
   return NULL;
 }
@@ -73,8 +73,8 @@ Item<T> *HashTable<T>::getNextItem(Item<T> *item)
 {
   if (item != NULL)
   {
-    int hash = hash(item->id);
-    item = item->next;
+    int hash = hash(item->getId());
+    item = item->getNext();
 
     if (item == NULL && hash < length - 1)
     {

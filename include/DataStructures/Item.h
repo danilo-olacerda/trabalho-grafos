@@ -15,6 +15,7 @@ public:
   int getId();
   T *getData();
   Item<T> *getNext();
+  void setNext(Item<T> *next);
 };
 
 #endif // ITEM_H
