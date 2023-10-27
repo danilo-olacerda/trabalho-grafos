@@ -3,9 +3,11 @@
 
 Node::Node()
 {
-  edges = new HashTable<Edge>();
+  edges = new HashTable<Edge>(4);
   inDegree = 0;
   outDegree = 0;
+  in = -1;
+  out = -1;
 }
 
 Node::~Node()
@@ -13,14 +15,23 @@ Node::~Node()
   delete edges;
 }
 
-int Node::getVisited()
+int Node::getIn()
 {
-  return visited;
+  return in;
+}
+void Node::setIn(int phase)
+{
+  in = phase;
 }
 
-void Node::setVisited(int switcher)
+int Node::getOut()
 {
-  visited = switcher;
+  return out;
+}
+
+void Node::setOut(int phase)
+{
+  out = phase;
 }
 
 void Node::incrementInDegree()

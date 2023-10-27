@@ -12,14 +12,21 @@ private:
     HashTable<Edge> *edges;
     unsigned int inDegree;
     unsigned int outDegree;
-    int visited;
+    int in;  // demarca quando o DFS chegou no node
+    int out; // demarca quando o DFS saiu do node
+    // Quando não for necessário essas duas informações, in será um marcador de visitado e out não será usado
 
 public:
     Node();
     ~Node();
 
-    int getVisited();
-    void setVisited(int switcher);
+    Edge *getFirstEdge();
+    Edge *getNextEdge();
+
+    int getIn();
+    void setIn(int phase);
+    int getOut();
+    void setOut(int phase);
 
     void incrementInDegree();
     void decrementInDegree();

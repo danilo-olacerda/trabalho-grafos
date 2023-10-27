@@ -16,7 +16,7 @@ public:
 
   int hash(int id);
 
-  void addItem(int id, T data);
+  void addItem(int id, T *data);
   void removeItem(int id, int *status);
 
   Item<T> *getItem(int id);

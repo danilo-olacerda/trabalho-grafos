@@ -22,7 +22,7 @@ LinkedList<T>::~LinkedList()
 }
 
 template <typename T>
-void LinkedList<T>::addItemInList(int id, T data)
+void LinkedList<T>::addItemInList(int id, T *data)
 {
   Item<T> *item = new Item(id, data);
   if (length == 0)

@@ -2,6 +2,7 @@
 #define GRAPH_H
 
 #include "DataStructures/HashTable.h"
+#include "DataStructures/Stack.h"
 #include "Node.h"
 
 class Graph
@@ -26,6 +27,7 @@ public:
     void addEdge(int tail, int head);
     void removeEdge(int tail, int head);
 
+    void depthSearch(int label);
     void transitiveClosure(int label);
 };
 

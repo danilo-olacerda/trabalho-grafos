@@ -3,7 +3,7 @@
 
 Graph::Graph(bool isOriented, bool isSucessionAdj)
 {
-  nodes = new HashTable<Node>();
+  nodes = new HashTable<Node>(4);
 
   order = 0;
   nEdges = 0;
@@ -105,13 +105,31 @@ void Graph::removeEdge(int tail, int head)
   }
 }
 
+void Graph::depthSearch(int label)
+{
+  Stack<Node> *stack = new Stack();
+
+  stack->push(nodes->getItem(label));
+
+  while (!stack->isEmpty)
+  {
+    Node *node = stack->pop();
+    if (node->getIn() == -1)
+    {
+      node->setIn(0);
+
+      while ()
+      {
+        /* code */
+      }
+    }
+  }
+}
+
 void Graph::transitiveClosure(int label)
 {
   if (isOriented == false)
   {
     return;
   }
-
-  Item<Node> item = nodes->getItem(label);
-  int *set = new int[order - 1]; // order - 1 = tamanho máximo do vetor
 }

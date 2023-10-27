@@ -25,7 +25,7 @@ int HashTable<T>::hash(int id)
 }
 
 template <typename T>
-void HashTable<T>::addItem(int id, T data)
+void HashTable<T>::addItem(int id, T *data)
 {
   array[hash(id)]->addItemInList(id, data);
 }
