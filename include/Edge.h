@@ -11,6 +11,8 @@ private:
 
 public:
     Edge(Node *neighborPointer);
+
+    Node *getNeighborPointer();
 };
 
 #endif // EDGE_H

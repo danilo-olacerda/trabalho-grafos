@@ -27,7 +27,7 @@ public:
     void addEdge(int tail, int head);
     void removeEdge(int tail, int head);
 
-    void depthSearch(int label);
+    void depthFirstSearch(int label);
     void transitiveClosure(int label);
 };
 

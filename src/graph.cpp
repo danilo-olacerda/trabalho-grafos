@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <iostream>
 #include "Graph.h"
 
 Graph::Graph(bool isOriented, bool isSucessionAdj)
@@ -69,6 +70,7 @@ void Graph::addEdge(int tail, int head)
         headPointer->incrementInDegree();
       }
     }
+
     ++nEdges;
   }
 }
@@ -105,32 +107,48 @@ void Graph::removeEdge(int tail, int head)
   }
 }
 
-void Graph::depthSearch(int label)
+void Graph::depthFirstSearch(int label)
 {
   Stack<Node> *stack = new Stack();
 
-  stack->push(nodes->getItem(label));
-
+  stack->push(nodes->getItem(label)->getData());
   while (!stack->isEmpty)
   {
     Node *node = stack->pop();
     if (node->getIn() == -1)
     {
-      node->setIn(0);
+      node->setIn(1);
 
       HashTable<Edge> *edges = node->getEdges();
-      Item<Edge> edge = edges->getFirstItem();
+      Item<Edge> *edge = edges->getFirstItem();
       while (edge != NULL)
       {
+        Node *neighbor = edge->getData()->getNeighborPointer();
+        if (neighbor != NULL)
+        {
+          if (neighbor->getIn() == -1)
+          {
+            stack->push(neighbor);
+          }
+        }
+        edge = edges->getNextItem(edge);
       }
     }
   }
+
+  delete stack;
 }
 
 void Graph::transitiveClosure(int label)
 {
-  if (isOriented == false)
+  depthFirstSearch(label);
+
+  Item<Node> *node = nodes->getFirstItem();
+  while (node != NULL)
   {
-    return;
+    if (node->getData()->getIn() == 1)
+    {
+      std::cout << node->getData()->getId();
+    }
   }
 }
