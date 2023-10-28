@@ -13,6 +13,7 @@ public:
     Edge(Node *neighborPointer);
 
     Node *getNeighborPointer();
+    float getWeight();
 };
 
 #endif // EDGE_H

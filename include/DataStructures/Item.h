@@ -5,7 +5,7 @@ template <typename T>
 class Item
 {
 private:
-  int id;
+  int key;
   T *data;
   Item<T> *next;
 

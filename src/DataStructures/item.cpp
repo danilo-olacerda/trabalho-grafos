@@ -2,17 +2,17 @@
 #include "../../include/DataStructures/Item.h"
 
 template <typename T>
-Item<T>::Item(int id, T *data)
+Item<T>::Item(int key, T *data)
 {
-  this->id = id;
+  this->key = key;
   this->data = data;
   next = NULL;
 }
 
 template <typename T>
-int Item<T>::getId()
+int Item<T>::getKey()
 {
-  return id;
+  return key;
 }
 
 template <typename T>

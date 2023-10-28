@@ -1,13 +1,16 @@
 #include <stdlib.h>
-#include "Node.h"
+#include "../include/Node.h"
 
-Node::Node()
+Node::Node(int label, float weight)
 {
+  this->label = label;
   edges = new HashTable<Edge>(4);
+  this->weight = weight;
   inDegree = 0;
   outDegree = 0;
   in = -1;
   out = -1;
+  predecessor = NULL;
 }
 
 Node::~Node()
@@ -37,6 +40,16 @@ int Node::getOut()
 void Node::setOut(int phase)
 {
   out = phase;
+}
+
+Item<Node> *Node::getPredecessor()
+{
+  return predecessor;
+}
+
+void Node::setPredecessor(Item<Node> *predecessor)
+{
+  this->predecessor = predecessor;
 }
 
 void Node::incrementInDegree()

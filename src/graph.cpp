@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include <iostream>
-#include "Graph.h"
+#include <limits.h>
+#include "../include/Graph.h"
 
 Graph::Graph(bool isOriented, bool isSucessionAdj)
 {
   nodes = new HashTable<Node>(4);
-
   order = 0;
   nEdges = 0;
   this->isOriented = isOriented;
@@ -109,7 +109,7 @@ void Graph::removeEdge(int tail, int head)
 
 void Graph::depthFirstSearch(int label)
 {
-  Stack<Node> *stack = new Stack();
+  Stack<Node> *stack = new Stack<Node>();
 
   stack->push(nodes->getItem(label)->getData());
   while (!stack->isEmpty)
@@ -120,10 +120,10 @@ void Graph::depthFirstSearch(int label)
       node->setIn(1);
 
       HashTable<Edge> *edges = node->getEdges();
-      Item<Edge> *edge = edges->getFirstItem();
-      while (edge != NULL)
+      Item<Edge> *itemEdge = edges->getFirstItem();
+      while (itemEdge != NULL)
       {
-        Node *neighbor = edge->getData()->getNeighborPointer();
+        Node *neighbor = itemEdge->getData()->getNeighborPointer();
         if (neighbor != NULL)
         {
           if (neighbor->getIn() == -1)
@@ -131,7 +131,7 @@ void Graph::depthFirstSearch(int label)
             stack->push(neighbor);
           }
         }
-        edge = edges->getNextItem(edge);
+        itemEdge = edges->getNextItem(itemEdge);
       }
     }
   }
@@ -143,12 +143,51 @@ void Graph::transitiveClosure(int label)
 {
   depthFirstSearch(label);
 
-  Item<Node> *node = nodes->getFirstItem();
-  while (node != NULL)
+  Item<Node> *itemNode = nodes->getFirstItem();
+  while (itemNode != NULL)
   {
-    if (node->getData()->getIn() == 1)
+    if (itemNode->getData()->getIn() == 1)
     {
-      std::cout << node->getData()->getId();
+      std::cout << itemNode->getData()->getId();
     }
   }
+}
+
+void Graph::dijkstra(int label1, int label2)
+{
+  MinHeap<Node> *minHeap = new MinHeap<Node>(nEdges);
+
+  Item<Node> *itemNode = nodes->getFirstItem();
+  while (itemNode != NULL)
+  {
+    itemNode->getData()->setIn(INT_MAX);
+    itemNode = nodes->getNextItem(itemNode);
+  }
+  Item<Node> *current = nodes->getItem(label1);
+  current->getData()->setIn(0);
+  minHeap->queue(0, current->getData());
+
+  Node *destiny = nodes->getItem(label2)->getData();
+  while (destiny->getPredecessor() == NULL)
+  {
+    Item<Node> *current = minHeap->unqueue();
+
+    HashTable<Edge> *edges = node->getEdges();
+    Item<Edge> *itemEdge = edges->getFirstItem();
+    while (itemEdge != NULL)
+    {
+      Edge *edge = itemEdge->getData();
+      Node *neighbor = edge->getNeighborPointer();
+      if (neighbor != NULL)
+      {
+        float weight = edge->getWeight();
+
+        minHeap->queue(current->getIn() + weight, neighbor);
+        neighbor->setPredecessor(current->getId());
+      }
+      itemEdge = edges->getNextItem(itemEdge);
+    }
+  }
+
+  delete minHeap;
 }
