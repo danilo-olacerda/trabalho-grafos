@@ -14,10 +14,9 @@ private:
     float weight;
     unsigned int inDegree;
     unsigned int outDegree;
-    int in; // Em DFS: demarca se o node já foi acessado, ou demarca o "tempo" em que o node foi acessado, quando for necessário
-            // Em Dijkstra: demarca a menor distância de um nó específico até este nó
-
-    int out; // Em DFS: demarca o "tempo" em que o DFS saiu do node, quando for necessário
+    int in;  // Em DFS: demarca se o node já foi acessado, ou demarca o período em que o node foi acessado, quando for necessário
+    int out; // Em DFS: demarca o período em que o DFS saiu do node, quando for necessário
+             // Em Dijkstra: demarca a menor distância de um nó específico até este nó
 
     Item<Node> *predecessor;
 
@@ -33,8 +32,8 @@ public:
     void setIn(int phase);
     int getOut();
     void setOut(int phase);
-    Item<Node> *getPredecessor();
-    void setPredecessor(Item<Node> *predecessor);
+    Node *getPredecessor();
+    void setPredecessor(Node *predecessor);
 
     void incrementInDegree();
     void decrementInDegree();

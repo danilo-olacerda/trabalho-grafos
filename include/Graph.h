@@ -14,6 +14,8 @@ private:
     int nEdges;
     bool isOriented;
     bool isSucessionAdj;
+    void dfs(int label);
+    void dfsWithPeriodAndPrecedencyRegister(int label);
 
 public:
     Graph(bool isOriented, bool isSucessionAdj);
@@ -28,12 +30,11 @@ public:
     void addEdge(int tail, int head);
     void removeEdge(int tail, int head);
 
-    void DFS(int label);
-    void DFSWithTimeAndPrecedencyRegister(int label);
-
     void transitiveClosure(int label);
 
     void dijkstra(int label1, int label2);
+
+    void generateNodeTree(int label);
 };
 
 #endif // GRAPH_H

@@ -59,12 +59,12 @@ void Node::setOut(int phase)
   out = phase;
 }
 
-Item<Node> *Node::getPredecessor()
+Node *Node::getPredecessor()
 {
   return predecessor;
 }
 
-void Node::setPredecessor(Item<Node> *predecessor)
+void Node::setPredecessor(Node *predecessor)
 {
   this->predecessor = predecessor;
 }
