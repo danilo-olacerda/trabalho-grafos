@@ -14,12 +14,12 @@ public:
   HashTable(int length);
   ~HashTable();
 
-  int hash(int id);
+  int hash(int key);
 
-  void addItem(int id, T *data);
-  void removeItem(int id, int *status);
+  void addItem(int key, T *data);
+  void removeItem(int key, int *status);
 
-  Item<T> *getItem(int id);
+  Item<T> *getItem(int key);
   Item<T> *getFirstItem();
   Item<T> *getNextItem(Item<T> *item);
 };

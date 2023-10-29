@@ -29,7 +29,7 @@ int Graph::getNEdges()
 
 void Graph::addNode(int label)
 {
-  Node *node = new Node();
+  Node *node = new Node(label);
   nodes->addItem(label, node);
   ++order;
 }
@@ -107,7 +107,7 @@ void Graph::removeEdge(int tail, int head)
   }
 }
 
-void Graph::depthFirstSearch(int label)
+void Graph::DFS(int label)
 {
   Stack<Node> *stack = new Stack<Node>();
 
@@ -141,14 +141,14 @@ void Graph::depthFirstSearch(int label)
 
 void Graph::transitiveClosure(int label)
 {
-  depthFirstSearch(label);
+  DFS(label);
 
   Item<Node> *itemNode = nodes->getFirstItem();
   while (itemNode != NULL)
   {
     if (itemNode->getData()->getIn() == 1)
     {
-      std::cout << itemNode->getData()->getId();
+      std::cout << itemNode->getData()->getKey() << " ";
     }
   }
 }
@@ -163,31 +163,48 @@ void Graph::dijkstra(int label1, int label2)
     itemNode->getData()->setIn(INT_MAX);
     itemNode = nodes->getNextItem(itemNode);
   }
-  Item<Node> *current = nodes->getItem(label1);
-  current->getData()->setIn(0);
-  minHeap->queue(0, current->getData());
+  Node *current = nodes->getItem(label1)->getData();
+  current->setIn(0);
+  minHeap->queue(0, current);
 
   Node *destiny = nodes->getItem(label2)->getData();
   while (destiny->getPredecessor() == NULL)
   {
-    Item<Node> *current = minHeap->unqueue();
+    current = minHeap->unqueue();
 
-    HashTable<Edge> *edges = node->getEdges();
+    HashTable<Edge> *edges = current->getEdges();
     Item<Edge> *itemEdge = edges->getFirstItem();
     while (itemEdge != NULL)
     {
       Edge *edge = itemEdge->getData();
       Node *neighbor = edge->getNeighborPointer();
-      if (neighbor != NULL)
-      {
-        float weight = edge->getWeight();
+      float weight = edge->getWeight();
 
-        minHeap->queue(current->getIn() + weight, neighbor);
-        neighbor->setPredecessor(current->getId());
-      }
+      float dist = current->getIn() + weight;
+      neighbor->setIn(dist);
+
+      minHeap->queue(dist, neighbor);
+      neighbor->setPredecessor(current);
+
       itemEdge = edges->getNextItem(itemEdge);
     }
   }
 
   delete minHeap;
+
+  Stack<Node> *stack = new Stack<Node>();
+
+  Node *node = destiny;
+  while (node != NULL)
+  {
+    stack->push(node);
+    node = node->getPredecessor();
+  }
+
+  while (!stack->isEmpty())
+  {
+    std::cout << stack->pop()->getLabel() << " ";
+  }
+
+  delete stack;
 }

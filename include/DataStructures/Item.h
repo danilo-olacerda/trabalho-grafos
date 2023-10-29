@@ -10,9 +10,9 @@ private:
   Item<T> *next;
 
 public:
-  Item(int id, T *data);
+  Item(int key, T *data);
 
-  int getId();
+  int getKey();
   T *getData();
   Item<T> *getNext();
   void setNext(Item<T> *next);

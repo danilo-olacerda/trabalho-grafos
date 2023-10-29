@@ -1,6 +1,18 @@
 #include <stdlib.h>
 #include "../include/Node.h"
 
+Node::Node(int label)
+{
+  this->label = label;
+  edges = new HashTable<Edge>(4);
+  weight = 1.0;
+  inDegree = 0;
+  outDegree = 0;
+  in = -1;
+  out = -1;
+  predecessor = NULL;
+}
+
 Node::Node(int label, float weight)
 {
   this->label = label;
@@ -16,6 +28,11 @@ Node::Node(int label, float weight)
 Node::~Node()
 {
   delete edges;
+}
+
+int Node::getLabel()
+{
+  return label;
 }
 
 HashTable<Edge> *Node::getEdges()

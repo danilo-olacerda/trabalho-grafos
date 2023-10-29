@@ -11,6 +11,7 @@ private:
 
 public:
     Edge(Node *neighborPointer);
+    Edge(Node *neighborPointer, float weight);
 
     Node *getNeighborPointer();
     float getWeight();

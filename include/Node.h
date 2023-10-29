@@ -14,17 +14,21 @@ private:
     float weight;
     unsigned int inDegree;
     unsigned int outDegree;
-    int in;  // demarca quando o DFS chegou no node
-    int out; // demarca quando o DFS saiu do node
-    // Quando não for necessário essas duas informações, in será um marcador de visitado e out não será usado
+    int in; // Em DFS: demarca se o node já foi acessado, ou demarca o "tempo" em que o node foi acessado, quando for necessário
+            // Em Dijkstra: demarca a menor distância de um nó específico até este nó
+
+    int out; // Em DFS: demarca o "tempo" em que o DFS saiu do node, quando for necessário
+
     Item<Node> *predecessor;
 
 public:
+    Node(int label);
     Node(int label, float weight);
     ~Node();
 
     HashTable<Edge> *getEdges();
 
+    int getLabel();
     int getIn();
     void setIn(int phase);
     int getOut();

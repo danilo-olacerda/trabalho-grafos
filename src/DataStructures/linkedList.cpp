@@ -28,9 +28,9 @@ Item<T> *LinkedList<T>::getFirstItemInList()
 }
 
 template <typename T>
-void LinkedList<T>::addItemInList(int id, T *data)
+void LinkedList<T>::addItemInList(int key, T *data)
 {
-  Item<T> *item = new Item(id, data);
+  Item<T> *item = new Item(key, data);
   if (length == 0)
   {
     first = last = item;
@@ -43,12 +43,12 @@ void LinkedList<T>::addItemInList(int id, T *data)
 }
 
 template <typename T>
-void LinkedList<T>::removeItemFromList(int id, int *status)
+void LinkedList<T>::removeItemFromList(int key, int *status)
 {
   if (n == 0)
     return;
 
-  if (first->id == id)
+  if (first->getKey() == key)
   {
     Item<T> *temp = first->getNext();
     delete first;
@@ -68,7 +68,7 @@ void LinkedList<T>::removeItemFromList(int id, int *status)
   while (item->getNext() != last)
   {
     item = item->getNext();
-    if (item->getNext()->getId() == id)
+    if (item->getNext()->getKey() == key)
     {
       Item<T> temp = item->getNext()->getNext();
       delete item->getNext();
@@ -79,7 +79,7 @@ void LinkedList<T>::removeItemFromList(int id, int *status)
     }
   }
 
-  if (last->getId() == id)
+  if (last->getKey() == key)
   {
     item->setNext(NULL);
     delete last;

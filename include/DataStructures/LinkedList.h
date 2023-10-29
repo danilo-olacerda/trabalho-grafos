@@ -17,8 +17,8 @@ public:
 
   Item<T> *getFirstItemInList();
 
-  void addItemInList(int id, T *data);
-  void removeItemFromList(int id, int *status);
+  void addItemInList(int key, T *data);
+  void removeItemFromList(int key, int *status);
 };
 
 #endif // LINKEDLIST_H

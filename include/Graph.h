@@ -28,7 +28,8 @@ public:
     void addEdge(int tail, int head);
     void removeEdge(int tail, int head);
 
-    void depthFirstSearch(int label);
+    void DFS(int label);
+    void DFSWithTimeAndPrecedencyRegister(int label);
 
     void transitiveClosure(int label);
 

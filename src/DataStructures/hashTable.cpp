@@ -19,30 +19,30 @@ HashTable<T>::~HashTable()
 }
 
 template <typename T>
-int HashTable<T>::hash(int id)
+int HashTable<T>::hash(int key)
 {
-  return id % length;
+  return key % length;
 }
 
 template <typename T>
-void HashTable<T>::addItem(int id, T *data)
+void HashTable<T>::addItem(int key, T *data)
 {
-  array[hash(id)]->addItemInList(id, data);
+  array[hash(key)]->addItemInList(key, data);
 }
 
 template <typename T>
-void HashTable<T>::removeItem(int id, int *status)
+void HashTable<T>::removeItem(int key, int *status)
 {
-  array[hash(id)]->removeItemFromList(id, status);
+  array[hash(key)]->removeItemFromList(key, status);
 }
 
 template <typename T>
-Item<T> *HashTable<T>::getItem(int id)
+Item<T> *HashTable<T>::getItem(int key)
 {
-  Item<T> item = array[hash(id)]->first;
+  Item<T> item = array[hash(key)]->first;
   while (item != NULL)
   {
-    if (item->getId() == id)
+    if (item->getKey() == key)
     {
       return item;
     }
@@ -73,7 +73,7 @@ Item<T> *HashTable<T>::getNextItem(Item<T> *item)
 {
   if (item != NULL)
   {
-    int hash = hash(item->getId());
+    int hash = hash(item->getKey());
     item = item->getNext();
 
     if (item == NULL && hash < length - 1)
