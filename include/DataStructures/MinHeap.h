@@ -1,23 +1,22 @@
 #ifndef MINHEAP_H
 #define MINHEAP_H
 
-#include "Item.h"
+#include "HeapElement.h"
 
 template <typename T>
 class MinHeap
 {
 private:
-  Item<T> *first;
+  HeapElement<T> *array;
   int length;
+  int offset;
 
 public:
-  Stack();
-  ~Stack();
+  MinHeap();
+  ~MinHeap();
 
-  bool isEmpty();
-
-  void push(T *data);
-  T *pop();
+  void queue(T *data);
+  T *unqueue();
 };
 
 #endif // MINHEAP_H

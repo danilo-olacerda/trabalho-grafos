@@ -123,6 +123,7 @@ void Graph::dfsWithPeriodAndPrecedencyRegister(int label)
     if (node->getIn() == -1)
     {
       node->setIn(++period);
+      stack->push(node);
 
       HashTable<Edge> *edges = node->getEdges();
       Item<Edge> *itemEdge = edges->getFirstItem();
