@@ -4,7 +4,7 @@
 template <typename T>
 HashTable<T>::HashTable(int length)
 {
-  array = new LinkedList<T>()[length];
+  array = new LinkedList<T>()[length]; // PERGUNTAR
   this->length = length;
 }
 

@@ -29,9 +29,9 @@ public:
 
     int getLabel();
     int getIn();
-    void setIn(int phase);
+    void setIn(int value);
     int getOut();
-    void setOut(int phase);
+    void setOut(int value);
     Node *getPredecessor();
     void setPredecessor(Node *predecessor);
 

@@ -44,7 +44,7 @@ int Node::getIn()
 {
   return in;
 }
-void Node::setIn(int phase)
+void Node::setIn(int value)
 {
   in = phase;
 }
@@ -54,7 +54,7 @@ int Node::getOut()
   return out;
 }
 
-void Node::setOut(int phase)
+void Node::setOut(int value)
 {
   out = phase;
 }

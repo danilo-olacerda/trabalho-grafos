@@ -7,15 +7,15 @@ template <typename T>
 class MinHeap
 {
 private:
-  HeapElement<T> *array;
+  HeapElement<T> **array;
   int length;
   int offset;
 
 public:
-  MinHeap();
+  MinHeap(int length);
   ~MinHeap();
 
-  void queue(T *data);
+  void queue(int key, T *nodePointer, T *data);
   T *unqueue();
 };
 

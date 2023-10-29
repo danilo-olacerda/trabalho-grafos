@@ -115,7 +115,7 @@ void Graph::dfsWithPeriodAndPrecedencyRegister(int label)
 {
   Stack<Node> *stack = new Stack<Node>();
 
-  int period = 0;
+  int period = -1;
   stack->push(nodes->getItem(label)->getData());
   while (!stack->isEmpty)
   {
