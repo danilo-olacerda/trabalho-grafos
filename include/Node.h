@@ -10,8 +10,8 @@ class Node
 {
 private:
     int label;
-    HashTable<Edge> *edges;
-    float weight;
+    HashTable<Edge> *forwardEdges;
+    HashTable<Edge> *backwardEdges;
     unsigned int inDegree;
     unsigned int outDegree;
     int in;  // Em DFS: demarca se o node já foi acessado, ou demarca o período em que o node foi acessado, quando for necessário
@@ -22,10 +22,9 @@ private:
 
 public:
     Node(int label);
-    Node(int label, float weight);
     ~Node();
 
-    HashTable<Edge> *getEdges();
+    HashTable<Edge> *getForwardEdges();
 
     int getLabel();
     int getIn();

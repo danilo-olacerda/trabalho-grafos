@@ -4,20 +4,9 @@
 Node::Node(int label)
 {
   this->label = label;
-  edges = new HashTable<Edge>(4);
+  forwardEdges = new HashTable<Edge>(4);
+  backwardEdges = new HashTable<Edge>(4);
   weight = 1.0;
-  inDegree = 0;
-  outDegree = 0;
-  in = -1;
-  out = -1;
-  predecessor = NULL;
-}
-
-Node::Node(int label, float weight)
-{
-  this->label = label;
-  edges = new HashTable<Edge>(4);
-  this->weight = weight;
   inDegree = 0;
   outDegree = 0;
   in = -1;
@@ -27,7 +16,8 @@ Node::Node(int label, float weight)
 
 Node::~Node()
 {
-  delete edges;
+  delete forwardEdges;
+  delete backwardEdges;
 }
 
 int Node::getLabel()
@@ -35,9 +25,9 @@ int Node::getLabel()
   return label;
 }
 
-HashTable<Edge> *Node::getEdges()
+HashTable<Edge> *Node::getForwardEdges()
 {
-  return edges;
+  return forwardEdges;
 }
 
 int Node::getIn()
@@ -46,7 +36,7 @@ int Node::getIn()
 }
 void Node::setIn(int value)
 {
-  in = phase;
+  in = value;
 }
 
 int Node::getOut()
@@ -56,7 +46,7 @@ int Node::getOut()
 
 void Node::setOut(int value)
 {
-  out = phase;
+  out = value;
 }
 
 Node *Node::getPredecessor()
@@ -69,28 +59,32 @@ void Node::setPredecessor(Node *predecessor)
   this->predecessor = predecessor;
 }
 
-void Node::incrementInDegree()
-{
-  inDegree += 1;
-}
-
-void Node::decrementInDegree()
-{
-  inDegree -= 1;
-}
-
-void Node::addEdge(int neighbor, Node *neighborPointer)
+void Node::addEdge(int neighbor, Node *neighborPointer, bool isForward)
 {
   Edge *edge = new Edge(neighborPointer);
-  edges->addItem(neighbor, edge);
-  outDegree += 1;
-  // o incrementInDegree do head foi feito no graph.cpp
+  if (isForward == 1)
+  {
+    forwardEdges->addItem(neighbor, edge);
+    outDegree += 1;
+  }
+  else
+  {
+    backwardEdges->addItem(neighbor, edge);
+    inDegree += 1;
+  }
 }
 
-void Node::removeEdge(int neighbor, int *status)
+void Node::removeEdge(int neighbor, bool isForward, int *status)
 {
-  edges->removeItem(neighbor, status);
-  outDegree -= 1;
+  if (isForward == 1)
+  {
+    forwardEdges->removeItem(neighbor, status);
+    outDegree -= 1;
+  }
+  else
+  {
+    backwardEdges->removeItem(neighbor, status);
+    inDegree -= 1;
+  }
   // Não conferimos o status, pois a validação feita em graph.cpp garante que o head existe
-  // o decrementInDegree do head foi feito no graph.cpp
 }

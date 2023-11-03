@@ -15,10 +15,10 @@ private:
     bool isOriented;
     bool isSucessionAdj;
     void dfs(int label);
-    void dfsWithPeriodAndPrecedencyRegister(int label);
+    void dfsWithStepAndPrecedencyRegister(int label);
 
 public:
-    Graph(bool isOriented, bool isSucessionAdj);
+    Graph(bool isOriented);
     ~Graph();
 
     int getOrder();

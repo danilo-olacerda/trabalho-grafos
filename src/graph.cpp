@@ -3,13 +3,12 @@
 #include <limits.h>
 #include "../include/Graph.h"
 
-Graph::Graph(bool isOriented, bool isSucessionAdj)
+Graph::Graph(bool isOriented)
 {
   nodes = new HashTable<Node>(4);
   order = 0;
   nEdges = 0;
   this->isOriented = isOriented;
-  this->isSucessionAdj = isSucessionAdj;
 }
 
 Graph::~Graph()
@@ -50,31 +49,19 @@ void Graph::addEdge(int tail, int head)
   Node *headPointer = nodes->getItem(head)->data;
   if (tailPointer != NULL && headPointer != NULL)
   {
-    if (isSucessionAdj == true)
-    {
-      tailPointer->addEdge(head, headPointer);
-      headPointer->incrementInDegree();
-      if (isOriented == false)
-      {
-        headPointer->addEdge(tail, tailPointer);
-        tailPointer->incrementInDegree();
-        ++nEdges;
-      }
-    }
-    else
-    {
-      headPointer->addEdge(tail, tailPointer);
-      tailPointer->incrementInDegree();
-      if (isOriented == false)
-      {
-        tailPointer->addEdge(head, headPointer);
-        headPointer->incrementInDegree();
-        ++nEdges;
-      }
-    }
+    tailPointer->addForwardEdge(head, headPointer, 1);
 
-    ++nEdges;
+    headPointer->addBackwardEdge(tail, tailPointer, 0);
+
+    if (isOriented == false)
+    {
+      headPointer->addForwardEdge(tail, tailPointer, 1);
+
+      tailPointer->addBackwardEdge(head, headPointer, 0);
+    }
   }
+
+  ++nEdges;
 }
 
 void Graph::removeEdge(int tail, int head)
@@ -83,49 +70,40 @@ void Graph::removeEdge(int tail, int head)
   Node *headPointer = nodes->getItem(head)->data;
   if (tailPointer != NULL && headPointer != NULL)
   {
-    int status;
-    if (isSucessionAdj == true)
-    {
-      tailPointer->removeEdge(head, &status);
-      headPointer->decrementInDegree();
-      if (isOriented == false)
-      {
-        headPointer->removeEdge(tail, &status);
-        tailPointer->decrementInDegree();
-        --nEdges;
-      }
-    }
-    else
-    {
-      headPointer->removeEdge(tail, &status);
-      tailPointer->decrementInDegree();
-      if (isOriented == false)
-      {
-        tailPointer->removeEdge(head, &status);
-        headPointer->decrementInDegree();
-        --nEdges;
-      }
-    }
+    tailPointer->removeEdge(head, 1);
+    headPointer->decrementInDegree();
 
-    --nEdges;
+    headPointer->removeEdge(tail, 0);
+    tailPointer->decrementInDegree();
+
+    if (isOriented == false)
+    {
+      headPointer->removeEdge(tail, 1);
+      tailPointer->decrementInDegree();
+
+      tailPointer->removeEdge(head, 0);
+      headPointer->decrementInDegree();
+    }
   }
+
+  --nEdges;
 }
 
-void Graph::dfsWithPeriodAndPrecedencyRegister(int label)
+void Graph::dfsWithStepAndPrecedencyRegister(int label)
 {
   Stack<Node> *stack = new Stack<Node>();
 
-  int period = -1;
+  int step = -1;
   stack->push(nodes->getItem(label)->getData());
   while (!stack->isEmpty)
   {
     Node *node = stack->pop();
     if (node->getIn() == -1)
     {
-      node->setIn(++period);
+      node->setIn(++step);
       stack->push(node);
 
-      HashTable<Edge> *edges = node->getEdges();
+      HashTable<Edge> *edges = node->getForwardEdges();
       Item<Edge> *itemEdge = edges->getFirstItem();
       while (itemEdge != NULL)
       {
@@ -141,7 +119,7 @@ void Graph::dfsWithPeriodAndPrecedencyRegister(int label)
     }
     else if (node->getOut() == -1)
     {
-      node->setOut(++period);
+      node->setOut(++step);
     }
   }
 
@@ -160,7 +138,7 @@ void Graph::dfs(int label)
     {
       node->setIn(1);
 
-      HashTable<Edge> *edges = node->getEdges();
+      HashTable<Edge> *edges = node->getForwardEdges();
       Item<Edge> *itemEdge = edges->getFirstItem();
       while (itemEdge != NULL)
       {
@@ -214,7 +192,7 @@ void Graph::dijkstra(int label1, int label2)
     {
       current->setIn(1);
 
-      HashTable<Edge> *edges = current->getEdges();
+      HashTable<Edge> *edges = current->getForwardEdges();
       Item<Edge> *itemEdge = edges->getFirstItem();
       while (itemEdge != NULL)
       {
@@ -255,5 +233,5 @@ void Graph::dijkstra(int label1, int label2)
 
 void Graph::generateNodeTree(int label)
 {
-  dfsWithPeriodAndPrecedencyRegister(label);
+  dfsWithStepAndPrecedencyRegister(label);
 }
