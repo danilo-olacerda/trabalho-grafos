@@ -126,7 +126,7 @@ void Graph::dfsWithStepAndPrecedencyRegister(int label)
   delete stack;
 }
 
-void Graph::dfs(int label)
+void Graph::dfs(int label, bool isForward)
 {
   Stack<Node> *stack = new Stack<Node>();
 
@@ -138,7 +138,7 @@ void Graph::dfs(int label)
     {
       node->setIn(1);
 
-      HashTable<Edge> *edges = node->getForwardEdges();
+      HashTable<Edge> *edges = isForward ? node->getForwardEdges() : node->getBackWardEdges();
       Item<Edge> *itemEdge = edges->getFirstItem();
       while (itemEdge != NULL)
       {
@@ -156,9 +156,23 @@ void Graph::dfs(int label)
   delete stack;
 }
 
-void Graph::transitiveClosure(int label)
+void Graph::directTransitiveClosure(int label)
 {
-  dfs(label);
+  dfs(label, 1);
+
+  Item<Node> *itemNode = nodes->getFirstItem();
+  while (itemNode != NULL)
+  {
+    if (itemNode->getData()->getIn() == 1)
+    {
+      std::cout << itemNode->getData()->getKey() << " ";
+    }
+  }
+}
+
+void Graph::indirectTransitiveClosure(int label)
+{
+  dfs(label, 0);
 
   Item<Node> *itemNode = nodes->getFirstItem();
   while (itemNode != NULL)

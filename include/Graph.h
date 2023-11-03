@@ -14,7 +14,7 @@ private:
     int nEdges;
     bool isOriented;
     bool isSucessionAdj;
-    void dfs(int label);
+    void dfs(int label, bool isForward);
     void dfsWithStepAndPrecedencyRegister(int label);
 
 public:
@@ -30,7 +30,8 @@ public:
     void addEdge(int tail, int head);
     void removeEdge(int tail, int head);
 
-    void transitiveClosure(int label);
+    void directTransitiveClosure(int label);
+    void indirectTransitiveClosure(int label);
 
     void dijkstra(int label1, int label2);
 

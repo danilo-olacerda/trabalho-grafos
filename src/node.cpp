@@ -30,6 +30,11 @@ HashTable<Edge> *Node::getForwardEdges()
   return forwardEdges;
 }
 
+HashTable<Edge> *Node::getBackwardEdges()
+{
+  return backwardEdges;
+}
+
 int Node::getIn()
 {
   return in;

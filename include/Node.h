@@ -25,6 +25,7 @@ public:
     ~Node();
 
     HashTable<Edge> *getForwardEdges();
+    HashTable<Edge> *getBackwardEdges();
 
     int getLabel();
     int getIn();
