@@ -210,7 +210,6 @@ void Graph::dijkstra(int label1, int label2)
 
 void Graph::topologicalSort()
 {
-  Stack<Node> *stack = new Stack<Node>();
   Stack<Node> *sort = new Stack<Node>();
 
   Node *current = nodes->getFirstItem()->getData();
@@ -255,6 +254,8 @@ void Graph::topologicalSort()
     {
       cout << sort->pop()->getLabel() << " ";
     }
+
+    delete sort;
   }
 }
 
