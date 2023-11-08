@@ -14,8 +14,7 @@ private:
     int nEdges;
     bool isOriented;
     bool isSucessionAdj;
-    void dfs(int label, bool isForward);
-    void dfsWithStepAndPrecedencyRegister(int label);
+    void dfsForTransitiveClosure(int label, bool isForward);
 
 public:
     Graph(bool isOriented);
@@ -34,6 +33,8 @@ public:
     void indirectTransitiveClosure(int label);
 
     void dijkstra(int label1, int label2);
+
+    void topologicalSort();
 
     void generateNodeTree(int label);
 };

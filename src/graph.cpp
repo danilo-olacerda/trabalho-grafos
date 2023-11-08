@@ -89,44 +89,7 @@ void Graph::removeEdge(int tail, int head)
   --nEdges;
 }
 
-void Graph::dfsWithStepAndPrecedencyRegister(int label)
-{
-  Stack<Node> *stack = new Stack<Node>();
-
-  int step = -1;
-  stack->push(nodes->getItem(label)->getData());
-  while (!stack->isEmpty)
-  {
-    Node *node = stack->pop();
-    if (node->getIn() == -1)
-    {
-      node->setIn(++step);
-      stack->push(node);
-
-      HashTable<Edge> *edges = node->getForwardEdges();
-      Item<Edge> *itemEdge = edges->getFirstItem();
-      while (itemEdge != NULL)
-      {
-        Node *neighbor = itemEdge->getData()->getNeighborPointer();
-        if (neighbor->getIn() == -1)
-        {
-          neighbor->setPredecessor(node);
-          stack->push(neighbor);
-        }
-
-        itemEdge = edges->getNextItem(itemEdge);
-      }
-    }
-    else if (node->getOut() == -1)
-    {
-      node->setOut(++step);
-    }
-  }
-
-  delete stack;
-}
-
-void Graph::dfs(int label, bool isForward)
+void Graph::dfsForTransitiveClosure(int label, bool isForward)
 {
   Stack<Node> *stack = new Stack<Node>();
 
@@ -158,7 +121,7 @@ void Graph::dfs(int label, bool isForward)
 
 void Graph::directTransitiveClosure(int label)
 {
-  dfs(label, 1);
+  dfsForTransitiveClosure(label, 1);
 
   Item<Node> *itemNode = nodes->getFirstItem();
   while (itemNode != NULL)
@@ -172,7 +135,7 @@ void Graph::directTransitiveClosure(int label)
 
 void Graph::indirectTransitiveClosure(int label)
 {
-  dfs(label, 0);
+  dfsForTransitiveClosure(label, 0);
 
   Item<Node> *itemNode = nodes->getFirstItem();
   while (itemNode != NULL)
@@ -245,7 +208,89 @@ void Graph::dijkstra(int label1, int label2)
   delete stack;
 }
 
+void Graph::topologicalSort()
+{
+  Stack<Node> *stack = new Stack<Node>();
+  Stack<Node> *sort = new Stack<Node>();
+
+  Node *current = nodes->getFirstItem()->getData();
+  while (current != NULL)
+  {
+    if (current->getIn() == -1)
+    {
+      Stack<Node> *stack = new Stack<Node>();
+
+      stack->push(nodes->getFirstItem()->getData());
+      while (!stack->isEmpty)
+      {
+        Node *node = stack->pop();
+        if (node->getIn() == -1)
+        {
+          node->setIn(1);
+          stack->push(node);
+
+          HashTable<Edge> *edges = node->getForwardEdges();
+          Item<Edge> *itemEdge = edges->getFirstItem();
+          while (itemEdge != NULL)
+          {
+            Node *neighbor = itemEdge->getData()->getNeighborPointer();
+            if (neighbor->getIn() == -1)
+            {
+              stack->push(neighbor);
+            }
+
+            itemEdge = edges->getNextItem(itemEdge);
+          }
+        }
+        else if (node->getOut() == -1)
+        {
+          sort->push(node);
+        }
+      }
+
+      delete stack;
+    }
+
+    while (!sort->isEmpty())
+    {
+      cout << sort->pop()->getLabel() << " ";
+    }
+  }
+}
+
 void Graph::generateNodeTree(int label)
 {
-  dfsWithStepAndPrecedencyRegister(label);
+  Stack<Node> *stack = new Stack<Node>();
+
+  int step = -1;
+  stack->push(nodes->getItem(label)->getData());
+  while (!stack->isEmpty)
+  {
+    Node *node = stack->pop();
+    if (node->getIn() == -1)
+    {
+      node->setIn(++step);
+      stack->push(node);
+
+      HashTable<Edge> *edges = node->getForwardEdges();
+      Item<Edge> *itemEdge = edges->getFirstItem();
+      while (itemEdge != NULL)
+      {
+        Node *neighbor = itemEdge->getData()->getNeighborPointer();
+        if (neighbor->getIn() == -1)
+        {
+          neighbor->setPredecessor(node);
+          stack->push(neighbor);
+        }
+
+        itemEdge = edges->getNextItem(itemEdge);
+      }
+    }
+    else if (node->getOut() == -1)
+    {
+      node->setOut(++step);
+    }
+  }
+
+  delete stack;
 }
