@@ -45,7 +45,7 @@ void LinkedList<T>::addItemInList(int key, T *data)
 template <typename T>
 void LinkedList<T>::removeItemFromList(int key, int *status)
 {
-  if (n == 0)
+  if (length == 0)
     return;
 
   if (first->getKey() == key)
@@ -54,14 +54,14 @@ void LinkedList<T>::removeItemFromList(int key, int *status)
     delete first;
     first = temp;
     --length;
-    if (n == 0)
+    if (length == 0)
     {
       last = NULL;
     }
     *status = 0;
     return;
   }
-  if (n == 1)
+  if (length == 1)
     return;
 
   Item<T> *item = first;

@@ -1,12 +1,11 @@
 #include <stdlib.h>
-#include "../include/Node.h"
+#include "../include/Node.hpp"
 
 Node::Node(int label)
 {
   this->label = label;
   forwardEdges = new HashTable<Edge>(4);
   backwardEdges = new HashTable<Edge>(4);
-  weight = 1.0;
   inDegree = 0;
   outDegree = 0;
   in = -1;

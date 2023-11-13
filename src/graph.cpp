@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <limits.h>
-#include "../include/Graph.h"
+#include "../include/Graph.hpp"
 
 Graph::Graph(bool isOriented)
 {
@@ -45,19 +45,19 @@ void Graph::removeNode(int label)
 
 void Graph::addEdge(int tail, int head)
 {
-  Node *tailPointer = nodes->getItem(tail)->data;
-  Node *headPointer = nodes->getItem(head)->data;
+  Node *tailPointer = nodes->getItem(tail)->getData();
+  Node *headPointer = nodes->getItem(head)->getData();
   if (tailPointer != NULL && headPointer != NULL)
   {
-    tailPointer->addForwardEdge(head, headPointer, 1);
+    tailPointer->addEdge(head, headPointer, 1);
 
-    headPointer->addBackwardEdge(tail, tailPointer, 0);
+    headPointer->addEdge(tail, tailPointer, 0);
 
     if (isOriented == false)
     {
-      headPointer->addForwardEdge(tail, tailPointer, 1);
+      headPointer->addEdge(tail, tailPointer, 1);
 
-      tailPointer->addBackwardEdge(head, headPointer, 0);
+      tailPointer->addEdge(head, headPointer, 0);
     }
   }
 
@@ -66,22 +66,24 @@ void Graph::addEdge(int tail, int head)
 
 void Graph::removeEdge(int tail, int head)
 {
-  Node *tailPointer = nodes->getItem(tail)->data;
-  Node *headPointer = nodes->getItem(head)->data;
+  Node *tailPointer = nodes->getItem(tail)->getData();
+  Node *headPointer = nodes->getItem(head)->getData();
   if (tailPointer != NULL && headPointer != NULL)
   {
-    tailPointer->removeEdge(head, 1);
+    int *status;
+
+    tailPointer->removeEdge(head, 1, status);
     headPointer->decrementInDegree();
 
-    headPointer->removeEdge(tail, 0);
+    headPointer->removeEdge(tail, 0, status);
     tailPointer->decrementInDegree();
 
     if (isOriented == false)
     {
-      headPointer->removeEdge(tail, 1);
+      headPointer->removeEdge(tail, 1, status);
       tailPointer->decrementInDegree();
 
-      tailPointer->removeEdge(head, 0);
+      tailPointer->removeEdge(head, 0, status);
       headPointer->decrementInDegree();
     }
   }
@@ -94,14 +96,14 @@ void Graph::dfsForTransitiveClosure(int label, bool isForward)
   Stack<Node> *stack = new Stack<Node>();
 
   stack->push(nodes->getItem(label)->getData());
-  while (!stack->isEmpty)
+  while (!stack->isEmpty())
   {
     Node *node = stack->pop();
     if (node->getIn() == -1)
     {
       node->setIn(1);
 
-      HashTable<Edge> *edges = isForward ? node->getForwardEdges() : node->getBackWardEdges();
+      HashTable<Edge> *edges = isForward ? node->getForwardEdges() : node->getBackwardEdges();
       Item<Edge> *itemEdge = edges->getFirstItem();
       while (itemEdge != NULL)
       {
@@ -128,7 +130,7 @@ void Graph::directTransitiveClosure(int label)
   {
     if (itemNode->getData()->getIn() == 1)
     {
-      std::cout << itemNode->getData()->getKey() << " ";
+      std::cout << itemNode->getData()->getLabel() << " ";
     }
   }
 }
@@ -142,7 +144,7 @@ void Graph::indirectTransitiveClosure(int label)
   {
     if (itemNode->getData()->getIn() == 1)
     {
-      std::cout << itemNode->getData()->getKey() << " ";
+      std::cout << itemNode->getData()->getLabel() << " ";
     }
   }
 }
@@ -220,7 +222,7 @@ void Graph::topologicalSort()
       Stack<Node> *stack = new Stack<Node>();
 
       stack->push(nodes->getFirstItem()->getData());
-      while (!stack->isEmpty)
+      while (!stack->isEmpty())
       {
         Node *node = stack->pop();
         if (node->getIn() == -1)
@@ -265,7 +267,7 @@ void Graph::generateNodeTree(int label)
 
   int step = -1;
   stack->push(nodes->getItem(label)->getData());
-  while (!stack->isEmpty)
+  while (!stack->isEmpty())
   {
     Node *node = stack->pop();
     if (node->getIn() == -1)

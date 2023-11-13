@@ -1,5 +1,5 @@
 #include "stdlib.h"
-#include "../include/Edge.h"
+#include "../include/Edge.hpp"
 
 Edge::Edge(Node *neighborPointer)
 {

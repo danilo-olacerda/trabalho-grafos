@@ -18,5 +18,5 @@ MinHeap<T>::~MinHeap()
 template <typename T>
 void MinHeap<T>::queue(int key, T *predecessor, T *data)
 {
-  array[length]->
+
 }
