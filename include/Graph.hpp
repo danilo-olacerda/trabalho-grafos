@@ -37,6 +37,10 @@ public:
     void topologicalSort();
 
     void generateNodeTree(int label);
+    void prim(int startVertex);
+    void kruskal(int V);
+    int findParent(vector<int>& parent, int vertex);
+    void unionSets(vector<int>& parent, int set1, int set2);
 };
 
 #endif // GRAPH_H
