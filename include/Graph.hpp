@@ -4,6 +4,7 @@
 #include "DataStructures/HashTable.h"
 #include "DataStructures/Stack.h"
 #include "DataStructures/MinHeap.h"
+#include "DataStructures/Queue.h"
 #include "Node.hpp"
 
 class Graph
@@ -39,8 +40,8 @@ public:
     void generateNodeTree(int label);
     void prim(int startVertex);
     void kruskal(int V);
-    int findParent(vector<int>& parent, int vertex);
-    void unionSets(vector<int>& parent, int set1, int set2);
+    int findParent(vector<int> &parent, int vertex);
+    void unionSets(vector<int> &parent, int set1, int set2);
 };
 
 #endif // GRAPH_H

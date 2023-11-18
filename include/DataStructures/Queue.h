@@ -1,10 +1,10 @@
-#ifndef MINHEAP_H
-#define MINHEAP_H
+#ifndef QUEUE_H
+#define QUEUE_H
 
 #include "HeapElement.h"
 
 template <typename T>
-class MinHeap
+class Queue
 {
 private:
   HeapElement<T> **array;
@@ -12,11 +12,11 @@ private:
   int offset;
 
 public:
-  MinHeap(int length);
-  ~MinHeap();
+  Queue(int length);
+  ~Queue();
 
   void enqueue(int key, T *nodePointer, T *data);
   T *dequeue();
 };
 
-#endif // MINHEAP_H
+#endif // QUEUE_H

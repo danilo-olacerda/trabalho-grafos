@@ -2,7 +2,7 @@
 #include "../../include/DataStructures/MinHeap.h"
 
 template <typename T>
-MinHeap<T>::MinHeap(int length)
+Queue<T>::Queue(int length)
 {
   array = new HeapElement<T>(length);
   length = 0;
@@ -10,12 +10,12 @@ MinHeap<T>::MinHeap(int length)
 }
 
 template <typename T>
-MinHeap<T>::~MinHeap()
+Queue<T>::~Queue()
 {
   delete array;
 }
 
 template <typename T>
-void MinHeap<T>::enqueue(int key, T *predecessor, T *data)
+void Queue<T>::enqueue(int key, T *predecessor, T *data)
 {
 }
