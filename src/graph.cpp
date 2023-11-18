@@ -99,10 +99,11 @@ void Graph::dfsForTransitiveClosure(int label, bool isForward)
 
   HashTable<Edge> *edges = isForward ? node->getForwardEdges() : node->getBackwardEdges();
   Item<Edge> *itemEdge = edges->getFirstItem();
+  Node *current;
   Node *neighbor;
   while (!stack->isEmpty())
   {
-    Node *node = stack->pop();
+    current = stack->pop();
     if (node->getIn() == -1)
     {
       node->setIn(1);
@@ -164,15 +165,16 @@ void Graph::dijkstra(int label1, int label2)
     itemNode = nodes->getNextItem(itemNode);
   }
 
-  Node *current = nodes->getItem(label1)->getData();
-  current->setOut(0);
-  minHeap->enqueue(0, NULL, current);
-
   HashTable<Edge> *edges = current->getForwardEdges();
   Item<Edge> *itemEdge = edges->getFirstItem();
   Edge *edge;
-  Node *neighbor;
+
+  Node *current = nodes->getItem(label1)->getData();
+  current->setOut(0);
+  minHeap->enqueue(0, NULL, current);
   Node *destiny = nodes->getItem(label2)->getData();
+  Node *neighbor;
+
   while (destiny->getPredecessor() == NULL)
   {
     current = minHeap->dequeue();
@@ -189,10 +191,10 @@ void Graph::dijkstra(int label1, int label2)
           float weight = edge->getWeight();
           float dist = current->getIn() + weight;
           neighbor->setOut(dist);
+          neighbor->setPredecessor(current);
 
           minHeap->enqueue(dist, current, neighbor);
         }
-
         itemEdge = edges->getNextItem(itemEdge);
       }
     }
@@ -202,11 +204,10 @@ void Graph::dijkstra(int label1, int label2)
 
   Stack<Node> *stack = new Stack<Node>();
 
-  Node *node = destiny;
-  while (node != NULL)
+  while (current != NULL)
   {
-    stack->push(node);
-    node = node->getPredecessor();
+    stack->push(current);
+    current = current->getPredecessor();
   }
 
   while (!stack->isEmpty())
@@ -365,7 +366,7 @@ void Graph::kruskal(int *nodeLabels)
   delete queue;
 }
 
-void Graph::genTree(Queue<Node> *queue)
+/*void Graph::genTree(Queue<Node> *queue)
 {
   HashTable<Edge> *edges = current->getForwardEdges();
   Item<Edge> *itemEdge = edges->getFirstItem();
@@ -373,15 +374,9 @@ void Graph::genTree(Queue<Node> *queue)
   Node *current;
   Node *neighbor;
 
-  current = queue->dequeue();
-  int treeLabel = current->getIn();
-  queue->enqueue(current);
-
   Queue<Node> *returnEdgeQueue = new Queue<Node>();
 
-  cout << "Tree " << treeLabel << ":\n";
   Node *predecessor = NULL;
-  int n = 0;
   while (!queue->isEmpty())
   {
     current = queue->dequeue();
@@ -391,7 +386,7 @@ void Graph::genTree(Queue<Node> *queue)
       if (n > 0)
       {
         cout << "Arestas de retorno de " << predecessor->getLabel() << ":\n";
-        for (int i = 0; i < n; ++i)
+        while (!queue->isEmpty())
         {
           cout << "-> " << returnEdgeQueue->dequeue()->getLabel() << "\n";
         }
@@ -414,7 +409,7 @@ void Graph::genTree(Queue<Node> *queue)
     {
       edge = itemEdge->getData();
       neighbor = edge->getNeighborPointer();
-      if (neighbor->getIn() == treeLabel)
+      if (neighbor->getIn() == 1)
       {
         if (neighbor->getPredecessor() == current)
         {
@@ -430,50 +425,42 @@ void Graph::genTree(Queue<Node> *queue)
   }
 
   delete returnEdgeQueue;
-}
+}*/
 
-void Graph::turnIntoForest()
+void Graph::genTree(int label)
 {
   Stack<Node> *stack = new Stack<Node>();
   Queue<Node> *queue = new Queue<Node>();
 
-  Node *current = nodes->getFirstItem()->getData();
+  Node *current = nodes->getItem(label)->getData();
+
+  stack->push(current);
   queue->enqueue(current);
 
-  int treeLabel = 0;
-  while (current != NULL)
+  HashTable<Edge> *edges = node->getForwardEdges();
+  Item<Edge> *itemEdge = edges->getFirstItem();
+  Node *neighbor;
+  while (!stack->isEmpty())
   {
-    if (current->getIn() == -1)
+    current = stack->pop();
+    if (node->getIn() == -1)
     {
-      stack->push(nodes->getItem(label)->getData());
+      node->setIn(1);
+      stack->push(current);
 
-      HashTable<Edge> *edges = node->getForwardEdges();
-      Item<Edge> *itemEdge = edges->getFirstItem();
-      Node *neighbor;
-      while (!stack->isEmpty())
+      while (itemEdge != NULL)
       {
-        Node *node = stack->pop();
-        if (node->getIn() == -1)
+        neighbor = itemEdge->getData()->getNeighborPointer();
+        if (neighbor->getIn() == -1)
         {
-          node->setIn(treeLabel);
-          stack->push(node);
-
-          while (itemEdge != NULL)
-          {
-            neighbor = itemEdge->getData()->getNeighborPointer();
-            if (neighbor->getIn() == -1)
-            {
-              neighbor->setPredecessor(node);
-              stack->push(neighbor);
-            }
-            itemEdge = edges->getNextItem(itemEdge);
-          }
+          neighbor->setPredecessor(current);
+          stack->push(neighbor);
         }
+        itemEdge = edges->getNextItem(itemEdge);
       }
-      genTree(queue)
     }
-    ++treeLabel;
   }
+
   delete stack;
   delete queue;
 }

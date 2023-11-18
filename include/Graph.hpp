@@ -17,7 +17,6 @@ private:
     bool isSucessionAdj;
     void dfsForTransitiveClosure(int label, bool isForward);
     void genMinTree(Queue<Node> *queue);
-    void genTree(Queue<Node> *queue);
 
 public:
     Graph(bool isOriented);
@@ -41,7 +40,7 @@ public:
     void prim(int *nodeLabels);
     void kruskal(int *nodeLabels);
 
-    void turnIntoForest();
+    void genTree();
 
     void topologicalSort();
 };
