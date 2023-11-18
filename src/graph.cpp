@@ -476,7 +476,7 @@ void Graph::topologicalSort()
       while (!stack->isEmpty())
       {
         current = stack->pop();
-        if (node->getIn() == -1)
+        if (current->getIn() == -1)
         {
           current->setIn(1);
           stack->push(current);
