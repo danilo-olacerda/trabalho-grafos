@@ -16,7 +16,8 @@ private:
     bool isOriented;
     bool isSucessionAdj;
     void dfsForTransitiveClosure(int label, bool isForward);
-    void genMinTree(Queue *queue);
+    void genMinTree(Queue<Node> *queue);
+    void genTree(Queue<Node> *queue);
 
 public:
     Graph(bool isOriented);
@@ -35,14 +36,14 @@ public:
     void indirectTransitiveClosure(int label);
 
     void dijkstra(int label1, int label2);
+    // void floyd(int label1, int label2);
+
+    void prim(int *nodeLabels);
+    void kruskal(int *nodeLabels);
+
+    void turnIntoForest();
 
     void topologicalSort();
-
-    void generateNodeTree(int label);
-    void prim(int startVertex);
-    void kruskal(int V);
-    int findParent(vector<int> &parent, int vertex);
-    void unionSets(vector<int> &parent, int set1, int set2);
 };
 
 #endif // GRAPH_H

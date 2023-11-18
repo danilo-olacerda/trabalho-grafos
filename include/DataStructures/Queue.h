@@ -15,7 +15,7 @@ public:
   Queue(int length);
   ~Queue();
 
-  void enqueue(int key, T *nodePointer, T *data);
+  void enqueue(T *data);
   T *dequeue();
 };
 
