@@ -96,6 +96,10 @@ void Graph::dfsForTransitiveClosure(int label, bool isForward)
   Stack<Node> stack = new Stack<Node>();
 
   stack.push(nodes->getItem(label)->getData());
+
+  HashTable<Edge> *edges = isForward ? node->getForwardEdges() : node->getBackwardEdges();
+  Item<Edge> *itemEdge = edges->getFirstItem();
+  Node *neighbor;
   while (!stack.isEmpty())
   {
     Node *node = stack.pop();
@@ -103,11 +107,9 @@ void Graph::dfsForTransitiveClosure(int label, bool isForward)
     {
       node->setIn(1);
 
-      HashTable<Edge> *edges = isForward ? node->getForwardEdges() : node->getBackwardEdges();
-      Item<Edge> *itemEdge = edges->getFirstItem();
       while (itemEdge != NULL)
       {
-        Node *neighbor = itemEdge->getData()->getNeighborPointer();
+        neighbor = itemEdge->getData()->getNeighborPointer();
         if (neighbor->getIn() == -1)
         {
           stack.push(neighbor);
@@ -167,6 +169,10 @@ void Graph::dijkstra(int label1, int label2)
   minHeap.enqueue(0, NULL, current);
 
   Node *destiny = nodes->getItem(label2)->getData();
+  HashTable<Edge> *edges = current->getForwardEdges();
+  Item<Edge> *itemEdge = edges->getFirstItem();
+  Edge *edge;
+  Node *neighbor;
   while (destiny->getPredecessor() == NULL)
   {
     current = minHeap.dequeue();
@@ -174,12 +180,10 @@ void Graph::dijkstra(int label1, int label2)
     {
       current->setIn(1);
 
-      HashTable<Edge> *edges = current->getForwardEdges();
-      Item<Edge> *itemEdge = edges->getFirstItem();
       while (itemEdge != NULL)
       {
-        Edge *edge = itemEdge->getData();
-        Node *neighbor = edge->getNeighborPointer();
+        edge = itemEdge->getData();
+        neighbor = edge->getNeighborPointer();
         if (neighbor->getIn() == -1)
         {
           float weight = edge->getWeight();
@@ -225,6 +229,10 @@ void Graph::topologicalSort()
       Stack<Node> stack = new Stack<Node>();
 
       stack->push(nodes->getFirstItem()->getData());
+
+      HashTable<Edge> *edges = node->getForwardEdges();
+      Item<Edge> *itemEdge = edges->getFirstItem();
+      Node *neighbor;
       while (!stack.isEmpty())
       {
         Node *node = stack.pop();
@@ -233,11 +241,9 @@ void Graph::topologicalSort()
           node->setIn(1);
           stack.push(node);
 
-          HashTable<Edge> *edges = node->getForwardEdges();
-          Item<Edge> *itemEdge = edges->getFirstItem();
           while (itemEdge != NULL)
           {
-            Node *neighbor = itemEdge->getData()->getNeighborPointer();
+            neighbor = itemEdge->getData()->getNeighborPointer();
             if (neighbor->getIn() == -1)
             {
               stack.push(neighbor);
@@ -270,6 +276,10 @@ void Graph::generateNodeTree(int label)
 
   int step = -1;
   stack.push(nodes->getItem(label)->getData());
+
+  HashTable<Edge> *edges = node->getForwardEdges();
+  Item<Edge> *itemEdge = edges->getFirstItem();
+  Node *neighbor;
   while (!stack.isEmpty())
   {
     Node *node = stack.pop();
@@ -278,11 +288,9 @@ void Graph::generateNodeTree(int label)
       node->setIn(++step);
       stack.push(node);
 
-      HashTable<Edge> *edges = node->getForwardEdges();
-      Item<Edge> *itemEdge = edges->getFirstItem();
       while (itemEdge != NULL)
       {
-        Node *neighbor = itemEdge->getData()->getNeighborPointer();
+        neighbor = itemEdge->getData()->getNeighborPointer();
         if (neighbor->getIn() == -1)
         {
           neighbor->setPredecessor(node);
@@ -326,13 +334,18 @@ void Graph::prim(int *nodeLabels)
   Item<Edge> *itemEdge;
   Edge *edge;
   Node *neighbor;
-  while (!minHeap.isEmpty())
+  int i = 0;
+  while (true)
   {
     current = minHeap.dequeue();
 
     if (current->getIn() == 0)
     {
       current->setIn(1);
+      if (++i >= n)
+      {
+        break;
+      }
 
       edges = current->getForwardEdges();
       itemEdge = edges->getFirstItem();
@@ -354,7 +367,7 @@ void Graph::prim(int *nodeLabels)
 
   delete minHeap;
 
-  while (!stack->isEmpty)
+  while (!queue->isEmpty)
   {
     current = queue.dequeue();
 
@@ -374,12 +387,14 @@ void Graph::prim(int *nodeLabels)
     {
       edge = itemEdge->getData();
       neighbor = edge->getNeighborPointer();
-      if (neighbor == current)
+      if (/*PODE SER que precisemos dessa condição: neighbor->getIn() == 1 &&*/ neighbor->getPredecessor() == current)
       {
         queue.enqueue(neighbor);
       }
     }
   }
+
+  delete queue;
 }
 
 /*void Graph::prim(int startVertex)
@@ -438,7 +453,85 @@ void Graph::prim(int *nodeLabels)
   }
 }*/
 
-void Graph::kruskal(int V)
+void Graph::kruskal(int *nodeLabels)
+{
+  MinHeap<Node> minHeap = new MinHeap<Node>(nEdges);
+
+  HashTable<Edge> *edges;
+  Item<Edge> *itemEdge;
+  Edge *edge;
+  Node *neighbor;
+
+  Node *current;
+  int n = sizeof(nodeLabels) / sizeof(int);
+  for (int i = 1; i < n; ++i)
+  {
+    current = nodes->getItem(nodeLabels[i])->getData();
+    current->setIn(0);
+    edges = current->getForwardEdges();
+    for (itemEdge = edges->getFirstItem(); itemEdge != NULL; itemEdge = edges->getNextItem(itemEdge))
+    {
+      edge = itemEdge->getData();
+      float weight = itemEdge->getData;
+      neighbor = edge->getNeighborPointer();
+
+      neighbor->setPredecessor(current);
+
+      minHeap.enqueue(weight, current, neighbor);
+    }
+  }
+
+  Queue<Node> queue = new Queue<Node>();
+
+  int i = 0;
+  while (i < n)
+  {
+    current = minHeap.dequeue();
+
+    if (current->getIn() == 0)
+    {
+      current->setIn(1);
+      if (++i == 1)
+      {
+        current->setPredecessor(NULL);
+        queue.enqueue(current);
+      }
+    }
+  }
+
+  delete minHeap;
+
+  while (!queue->isEmpty)
+  {
+    current = queue.dequeue();
+
+    if (current->getPredecessor() != NULL)
+    {
+      cout << current->getPredecessor()->getLabel();
+    }
+    else
+    {
+      cout << "NULL"
+    }
+    cout << " -> " << current->getLabel() << "\n";
+
+    edges = current->getForwardEdges();
+    itemEdge = edges->getFirstItem();
+    while (itemEdge != NULL)
+    {
+      edge = itemEdge->getData();
+      neighbor = edge->getNeighborPointer();
+      if (neighbor->getIn() == 1 && neighbor->getPredecessor() == current)
+      {
+        queue.enqueue(neighbor);
+      }
+    }
+  }
+
+  delete queue;
+}
+
+/*void Graph::kruskal(int V)
 {
   vector<Edge> allEdges;
   vector<Edge> minSpanningTree;
@@ -487,4 +580,4 @@ int Graph::findParent(vector<int> &parent, int vertex)
 void Graph::unionSets(vector<int> &parent, int set1, int set2)
 {
   parent[set1] = set2;
-}
+}*/
