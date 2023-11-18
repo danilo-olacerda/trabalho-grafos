@@ -222,7 +222,6 @@ void Graph::genMinTree(Queue<Node> *queue)
 {
   HashTable<Edge> *edges = current->getForwardEdges();
   Item<Edge> *itemEdge = edges->getFirstItem();
-  Edge *edge;
   Node *current;
   Node *neighbor;
   while (!queue->isEmpty())
@@ -241,8 +240,7 @@ void Graph::genMinTree(Queue<Node> *queue)
 
     while (itemEdge != NULL)
     {
-      edge = itemEdge->getData();
-      neighbor = edge->getNeighborPointer();
+      neighbor = itemEdge->getData()->getNeighborPointer();
       if (neighbor->getIn() == 1 && neighbor->getPredecessor() == current)
       {
         queue->enqueue(neighbor);
@@ -332,7 +330,7 @@ void Graph::kruskal(int *nodeLabels)
     for (itemEdge = edges->getFirstItem(); itemEdge != NULL; itemEdge = edges->getNextItem(itemEdge))
     {
       edge = itemEdge->getData();
-      float weight = itemEdge->getData;
+      float weight = edge->getWeight();
       neighbor = edge->getNeighborPointer();
 
       neighbor->setPredecessor(current);
@@ -366,78 +364,14 @@ void Graph::kruskal(int *nodeLabels)
   delete queue;
 }
 
-/*void Graph::genTree(Queue<Node> *queue)
-{
-  HashTable<Edge> *edges = current->getForwardEdges();
-  Item<Edge> *itemEdge = edges->getFirstItem();
-  Edge *edge;
-  Node *current;
-  Node *neighbor;
-
-  Queue<Node> *returnEdgeQueue = new Queue<Node>();
-
-  Node *predecessor = NULL;
-  while (!queue->isEmpty())
-  {
-    current = queue->dequeue();
-
-    if (current->getPredecessor() != predecessor)
-    {
-      if (n > 0)
-      {
-        cout << "Arestas de retorno de " << predecessor->getLabel() << ":\n";
-        while (!queue->isEmpty())
-        {
-          cout << "-> " << returnEdgeQueue->dequeue()->getLabel() << "\n";
-        }
-        n = 0;
-      }
-      predecessor = current->getPredecessor();
-    }
-
-    if (current->getPredecessor() != NULL)
-    {
-      cout << current->getPredecessor()->getLabel();
-    }
-    else
-    {
-      cout << "NULL"
-    }
-    cout << " -> " << current->getLabel() << "\n";
-
-    while (itemEdge != NULL)
-    {
-      edge = itemEdge->getData();
-      neighbor = edge->getNeighborPointer();
-      if (neighbor->getIn() == 1)
-      {
-        if (neighbor->getPredecessor() == current)
-        {
-          queue->enqueue(neighbor);
-        }
-        else
-        {
-          returnEdgeQueue->enqueue(neighbor);
-          ++n;
-        }
-      }
-    }
-  }
-
-  delete returnEdgeQueue;
-}*/
-
-void Graph::genTree(int label)
+void Graph::generateTree(int label)
 {
   Stack<Node> *stack = new Stack<Node>();
-  Queue<Node> *queue = new Queue<Node>();
 
   Node *current = nodes->getItem(label)->getData();
-
   stack->push(current);
-  queue->enqueue(current);
 
-  HashTable<Edge> *edges = node->getForwardEdges();
+  HashTable<Edge> *edges = current->getForwardEdges();
   Item<Edge> *itemEdge = edges->getFirstItem();
   Node *neighbor;
   while (!stack->isEmpty())
@@ -462,6 +396,64 @@ void Graph::genTree(int label)
   }
 
   delete stack;
+
+  Queue<Node> *queue = new Queue<Node>();
+  Queue<Node> *returnEdgeQueue = new Queue<Node>();
+
+  queue->enqueue(current);
+
+  Node *currentPredecessor;
+  Node *nodeAbove = current;
+  int level = -1;
+  while (!queue->isEmpty())
+  {
+    current = queue->dequeue();
+    currentPredecessor = current->getPredecessor();
+
+    if (nodeAbove != currentPredecessor)
+    {
+      cout << "Level " << ++level << ":\n";
+
+      if (!returnEdgeQueue->isEmpty())
+      {
+        Node *node = returnEdgeQueue->dequeue();
+        while (node->getPredecessor() == nodeAbove)
+        {
+          cout << nodeAbove->getLabel() << " <- " << node->getLabel();
+          node = returnEdgeQueue->dequeue();
+        }
+      }
+      nodeAbove = currentPredecessor;
+    }
+
+    edges = current->getForwardEdges();
+    itemEdge = edges->getFirstItem();
+    Node *neighbor;
+    while (itemEdge != NULL)
+    {
+      neighbor = itemEdge->getData()->getNeighborPointer();
+      if (neighbor->getPredecessor() == nodeAbove)
+      {
+        queue->enqueue(neighbor);
+      }
+      else
+      {
+        returnEdgeQueue->enqueue(neighbor);
+      }
+      itemEdge = edges->getNextItem(itemEdge);
+    }
+
+    if (nodeAbove == NULL)
+    {
+      cout << "NULL";
+    }
+    else
+    {
+      cout << nodeAbove->getLabel()
+    }
+    cout << " -> " << current;
+  }
+
   delete queue;
 }
 
@@ -470,10 +462,11 @@ void Graph::topologicalSort()
   Stack<Node> *sort = new Stack<Node>();
   Stack<Node> *stack = new Stack<Node>();
 
-  Node *current = nodes->getFirstItem()->getData();
-  while (current != NULL)
+  Node *node = nodes->getFirstItem()->getData();
+  Node *current;
+  while (node != NULL)
   {
-    if (current->getIn() == -1)
+    if (node->getIn() == -1)
     {
       stack->push(nodes->getFirstItem()->getData());
 
@@ -482,11 +475,11 @@ void Graph::topologicalSort()
       Node *neighbor;
       while (!stack->isEmpty())
       {
-        Node *node = stack->pop();
+        current = stack->pop();
         if (node->getIn() == -1)
         {
-          node->setIn(1);
-          stack->push(node);
+          current->setIn(1);
+          stack->push(current);
 
           while (itemEdge != NULL)
           {
@@ -501,16 +494,19 @@ void Graph::topologicalSort()
         }
         else if (node->getOut() == -1)
         {
-          sort->push(node);
+          sort->push(current);
         }
       }
     }
-
-    while (!sort->isEmpty())
-    {
-      cout << sort->pop()->getLabel() << " ";
-    }
+    node = nodes->getNextItem(node);
   }
-  delete sort;
+
   delete stack;
+
+  while (!sort->isEmpty())
+  {
+    cout << sort->pop()->getLabel() << " ";
+  }
+
+  delete sort;
 }

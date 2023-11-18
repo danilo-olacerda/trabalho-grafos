@@ -40,7 +40,7 @@ public:
     void prim(int *nodeLabels);
     void kruskal(int *nodeLabels);
 
-    void genTree();
+    void generateTree(int label);
 
     void topologicalSort();
 };
