@@ -492,7 +492,7 @@ void Graph::topologicalSort()
             itemEdge = edges->getNextItem(itemEdge);
           }
         }
-        else if (node->getOut() == -1)
+        else if (current->getOut() == -1)
         {
           sort->push(current);
         }
