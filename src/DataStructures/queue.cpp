@@ -16,6 +16,6 @@ Queue<T>::~Queue()
 }
 
 template <typename T>
-void Queue<T>::enqueue(int key, T *predecessor, T *data)
+void Queue<T>::enqueue(T *data)
 {
 }

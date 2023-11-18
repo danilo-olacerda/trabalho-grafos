@@ -309,6 +309,41 @@ void Graph::generateNodeTree(int label)
   delete stack;
 }
 
+void Graph::genMinTree(Queue *queue)
+{
+  Node *current;
+  Node *neighbor;
+  HashTable<Edge> *edges = current->getForwardEdges();
+  Item<Edge> *itemEdge = edges->getFirstItem();
+  Edge *edge;
+  while (!queue->isEmpty())
+  {
+    current = queue->dequeue();
+
+    if (current->getPredecessor() != NULL)
+    {
+      cout << current->getPredecessor()->getLabel();
+    }
+    else
+    {
+      cout << "NULL"
+    }
+    cout << " -> " << current->getLabel() << "\n";
+
+    while (itemEdge != NULL)
+    {
+      edge = itemEdge->getData();
+      neighbor = edge->getNeighborPointer();
+      if (neighbor->getIn() == 1 && neighbor->getPredecessor() == current)
+      {
+        queue->enqueue(neighbor);
+      }
+    }
+  }
+
+  delete queue;
+}
+
 void Graph::prim(int *nodeLabels)
 {
   Node *current;
@@ -367,91 +402,10 @@ void Graph::prim(int *nodeLabels)
 
   delete minHeap;
 
-  while (!queue->isEmpty)
-  {
-    current = queue.dequeue();
-
-    if (current->getPredecessor() != NULL)
-    {
-      cout << current->getPredecessor()->getLabel();
-    }
-    else
-    {
-      cout << "NULL"
-    }
-    cout << " -> " << current->getLabel() << "\n";
-
-    edges = current->getForwardEdges();
-    itemEdge = edges->getFirstItem();
-    while (itemEdge != NULL)
-    {
-      edge = itemEdge->getData();
-      neighbor = edge->getNeighborPointer();
-      if (/*PODE SER que precisemos dessa condição: neighbor->getIn() == 1 &&*/ neighbor->getPredecessor() == current)
-      {
-        queue.enqueue(neighbor);
-      }
-    }
-  }
+  genMinTree(&queue);
 
   delete queue;
 }
-
-/*void Graph::prim(int startVertex)
-{
-  vector<bool> visited(order, false);
-  vector<Edge> minSpanningTree;
-  priority_queue<pair<float, int>, vector<pair<float, int>>, greater<pair<float, int>>> pq;
-
-  pq.push({0, startVertex});
-
-  while (!pq.empty())
-  {
-    float weight = pq.top().first;
-    int currentVertex = pq.top().second;
-    pq.pop();
-
-    if (visited[currentVertex])
-    {
-      continue;
-    }
-
-    visited[currentVertex] = true;
-
-    if (currentVertex != startVertex)
-    {
-
-      Node *currentNode = nodes[currentVertex];
-      Node *predecessorNode = currentNode->getPredecessor();
-
-      Item<Edge> *edgeItem = currentNode->getForwardEdges()->getItem(predecessorNode->getLabel());
-      if (edgeItem)
-      {
-        Edge edge(predecessorNode, edgeItem->data.weight);
-        minSpanningTree.push_back(edge);
-      }
-    }
-
-    HashTable<Edge> *forwardEdges = currentNode->getForwardEdges();
-    for (Item<Edge> *edgeItem = forwardEdges->getFirstItem(); edgeItem; edgeItem = forwardEdges->getNextItem(edgeItem))
-    {
-      int to = edgeItem->label;
-      Edge edge = edgeItem->data;
-      if (!visited[to])
-      {
-        pq.push({edge.weight, to});
-
-        nodes[to]->setPredecessor(currentNode);
-      }
-    }
-  }
-
-  cout << "Minimum Spanning Tree:" << endl;
-  for (const Edge &edge : minSpanningTree)
-  {
-    cout << startVertex << " - " << edge.neighborPointer->getLabel() << " (Weight: " << edge.weight << ")\n";
-  }
-}*/
 
 void Graph::kruskal(int *nodeLabels)
 {
@@ -501,83 +455,7 @@ void Graph::kruskal(int *nodeLabels)
 
   delete minHeap;
 
-  while (!queue->isEmpty)
-  {
-    current = queue.dequeue();
-
-    if (current->getPredecessor() != NULL)
-    {
-      cout << current->getPredecessor()->getLabel();
-    }
-    else
-    {
-      cout << "NULL"
-    }
-    cout << " -> " << current->getLabel() << "\n";
-
-    edges = current->getForwardEdges();
-    itemEdge = edges->getFirstItem();
-    while (itemEdge != NULL)
-    {
-      edge = itemEdge->getData();
-      neighbor = edge->getNeighborPointer();
-      if (neighbor->getIn() == 1 && neighbor->getPredecessor() == current)
-      {
-        queue.enqueue(neighbor);
-      }
-    }
-  }
+  genMinTree(&queue);
 
   delete queue;
 }
-
-/*void Graph::kruskal(int V)
-{
-  vector<Edge> allEdges;
-  vector<Edge> minSpanningTree;
-
-  for (int i = 0; i < V; ++i)
-  {
-    HashTable<Edge> *forwardEdges = nodes[i]->getForwardEdges();
-    for (Item<Edge> *edgeItem = forwardEdges->getFirstItem(); edgeItem; edgeItem = forwardEdges->getNextItem(edgeItem))
-    {
-      Edge edge(i, edgeItem->label, edgeItem->data.weight);
-      allEdges.push_back(edge);
-    }
-  }
-
-  sort(allEdges.begin(), allEdges.end(), [](const Edge &a, const Edge &b)
-       { return a.weight < b.weight; });
-
-  vector<int> parent(V, -1);
-
-  for (const Edge &edge : allEdges)
-  {
-    int set1 = findParent(parent, edge.from);
-    int set2 = findParent(parent, edge.to);
-
-    if (set1 != set2)
-    {
-      minSpanningTree.push_back(edge);
-      unionSets(parent, set1, set2);
-    }
-  }
-
-  cout << "Minimum Spanning Tree:" << endl;
-  for (const Edge &edge : minSpanningTree)
-  {
-    cout << edge.from << " - " << edge.to << " (Weight: " << edge.weight << ")\n";
-  }
-}
-
-int Graph::findParent(vector<int> &parent, int vertex)
-{
-  if (parent[vertex] == -1)
-    return vertex;
-  return findParent(parent, parent[vertex]);
-}
-
-void Graph::unionSets(vector<int> &parent, int set1, int set2)
-{
-  parent[set1] = set2;
-}*/
