@@ -218,8 +218,11 @@ void Graph::dijkstra(int label1, int label2)
   delete stack;
 }
 
-void Graph::genMinTree(Queue<Node> *queue)
+void Graph::genMinTree(Node *root)
 {
+  Queue<Node> *queue = new Queue<Node>();
+  queue->enqueue(root);
+
   HashTable<Edge> *edges = current->getForwardEdges();
   Item<Edge> *itemEdge = edges->getFirstItem();
   Node *current;
@@ -247,6 +250,8 @@ void Graph::genMinTree(Queue<Node> *queue)
       }
     }
   }
+
+  delete queue;
 }
 
 void Graph::prim(int *nodeLabels)
@@ -265,10 +270,7 @@ void Graph::prim(int *nodeLabels)
   current->setIn(0);
   current->setOut(0);
   minHeap->enqueue(0, NULL, current);
-
-  Queue<Node> *queue = new Queue<Node>();
-
-  queue->enqueue(current);
+  Node *root = current;
 
   HashTable<Edge> *edges;
   Item<Edge> *itemEdge;
@@ -307,9 +309,7 @@ void Graph::prim(int *nodeLabels)
 
   delete minHeap;
 
-  genMinTree(queue);
-
-  delete queue;
+  genMinTree(root);
 }
 
 void Graph::kruskal(int *nodeLabels)
@@ -339,7 +339,7 @@ void Graph::kruskal(int *nodeLabels)
     }
   }
 
-  Queue<Node> *queue = new Queue<Node>();
+  Node *root;
 
   int i = 0;
   while (i < n)
@@ -352,16 +352,14 @@ void Graph::kruskal(int *nodeLabels)
       if (++i == 1)
       {
         current->setPredecessor(NULL);
-        queue->enqueue(current);
+        root = current
       }
     }
   }
 
   delete minHeap;
 
-  genMinTree(queue);
-
-  delete queue;
+  genMinTree(root);
 }
 
 void Graph::generateTree(int label)

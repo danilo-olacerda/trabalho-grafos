@@ -16,7 +16,7 @@ private:
     bool isOriented;
     bool isSucessionAdj;
     void dfsForTransitiveClosure(int label, bool isForward);
-    void genMinTree(Queue<Node> *queue);
+    void genMinTree(Node *root);
 
 public:
     Graph(bool isOriented);
