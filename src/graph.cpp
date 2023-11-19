@@ -220,6 +220,81 @@ void Graph::dijkstra(int label1, int label2)
   delete stack;
 }
 
+void Graph::floyd(label1, label2)
+{
+  MinHeap<Node> *minHeap = new MinHeap<Node>(order);
+
+  Item<Node> *itemNode = nodes->getFirstItem();
+  while (itemNode != NULL)
+  {
+    minHeap->enqueue(itemNode->getKey(), NULL, itemNode->getData());
+  }
+
+  Node **arrayNodes = new Node *[order];
+  float **weights = new float *[order];
+  for (int i = 0; i < order; ++i)
+  {
+    float *weightBetweenNeighbors = new float[order];
+    weights[i] = weightBetweenNeighbors;
+
+    arrayNodes[i] = minHeap->dequeue();
+  }
+
+  delete minHeap;
+
+  HashTable<Edge> *edges;
+  float weight;
+  for (int i = 0; i < order; ++i)
+  {
+    edges = arrayNodes[i]->getForwardEdges();
+    for (int j = 0; i < order; ++j)
+    {
+      if (i == j)
+      {
+        weight = 0;
+      }
+      else
+      {
+        Item<Edge> *edge = edges->getItem(arrayNodes[j]->getLabel());
+        if (edge == NULL)
+        {
+          weight = INT_MAX;
+        }
+        else
+        {
+          weight = edge->getData()->getWeight();
+        }
+      }
+      weights[i][j] = weight;
+    }
+  }
+
+  Node *current;
+  int k;
+  for (int i = 0; i < order; ++i)
+  {
+    k = i;
+    current = arrayNodes[k];
+    for (int j = 0; j < order; ++j)
+    {
+      if (i == k || j == k || i == j)
+      {
+        float x = weights[i][k];
+        float y = weights[k][j];
+
+        if (x == INT_MAX || y = INT_MAX)
+        {
+        }
+
+        if (weights[i][j] > x + y)
+        {
+          weights[i] =
+        }
+      }
+    }
+  }
+}
+
 void Graph::genMinTree(Node *root)
 {
   Queue<Node> *queue = new Queue<Node>();
@@ -269,6 +344,11 @@ void Graph::genMinTree(Node *root)
 
 void Graph::prim(int *nodeLabels)
 {
+  if (isOriented)
+  {
+    return;
+  }
+
   MinHeap<Node> *minHeap = new MinHeap<Node>(nEdges);
 
   Node *current;
@@ -327,6 +407,11 @@ void Graph::prim(int *nodeLabels)
 
 void Graph::kruskal(int *nodeLabels)
 {
+  if (isOriented)
+  {
+    return;
+  }
+
   MinHeap<Node> *minHeap = new MinHeap<Node>(nEdges);
 
   HashTable<Edge> *edges;
@@ -468,6 +553,11 @@ void Graph::generateTree(int label)
 
 void Graph::topologicalSort()
 {
+  if (!isOriented)
+  {
+    return;
+  }
+
   Stack<Node> *sort = new Stack<Node>();
   Stack<Node> *stack = new Stack<Node>();
 

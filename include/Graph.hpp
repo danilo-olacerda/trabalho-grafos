@@ -35,7 +35,7 @@ public:
     void indirectTransitiveClosure(int label);
 
     void dijkstra(int label1, int label2);
-    // void floyd(int label1, int label2);
+    void floyd(int label1, int label2);
 
     void prim(int *nodeLabels);
     void kruskal(int *nodeLabels);
