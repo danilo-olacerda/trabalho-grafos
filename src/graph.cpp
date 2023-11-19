@@ -178,26 +178,28 @@ void Graph::dijkstra(int label1, int label2)
   while (destiny->getPredecessor() == NULL)
   {
     current = minHeap->dequeue();
-    if (current->getIn() == -1)
+
+    current->setIn(1);
+
+    while (itemEdge != NULL)
     {
-      current->setIn(1);
+      edge = itemEdge->getData();
+      neighbor = edge->getNeighborPointer();
+      float weight = edge->getWeight();
+      float dist = current->getIn() + weight;
 
-      while (itemEdge != NULL)
+      if (neighbor->getOut() > dist)
       {
-        edge = itemEdge->getData();
-        neighbor = edge->getNeighborPointer();
-        if (neighbor->getIn() == -1)
-        {
-          float weight = edge->getWeight();
-          float dist = current->getIn() + weight;
-          neighbor->setOut(dist);
-          neighbor->setPredecessor(current);
+        neighbor->setOut(dist);
+        neighbor->setPredecessor(current);
+      }
 
-          minHeap->enqueue(dist, current, neighbor);
-        }
-        itemEdge = edges->getNextItem(itemEdge);
+      if (neighbor->getIn() == -1)
+      {
+        minHeap->enqueue(dist, current, neighbor);
       }
     }
+    itemEdge = edges->getNextItem(itemEdge);
   }
 
   delete minHeap;
@@ -292,29 +294,29 @@ void Graph::prim(int *nodeLabels)
   {
     current = minHeap->dequeue();
 
-    if (current->getIn() == 0)
+    current->setIn(1);
+    if (++i >= n)
     {
-      current->setIn(1);
-      if (++i >= n)
-      {
-        break;
-      }
+      break;
+    }
 
-      edges = current->getForwardEdges();
-      itemEdge = edges->getFirstItem();
-      while (itemEdge != NULL)
+    edges = current->getForwardEdges();
+    itemEdge = edges->getFirstItem();
+    while (itemEdge != NULL)
+    {
+      edge = itemEdge->getData();
+      float weight = edge->getWeight();
+      neighbor = edge->getNeighborPointer();
+      if (neighbor->getIn() == 0 && neighbor->getOut() > weight)
       {
-        edge = itemEdge->getData();
-        float weight = edge->getWeight();
-        neighbor = edge->getNeighborPointer();
-        if (neighbor->getIn() == 0 && neighbor->getOut() > weight)
+        neighbor->setOut(weight);
+        neighbor->setPredecessor(current);
+        if (neighbor->getIn() == 0)
         {
-          neighbor->setOut(weight);
-          neighbor->setPredecessor(current);
           minHeap->enqueue(weight, current, neighbor);
         }
-        itemEdge = edges->getNextItem(itemEdge);
       }
+      itemEdge = edges->getNextItem(itemEdge);
     }
   }
 
