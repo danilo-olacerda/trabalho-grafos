@@ -226,14 +226,25 @@ void Graph::genMinTree(Node *root)
   HashTable<Edge> *edges = current->getForwardEdges();
   Item<Edge> *itemEdge = edges->getFirstItem();
   Node *current;
+  Node *currentPredecessor;
+  Node *nodeAbove = NULL;
   Node *neighbor;
+  int level = 0;
+  cout << "Level 0:\n";
   while (!queue->isEmpty())
   {
     current = queue->dequeue();
 
-    if (current->getPredecessor() != NULL)
+    currentPredecessor = current->getPredecessor();
+    if (nodeAbove != currentPredecessor)
     {
-      cout << current->getPredecessor()->getLabel();
+      cout << "Level " << ++level << ":\n";
+      nodeAbove = currentPredecessor;
+    }
+
+    if (currentPredecessor != NULL)
+    {
+      cout << currentPredecessor->getLabel();
     }
     else
     {
@@ -401,8 +412,9 @@ void Graph::generateTree(int label)
   queue->enqueue(current);
 
   Node *currentPredecessor;
-  Node *nodeAbove = current;
-  int level = -1;
+  Node *nodeAbove = NULL;
+  int level = 0;
+  cout << "Level 0:\n";
   while (!queue->isEmpty())
   {
     current = queue->dequeue();
@@ -411,18 +423,25 @@ void Graph::generateTree(int label)
     if (nodeAbove != currentPredecessor)
     {
       cout << "Level " << ++level << ":\n";
-
-      if (!returnEdgeQueue->isEmpty())
-      {
-        Node *node = returnEdgeQueue->dequeue();
-        while (node->getPredecessor() == nodeAbove)
-        {
-          cout << nodeAbove->getLabel() << " <- " << node->getLabel();
-          node = returnEdgeQueue->dequeue();
-        }
-      }
       nodeAbove = currentPredecessor;
+
+      Node *node = returnEdgeQueue->dequeue();
+      while (nodeAbove == node->getPredecessor())
+      {
+        cout << nodeAbove->getLabel() << " <- " << node->getLabel();
+        node = returnEdgeQueue->dequeue();
+      }
     }
+
+    if (nodeAbove == NULL)
+    {
+      cout << "NULL";
+    }
+    else
+    {
+      cout << nodeAbove->getLabel()
+    }
+    cout << " -> " << current;
 
     edges = current->getForwardEdges();
     itemEdge = edges->getFirstItem();
@@ -440,16 +459,6 @@ void Graph::generateTree(int label)
       }
       itemEdge = edges->getNextItem(itemEdge);
     }
-
-    if (nodeAbove == NULL)
-    {
-      cout << "NULL";
-    }
-    else
-    {
-      cout << nodeAbove->getLabel()
-    }
-    cout << " -> " << current;
   }
 
   delete queue;
