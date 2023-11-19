@@ -1,12 +1,12 @@
 #include <stdlib.h>
-#include "../../include/DataStructures/MinHeap.h"
+#include "../../include/DataStructures/Queue.h"
 
 template <typename T>
 Queue<T>::Queue(int length)
 {
-  array = new HeapElement<T>(length);
-  length = 0;
-  offset = 0;
+  this.array = new HeapElement<T>(length);
+  this.length = 0;
+  this.offset = 0;
 }
 
 template <typename T>
