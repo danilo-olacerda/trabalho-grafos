@@ -220,6 +220,25 @@ void Graph::dijkstra(int label1, int label2)
   delete stack;
 }
 
+Graph::arrangePredecessors(Node *middle, Node *node1, Node *node2)
+{
+  Node *forwardNeighbor;
+  Node *backwardNeighbor;
+
+  forwardNeighbor = middle->getForwardEdges()->getItem(node1->getLabel());
+  if (forwardNeighbor != NULL)
+  {
+    backwardNeighbor = middle->getBackwardEdges()->getItem(node2->getLabel());
+  }
+  else
+  {
+    forwardNeighbor = middle->getForwardEdges()->getItem(node2->getLabel());
+    backwardNeighbor = middle->getBackwardEdges()->getItem(node1->getLabel());
+  }
+  forwardNeighbor->setPredecessor(middle);
+  middle->setPredecessor(backwardNeighbor);
+}
+
 void Graph::floyd(label1, label2)
 {
   MinHeap<Node> *minHeap = new MinHeap<Node>(order);
@@ -282,13 +301,11 @@ void Graph::floyd(label1, label2)
         float x = weights[i][k];
         float y = weights[k][j];
 
-        if (x == INT_MAX || y = INT_MAX)
+        if (weights[i][j] > x + y && x != INT_MAX && y != INT_MAX)
         {
-        }
+          weights[i][j] = x + y;
 
-        if (weights[i][j] > x + y)
-        {
-          weights[i] =
+          arrangePredecessors(current, arrayNodes[i], arrayNodes[j]);
         }
       }
     }

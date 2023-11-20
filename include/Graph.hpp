@@ -16,6 +16,7 @@ private:
     bool isOriented;
     bool isSucessionAdj;
     void dfsForTransitiveClosure(int label, bool isForward);
+    arrangePredecessors(Node *node1, Node *node2);
     void genMinTree(Node *root);
 
 public:
