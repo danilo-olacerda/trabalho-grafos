@@ -156,7 +156,7 @@ void Graph::indirectTransitiveClosure(int label)
 
 void Graph::dijkstra(int label1, int label2)
 {
-  MinHeap<Node> *minHeap = new MinHeap<Node>(nEdges);
+  MinHeap<Node> *minHeap = new MinHeap<Node>(order * order * nEdges);
 
   Item<Node> *itemNode = nodes->getFirstItem();
   while (itemNode != NULL)
@@ -183,23 +183,24 @@ void Graph::dijkstra(int label1, int label2)
 
     while (itemEdge != NULL)
     {
-      edge = itemEdge->getData();
-      neighbor = edge->getNeighborPointer();
-      float weight = edge->getWeight();
-      float dist = current->getIn() + weight;
-
-      if (neighbor->getOut() > dist)
-      {
-        neighbor->setOut(dist);
-        neighbor->setPredecessor(current);
-      }
-
       if (neighbor->getIn() == -1)
       {
+        edge = itemEdge->getData();
+        neighbor = edge->getNeighborPointer();
+        float weight = edge->getWeight();
+        float dist = current->getIn() + weight;
+
+        if (neighbor->getOut() > dist)
+        {
+          neighbor->setOut(dist);
+          neighbor->setPredecessor(current);
+          neighbor->setIn(-1);
+        }
         minHeap->enqueue(dist, current, neighbor);
+
+        itemEdge = edges->getNextItem(itemEdge);
       }
     }
-    itemEdge = edges->getNextItem(itemEdge);
   }
 
   delete minHeap;
@@ -218,25 +219,6 @@ void Graph::dijkstra(int label1, int label2)
   }
 
   delete stack;
-}
-
-Graph::arrangePredecessors(Node *middle, Node *node1, Node *node2)
-{
-  Node *forwardNeighbor;
-  Node *backwardNeighbor;
-
-  forwardNeighbor = middle->getForwardEdges()->getItem(node1->getLabel());
-  if (forwardNeighbor != NULL)
-  {
-    backwardNeighbor = middle->getBackwardEdges()->getItem(node2->getLabel());
-  }
-  else
-  {
-    forwardNeighbor = middle->getForwardEdges()->getItem(node2->getLabel());
-    backwardNeighbor = middle->getBackwardEdges()->getItem(node1->getLabel());
-  }
-  forwardNeighbor->setPredecessor(middle);
-  middle->setPredecessor(backwardNeighbor);
 }
 
 void Graph::floyd(label1, label2)
@@ -289,23 +271,23 @@ void Graph::floyd(label1, label2)
   }
 
   Node *current;
-  int k;
-  for (int i = 0; i < order; ++i)
+  for (int k = 0; k < order; ++k)
   {
-    k = i;
-    current = arrayNodes[k];
-    for (int j = 0; j < order; ++j)
+    for (int i = 0; i < order; ++i)
     {
-      if (i == k || j == k || i == j)
+      current = arrayNodes[k];
+      for (int j = 0; j < order; ++j)
       {
-        float x = weights[i][k];
-        float y = weights[k][j];
-
-        if (weights[i][j] > x + y && x != INT_MAX && y != INT_MAX)
+        if (i == k || j == k || i == j)
         {
-          weights[i][j] = x + y;
+          float x = weights[i][k];
+          float y = weights[k][j];
+          float sum = x + y;
 
-          arrangePredecessors(current, arrayNodes[i], arrayNodes[j]);
+          if (weights[i][j] > sum && x != INT_MAX && y != INT_MAX)
+          {
+            weights[i][j] = sum;
+          }
         }
       }
     }
@@ -391,29 +373,30 @@ void Graph::prim(int *nodeLabels)
   {
     current = minHeap->dequeue();
 
-    current->setIn(1);
-    if (++i >= n)
+    if (neighbor->getIn() == 0)
     {
-      break;
-    }
-
-    edges = current->getForwardEdges();
-    itemEdge = edges->getFirstItem();
-    while (itemEdge != NULL)
-    {
-      edge = itemEdge->getData();
-      float weight = edge->getWeight();
-      neighbor = edge->getNeighborPointer();
-      if (neighbor->getIn() == 0 && neighbor->getOut() > weight)
+      current->setIn(1);
+      if (++i >= n)
       {
-        neighbor->setOut(weight);
-        neighbor->setPredecessor(current);
-        if (neighbor->getIn() == 0)
+        break;
+      }
+
+      edges = current->getForwardEdges();
+      itemEdge = edges->getFirstItem();
+      while (itemEdge != NULL)
+      {
+        edge = itemEdge->getData();
+        float weight = edge->getWeight();
+        neighbor = edge->getNeighborPointer();
+        if (neighbor->getOut() > weight)
         {
+          neighbor->setOut(weight);
+          neighbor->setPredecessor(current);
+
           minHeap->enqueue(weight, current, neighbor);
         }
+        itemEdge = edges->getNextItem(itemEdge);
       }
-      itemEdge = edges->getNextItem(itemEdge);
     }
   }
 
