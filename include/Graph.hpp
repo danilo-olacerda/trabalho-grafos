@@ -4,6 +4,7 @@
 #include "DataStructures/HashTable.h"
 #include "DataStructures/Stack.h"
 #include "DataStructures/MinHeap.h"
+#include "DataStructures/Queue.h"
 #include "Node.hpp"
 
 class Graph
@@ -15,6 +16,7 @@ private:
     bool isOriented;
     bool isSucessionAdj;
     void dfsForTransitiveClosure(int label, bool isForward);
+    void genMinTree(Node *root);
 
 public:
     Graph(bool isOriented);
@@ -33,10 +35,14 @@ public:
     void indirectTransitiveClosure(int label);
 
     void dijkstra(int label1, int label2);
+    void floyd(int label1, int label2);
+
+    void prim(int *nodeLabels);
+    void kruskal(int *nodeLabels);
+
+    void generateTree(int label);
 
     void topologicalSort();
-
-    void generateNodeTree(int label);
 };
 
 #endif // GRAPH_H
