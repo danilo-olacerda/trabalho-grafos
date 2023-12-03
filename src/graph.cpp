@@ -165,15 +165,15 @@ void Graph::dijkstra(int label1, int label2)
     itemNode = nodes->getNextItem(itemNode);
   }
 
-  HashTable<Edge> *edges = current->getForwardEdges();
-  Item<Edge> *itemEdge = edges->getFirstItem();
-  Edge *edge;
-
   Node *current = nodes->getItem(label1)->getData();
   current->setOut(0);
   minHeap->enqueue(0, NULL, current);
   Node *destiny = nodes->getItem(label2)->getData();
   Node *neighbor;
+
+  HashTable<Edge> *edges = current->getForwardEdges();
+  Item<Edge> *itemEdge = edges->getFirstItem();
+  Edge *edge;
 
   while (destiny->getPredecessor() == NULL)
   {

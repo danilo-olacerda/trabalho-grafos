@@ -2,6 +2,29 @@
   "C_Cpp.errorSquiggles": "disabled",
   "files.associations": {
     "string_view": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "array": "cpp",
+    "atomic": "cpp",
+    "bit": "cpp",
+    "charconv": "cpp",
+    "chrono": "cpp",
+    "deque": "cpp",
+    "format": "cpp",
+    "forward_list": "cpp",
+    "iterator": "cpp",
+    "list": "cpp",
+    "map": "cpp",
+    "memory": "cpp",
+    "new": "cpp",
+    "optional": "cpp",
+    "ranges": "cpp",
+    "tuple": "cpp",
+    "type_traits": "cpp",
+    "utility": "cpp",
+    "vector": "cpp",
+    "xmemory": "cpp",
+    "xstring": "cpp",
+    "xutility": "cpp",
+    "xlocale": "cpp"
   }
 }
