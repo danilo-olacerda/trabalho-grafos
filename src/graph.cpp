@@ -183,7 +183,7 @@ void Graph::dijkstra(int label1, int label2)
 
     while (itemEdge != NULL)
     {
-      if (neighbor->getIn() == -1)
+      if (current->getIn() == -1)
       {
         edge = itemEdge->getData();
         neighbor = edge->getNeighborPointer();
@@ -373,30 +373,30 @@ void Graph::prim(int *nodeLabels)
   {
     current = minHeap->dequeue();
 
-    if (neighbor->getIn() == 0)
+    current->setIn(1);
+    if (++i >= n)
     {
-      current->setIn(1);
-      if (++i >= n)
-      {
-        break;
-      }
+      break;
+    }
 
-      edges = current->getForwardEdges();
-      itemEdge = edges->getFirstItem();
-      while (itemEdge != NULL)
+    edges = current->getForwardEdges();
+    itemEdge = edges->getFirstItem();
+    while (itemEdge != NULL)
+    {
+      edge = itemEdge->getData();
+      float weight = edge->getWeight();
+      neighbor = edge->getNeighborPointer();
+      if (neighbor->getOut() > weight)
       {
-        edge = itemEdge->getData();
-        float weight = edge->getWeight();
-        neighbor = edge->getNeighborPointer();
-        if (neighbor->getOut() > weight)
+        neighbor->setOut(weight);
+        neighbor->setPredecessor(current);
+
+        if (neighbor->getIn() == 0)
         {
-          neighbor->setOut(weight);
-          neighbor->setPredecessor(current);
-
           minHeap->enqueue(weight, current, neighbor);
         }
-        itemEdge = edges->getNextItem(itemEdge);
       }
+      itemEdge = edges->getNextItem(itemEdge);
     }
   }
 
