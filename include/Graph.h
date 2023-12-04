@@ -1,11 +1,11 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include "Node.h"
 #include "DataStructures/HashTable.h"
 #include "DataStructures/Stack.h"
 #include "DataStructures/MinHeap.h"
 #include "DataStructures/Queue.h"
-#include "Node.h"
 
 class Graph
 {

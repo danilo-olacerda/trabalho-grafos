@@ -2,6 +2,9 @@
 #define HASHTABLE_H
 
 #include "LinkedList.h"
+#include "Item.h"
+#include "../Node.h"
+#include "../Edge.h"
 
 template <typename T>
 class HashTable
