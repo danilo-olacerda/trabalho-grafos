@@ -110,7 +110,7 @@ void Graph::dfsForTransitiveClosure(int label, bool isForward)
     {
       current->setIn(1);
 
-      edges = isForward ? node->getForwardEdges() : node->getBackwardEdges();
+      edges = isForward ? current->getForwardEdges() : current->getBackwardEdges();
       itemEdge = edges->getFirstItem();
       while (itemEdge != NULL)
       {
