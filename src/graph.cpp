@@ -97,13 +97,12 @@ void Graph::dfsForTransitiveClosure(int label, bool isForward)
 {
   Stack<Node> *stack = new Stack<Node>();
 
-  Node *node = nodes->getItem(label)->getData(); 
-  stack->push(node);
+  Node *current = nodes->getItem(label)->getData();
+  stack->push(current);
 
-  HashTable<Edge> *edges = isForward ? node->getForwardEdges() : node->getBackwardEdges();
-  Item<Edge> *itemEdge = edges->getFirstItem();
-  Node *current;
   Node *neighbor;
+  HashTable<Edge> *edges;
+  Item<Edge> *itemEdge;
   while (!stack->isEmpty())
   {
     current = stack->pop();
@@ -111,6 +110,8 @@ void Graph::dfsForTransitiveClosure(int label, bool isForward)
     {
       current->setIn(1);
 
+      edges = isForward ? node->getForwardEdges() : node->getBackwardEdges();
+      itemEdge = edges->getFirstItem();
       while (itemEdge != NULL)
       {
         neighbor = itemEdge->getData()->getNeighborPointer();
@@ -226,7 +227,7 @@ void Graph::dijkstra(int label1, int label2)
 
 void Graph::floyd(int label1, int label2)
 {
-  cout << label1 << " " << label2 << "\n"; //Só para sumir o warning de unused variable, depois apagar e arrumar o código
+  cout << label1 << " " << label2 << "\n"; // Só para sumir o warning de unused variable, depois apagar e arrumar o código
   MinHeap<Node> *minHeap = new MinHeap<Node>(order);
 
   Item<Node> *itemNode = nodes->getFirstItem();
@@ -461,7 +462,8 @@ void Graph::kruskal(int *nodeLabels)
 
   delete minHeap;
 
-  if (root != NULL) {
+  if (root != NULL)
+  {
     genMinTree(root);
   }
 }
