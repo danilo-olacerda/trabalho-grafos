@@ -183,11 +183,11 @@ void Graph::dijkstra(int label1, int label2)
   {
     current = minHeap->dequeue();
 
-    current->setIn(1);
-
-    while (itemEdge != NULL)
+    if (current->getIn() == -1)
     {
-      if (current->getIn() == -1)
+      current->setIn(1);
+
+      while (itemEdge != NULL)
       {
         edge = itemEdge->getData();
         neighbor = edge->getNeighborPointer();
@@ -240,9 +240,7 @@ void Graph::floyd(int label1, int label2)
   double **weights = new double *[order];
   for (int i = 0; i < order; ++i)
   {
-    double *weightBetweenNeighbors = new double[order];
-    weights[i] = weightBetweenNeighbors;
-
+    weights[i] = new double[order];
     arrayNodes[i] = minHeap->dequeue();
   }
 
@@ -264,7 +262,7 @@ void Graph::floyd(int label1, int label2)
         Item<Edge> *edge = edges->getItem(arrayNodes[j]->getLabel());
         if (edge == NULL)
         {
-          weight = INT_MAX;
+          weight = DBL_MAX;
         }
         else
         {
@@ -276,6 +274,7 @@ void Graph::floyd(int label1, int label2)
   }
 
   Node *current;
+  double x, y, sum;
   for (int k = 0; k < order; ++k)
   {
     for (int i = 0; i < order; ++i)
@@ -285,11 +284,11 @@ void Graph::floyd(int label1, int label2)
       {
         if (i == k || j == k || i == j)
         {
-          double x = weights[i][k];
-          double y = weights[k][j];
-          double sum = x + y;
+          x = weights[i][k];
+          y = weights[k][j];
+          sum = x + y;
 
-          if (weights[i][j] > sum && x != INT_MAX && y != INT_MAX)
+          if (weights[i][j] > sum && x != DBL_MAX && y != DBL_MAX)
           {
             weights[i][j] = sum;
           }
@@ -297,6 +296,13 @@ void Graph::floyd(int label1, int label2)
       }
     }
   }
+
+  delete[] arrayNodes;
+  for (int i = 0; i < order; ++i)
+  {
+    delete[] weights[i];
+  }
+  delete[] weights;
 }
 
 void Graph::genMinTree(Node *root)
@@ -378,30 +384,30 @@ void Graph::prim(int *nodeLabels)
   {
     current = minHeap->dequeue();
 
-    current->setIn(1);
-    if (++i >= n)
+    if (neighbor->getIn() == 0)
     {
-      break;
-    }
-
-    edges = current->getForwardEdges();
-    itemEdge = edges->getFirstItem();
-    while (itemEdge != NULL)
-    {
-      edge = itemEdge->getData();
-      double weight = edge->getWeight();
-      neighbor = edge->getNeighborPointer();
-      if (neighbor->getOut() > weight)
+      current->setIn(1);
+      if (++i >= n)
       {
-        neighbor->setOut(weight);
-        neighbor->setPredecessor(current);
+        break;
+      }
 
-        if (neighbor->getIn() == 0)
+      edges = current->getForwardEdges();
+      itemEdge = edges->getFirstItem();
+      while (itemEdge != NULL)
+      {
+        edge = itemEdge->getData();
+        double weight = edge->getWeight();
+        neighbor = edge->getNeighborPointer();
+        if (neighbor->getOut() > weight)
         {
+          neighbor->setOut(weight);
+          neighbor->setPredecessor(current);
+
           minHeap->enqueue(weight, current, neighbor);
         }
+        itemEdge = edges->getNextItem(itemEdge);
       }
-      itemEdge = edges->getNextItem(itemEdge);
     }
   }
 
