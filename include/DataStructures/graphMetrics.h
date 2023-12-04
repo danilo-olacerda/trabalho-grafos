@@ -1,7 +1,7 @@
 #ifndef GRAPMETRICS_H
 #define GRAPMETRICS_H
 
-#include "../Graph.hpp"
+#include "../Graph.h"
 
 template <typename T>
 class GrapMetrics

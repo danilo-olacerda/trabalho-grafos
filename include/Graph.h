@@ -5,7 +5,7 @@
 #include "DataStructures/Stack.h"
 #include "DataStructures/MinHeap.h"
 #include "DataStructures/Queue.h"
-#include "Node.hpp"
+#include "Node.h"
 
 class Graph
 {

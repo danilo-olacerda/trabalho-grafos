@@ -4,7 +4,7 @@
 
 #ifndef NODE_H_INCLUDED
 #define NODE_H_INCLUDED
-#include "Edge.hpp" // Include of the Edge class
+#include "Edge.h" // Include of the Edge class
 
 using namespace std;
 

@@ -1,6 +1,6 @@
 #include "stdlib.h"
 #include "../../include/DataStructures/graphMetrics.h"
-#include "../../include/Graph.hpp"
+#include "../../include/Graph.h"
 
 template <typename T>
 GrapMetrics<T>::GrapMetrics(Graph *graph) {

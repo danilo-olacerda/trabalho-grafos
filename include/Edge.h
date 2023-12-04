@@ -1,7 +1,7 @@
 #ifndef EDGE_H
 #define EDGE_H
 
-#include "Node.hpp"
+#include "Node.h"
 
 class Node;
 

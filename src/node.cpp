@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../include/Node.hpp"
+#include "../include/Node.h"
 
 Node::Node(int label)
 {

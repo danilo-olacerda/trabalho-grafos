@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <limits.h>
-#include "../include/Graph.hpp"
+#include "../include/Graph.h"
 
 Graph::Graph(bool isOriented)
 {

@@ -2,7 +2,7 @@
 #define NODE_H
 
 #include "DataStructures/HashTable.h"
-#include "./Edge.hpp"
+#include "./Edge.h"
 
 class Edge;
 
