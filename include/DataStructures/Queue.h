@@ -12,11 +12,12 @@ private:
   int offset;
 
 public:
-  Queue(int length);
+  Queue();
   ~Queue();
 
   void enqueue(T *data);
   T *dequeue();
+  bool isEmpty() { return length == 0; };
 };
 
 #endif // QUEUE_H

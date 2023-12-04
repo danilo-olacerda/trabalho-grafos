@@ -16,6 +16,6 @@ MinHeap<T>::~MinHeap()
 }
 
 template <typename T>
-void MinHeap<T>::enqueue(int key, T *predecessor, T *data)
+void MinHeap<T>::enqueue(double key, T *predecessor, T *data)
 {
 }

@@ -9,14 +9,14 @@ class Edge
 {
 private:
     Node *neighborPointer;
-    float weight;
+    double weight;
 
 public:
     Edge(Node *neighborPointer);
-    Edge(Node *neighborPointer, float weight);
+    Edge(Node *neighborPointer, double weight);
 
     Node *getNeighborPointer();
-    float getWeight();
+    double getWeight();
 };
 
 #endif // EDGE_H

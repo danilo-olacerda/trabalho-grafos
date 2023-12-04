@@ -16,8 +16,8 @@ private:
     HashTable<Edge> *backwardEdges;
     unsigned int inDegree;
     unsigned int outDegree;
-    int in;  // Em DFS: demarca se o node já foi acessado, ou demarca o período em que o node foi acessado, quando for necessário
-    int out; // Em DFS: demarca o período em que o DFS saiu do node, quando for necessário
+    double in;  // Em DFS: demarca se o node já foi acessado, ou demarca o período em que o node foi acessado, quando for necessário
+    double out; // Em DFS: demarca o período em que o DFS saiu do node, quando for necessário
              // Em Dijkstra: demarca a menor distância de um nó específico até este nó
 
     Node *predecessor;
@@ -30,15 +30,15 @@ public:
     HashTable<Edge> *getBackwardEdges();
 
     int getLabel();
-    int getIn();
-    void setIn(int value);
-    int getOut();
-    void setOut(int value);
+    double getIn();
+    void setIn(double value);
+    double getOut();
+    void setOut(double value);
     Node *getPredecessor();
     void setPredecessor(Node *predecessor);
 
     void incrementInDegree();
-    void decrementInDegree();
+    void decrementInDegree() { inDegree--; };
 
     void addEdge(int neighbor, Node *neighborPointer, bool isForward);
     void removeEdge(int neighbor, bool isForward, int *status);

@@ -14,6 +14,7 @@ GrapMetrics<T>::GrapMetrics(Graph *graph) {
     time = 0;
 }
 
+template <typename T>
 GrapMetrics<T>::~GrapMetrics() {
     delete[] visited;
     delete[] discoveryTime;
@@ -22,6 +23,7 @@ GrapMetrics<T>::~GrapMetrics() {
     delete[] articulationPoints;
 }
 
+template <typename T>
 int GrapMetrics<T>::calcRadius() {
     int min = 0;
 
@@ -43,6 +45,7 @@ int GrapMetrics<T>::calcRadius() {
     return min;
 }
 
+template <typename T>
 int GrapMetrics<T>::calcDiameter() {
     int max = 0;
 
@@ -56,14 +59,12 @@ int GrapMetrics<T>::calcDiameter() {
                 max = distance;
             }
         }
-        if (max > min) {
-            min = max;
-        }
     }
 
     return max;
 }
 
+template <typename T>
 int GrapMetrics<T>::calcCenter() {
     int size = this->graph->getOrder();
     int radius = this->calcRadius();
@@ -103,6 +104,7 @@ int GrapMetrics<T>::calcCenter() {
     return centerVertices;
 }
 
+template <typename T>
 int GrapMetrics<T>::calcPeriphery() {
     int size = this->graph->getOrder();
     int diameter = this->calcDiameter();
@@ -142,8 +144,9 @@ int GrapMetrics<T>::calcPeriphery() {
     return peripheryVertices;
 }
 
+template <typename T>
 int GrapMetrics<T>::calcArticulationVertices() {
-    int articulationVertices = [];
+    int articulationVertices = new int[graph->getOrder()];
     int size = graph->getOrder();
 
     for (int i = 0; i < size; i++) {
@@ -167,6 +170,7 @@ int GrapMetrics<T>::calcArticulationVertices() {
     return articulationVertices;
 }
 
+template <typename T>
 void GrapMetrics<T>::DFS(int u) {
     visited[u] = true;
     discoveryTime[u] = low[u] = ++time;

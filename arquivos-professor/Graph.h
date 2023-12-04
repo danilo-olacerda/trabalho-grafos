@@ -5,7 +5,7 @@
 #ifndef GRAPH_H_INCLUDED
 #define GRAPH_H_INCLUDED
 
-#include "Node.h"
+#include "Node.hpp"
 #include <fstream>
 #include <stack>
 #include <list>

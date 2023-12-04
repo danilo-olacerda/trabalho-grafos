@@ -7,7 +7,7 @@ Edge::Edge(Node *neighborPointer)
   weight = 1.0;
 }
 
-Edge::Edge(Node *neighborPointer, float weight)
+Edge::Edge(Node *neighborPointer, double weight)
 {
   this->neighborPointer = neighborPointer;
   this->weight = weight;
@@ -18,7 +18,7 @@ Node *Edge::getNeighborPointer()
   return neighborPointer;
 }
 
-float Edge::getWeight()
+double Edge::getWeight()
 {
   return weight;
 }

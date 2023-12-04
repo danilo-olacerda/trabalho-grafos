@@ -34,21 +34,21 @@ HashTable<Edge> *Node::getBackwardEdges()
   return backwardEdges;
 }
 
-int Node::getIn()
+double Node::getIn()
 {
   return in;
 }
-void Node::setIn(int value)
+void Node::setIn(double value)
 {
   in = value;
 }
 
-int Node::getOut()
+double Node::getOut()
 {
   return out;
 }
 
-void Node::setOut(int value)
+void Node::setOut(double value)
 {
   out = value;
 }
@@ -58,9 +58,9 @@ Node *Node::getPredecessor()
   return predecessor;
 }
 
-void Node::setPredecessor(Node *predecessor)
+void Node::setPredecessor(Node *predecessorPonteiro)
 {
-  this->predecessor = predecessor;
+  this->predecessor = predecessorPonteiro;
 }
 
 void Node::addEdge(int neighbor, Node *neighborPointer, bool isForward)

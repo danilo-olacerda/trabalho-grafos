@@ -1,14 +1,14 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <math.h>
+#include <math.hpp>
 #include <utility>
 #include <tuple>
 #include <iomanip>
 #include <stdlib.h>
 #include <chrono>
-#include "Graph.h"
-#include "Node.h"
+#include "Graph.hpp"
+#include "Node.hpp"
 
 using namespace std;
 

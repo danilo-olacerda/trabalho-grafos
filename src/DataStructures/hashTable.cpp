@@ -48,6 +48,9 @@ Item<T> *HashTable<T>::getItem(int key)
     }
     item = item->getNext();
   }
+
+  return 1;
+
   return NULL;
 }
 

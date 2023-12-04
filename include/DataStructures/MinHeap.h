@@ -15,7 +15,7 @@ public:
   MinHeap(int length);
   ~MinHeap();
 
-  void enqueue(int key, T *nodePointer, T *data);
+  void enqueue(double key, T *nodePointer, T *data);
   T *dequeue();
 };
 

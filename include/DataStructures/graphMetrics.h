@@ -7,9 +7,9 @@ template <typename T>
 class GrapMetrics
 {
 private:
-    GrapMetrics(Graph<T> *graph);
+    GrapMetrics(Graph *graph);
     ~GrapMetrics();
-    Graph<T> *graph;
+    Graph *graph;
     bool *visited;
     int *discoveryTime;
     int *low;

@@ -2,7 +2,7 @@
 #include "../../include/DataStructures/Queue.h"
 
 template <typename T>
-Queue<T>::Queue(int length)
+Queue<T>::Queue()
 {
   this.array = new HeapElement<T>(length);
   this.length = 0;
