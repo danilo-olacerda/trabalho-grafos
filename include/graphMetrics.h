@@ -3,7 +3,6 @@
 
 #include "./Graph.h"
 
-template <typename T>
 class GrapMetrics
 {
 private:
@@ -20,8 +19,8 @@ private:
 public:
     int calcRadius();
     int calcDiameter();
-    int calcCenter();
-    int calcPeriphery();
+    int *calcCenter();
+    int *calcPeriphery();
     int calcArticulationVertices();
 };
 

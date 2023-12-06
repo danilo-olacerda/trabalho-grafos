@@ -1,5 +1,4 @@
 #include "stdlib.h"
-#include "../../include/DataStructures/Item.h"
 
 template <typename T>
 Item<T>::Item(int key, T *data)
@@ -28,7 +27,7 @@ Item<T> *Item<T>::getNext()
 }
 
 template <typename T>
-void Item<T>::setNext(Item<T> *next)
+void Item<T>::setNext(Item<T> *nextToSet)
 {
-  this->next = next;
+  this->next = nextToSet;
 }

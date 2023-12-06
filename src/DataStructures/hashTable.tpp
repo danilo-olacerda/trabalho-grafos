@@ -1,5 +1,4 @@
 #include "stdlib.h"
-#include "../../include/DataStructures/HashTable.h"
 
 template <typename T>
 HashTable<T>::HashTable(int length)
@@ -31,19 +30,19 @@ int HashTable<T>::hash(int key)
 template <typename T>
 void HashTable<T>::addItem(int key, T *data)
 {
-  array[hash(key)]->addItemInList(key, data);
+  array[hash(key)].addItemInList(key, data);
 }
 
 template <typename T>
 void HashTable<T>::removeItem(int key, int *status)
 {
-  array[hash(key)]->removeItemFromList(key, status);
+  array[hash(key)].removeItemFromList(key, status);
 }
 
 template <typename T>
 Item<T> *HashTable<T>::getItem(int key)
 {
-  Item<T> item = array[hash(key)]->first;
+  Item<T> *item = array[hash(key)].getFirstItemInList();
   while (item != NULL)
   {
     if (item->getKey() == key)
@@ -59,14 +58,14 @@ Item<T> *HashTable<T>::getItem(int key)
 template <typename T>
 Item<T> *HashTable<T>::getFirstItem()
 {
-  Item<T> item = array[0]->getFirstInList();
+  Item<T> *item = array[0].getFirstItemInList();
 
   if (item == NULL)
   {
     int hash = 1;
     while (item != NULL && hash < length - 1)
     {
-      item = array[++hash]->getFirstInList();
+      item = array[++hash].getFirstItemInList();
     }
   }
 
@@ -78,14 +77,14 @@ Item<T> *HashTable<T>::getNextItem(Item<T> *item)
 {
   if (item != NULL)
   {
-    int hash = hash(item->getKey());
+    int hash = this->hash(item->getKey());
     item = item->getNext();
 
     if (item == NULL && hash < length - 1)
     {
       while (item != NULL && hash < length - 1)
       {
-        item = array[++hash]->getFirstInList();
+        item = array[++hash].getFirstItemInList();
       }
     }
   }

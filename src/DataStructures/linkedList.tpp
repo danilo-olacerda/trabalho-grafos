@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include "../../include/DataStructures/LinkedList.h"
 
 template <typename T>
 LinkedList<T>::LinkedList()
@@ -70,7 +69,7 @@ void LinkedList<T>::removeItemFromList(int key, int *status)
     item = item->getNext();
     if (item->getNext()->getKey() == key)
     {
-      Item<T> temp = item->getNext()->getNext();
+      Item<T> *temp = item->getNext()->getNext();
       delete item->getNext();
       item->setNext(temp);
       --length;

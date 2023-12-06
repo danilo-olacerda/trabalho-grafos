@@ -229,6 +229,8 @@ void Graph::dijkstra(int label1, int label2)
   }
 
   delete stack;
+
+  return 0;//Mudar para a distancia
 }
 
 void Graph::floyd(int label1, int label2)
