@@ -58,6 +58,7 @@
     "xmemory": "cpp",
     "xstring": "cpp",
     "xutility": "cpp",
-    "xlocale": "cpp"
+    "xlocale": "cpp",
+    "*.tpp": "cpp"
   }
 }

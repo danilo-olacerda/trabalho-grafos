@@ -2,6 +2,7 @@
 #include <iostream>
 #include <limits.h>
 #include "../include/Graph.h"
+#include "../include/Node.h"
 #include "../include/Edge.h"
 
 Graph::Graph(bool isOriented)
@@ -166,18 +167,18 @@ void Graph::indirectTransitiveClosure(int label)
 
 void Graph::dijkstra(int label1, int label2)
 {
-  MinHeap<Node> *minHeap = new MinHeap<Node>(order * order * nEdges);
+  Heap<Node> *heap = new Heap<Node>(nEdges);
 
   Item<Node> *itemNode = nodes->getFirstItem();
   while (itemNode != NULL)
   {
-    itemNode->getData()->setOut(DBL_MAX);
+    itemNode->getData()->setOut(__DBL_MAX__);
     itemNode = nodes->getNextItem(itemNode);
   }
 
   Node *current = nodes->getItem(label1)->getData();
   current->setOut(0);
-  minHeap->enqueue(0, NULL, current);
+  heap->insert(0, NULL, current);
   Node *destiny = nodes->getItem(label2)->getData();
   Node *neighbor;
 
@@ -187,7 +188,7 @@ void Graph::dijkstra(int label1, int label2)
 
   while (destiny->getPredecessor() == NULL)
   {
-    current = minHeap->dequeue();
+    current = heap->remove(0);
 
     if (current->getIn() == -1)
     {
@@ -206,14 +207,14 @@ void Graph::dijkstra(int label1, int label2)
           neighbor->setPredecessor(current);
           neighbor->setIn(-1);
         }
-        minHeap->enqueue(dist, current, neighbor);
+        heap->insert(dist, current, neighbor);
 
         itemEdge = edges->getNextItem(itemEdge);
       }
     }
   }
 
-  delete minHeap;
+  delete heap;
 
   Stack<Node> *stack = new Stack<Node>();
 
@@ -230,18 +231,18 @@ void Graph::dijkstra(int label1, int label2)
 
   delete stack;
 
-  return 0;//Mudar para a distancia
+  // return 0; Mudar para a distancia
 }
 
 void Graph::floyd(int label1, int label2)
 {
   cout << label1 << " " << label2 << "\n"; // Só para sumir o warning de unused variable, depois apagar e arrumar o código
-  MinHeap<Node> *minHeap = new MinHeap<Node>(order);
+  Heap<Node> *heap = new Heap<Node>(order);
 
   Item<Node> *itemNode = nodes->getFirstItem();
   while (itemNode != NULL)
   {
-    minHeap->enqueue(itemNode->getKey(), NULL, itemNode->getData());
+    heap->insert(itemNode->getKey(), NULL, itemNode->getData());
   }
 
   Node **arrayNodes = new Node *[order];
@@ -249,10 +250,10 @@ void Graph::floyd(int label1, int label2)
   for (int i = 0; i < order; ++i)
   {
     weights[i] = new double[order];
-    arrayNodes[i] = minHeap->dequeue();
+    arrayNodes[i] = heap->remove(0);
   }
 
-  delete minHeap;
+  delete heap;
 
   HashTable<Edge> *edges;
   double weight;
@@ -270,7 +271,7 @@ void Graph::floyd(int label1, int label2)
         Item<Edge> *edge = edges->getItem(arrayNodes[j]->getLabel());
         if (edge == NULL)
         {
-          weight = DBL_MAX;
+          weight = __DBL_MAX__;
         }
         else
         {
@@ -280,14 +281,12 @@ void Graph::floyd(int label1, int label2)
       weights[i][j] = weight;
     }
   }
-
-  Node *current;
+  
   double x, y, sum;
   for (int k = 0; k < order; ++k)
   {
     for (int i = 0; i < order; ++i)
     {
-      current = arrayNodes[k];
       for (int j = 0; j < order; ++j)
       {
         if (i == k || j == k || i == j)
@@ -296,7 +295,7 @@ void Graph::floyd(int label1, int label2)
           y = weights[k][j];
           sum = x + y;
 
-          if (weights[i][j] > sum && x != DBL_MAX && y != DBL_MAX)
+          if (weights[i][j] > sum && x != __DBL_MAX__ && y != __DBL_MAX__)
           {
             weights[i][j] = sum;
           }
@@ -367,7 +366,7 @@ void Graph::prim(int *nodeLabels)
     return;
   }
 
-  MinHeap<Node> *minHeap = new MinHeap<Node>(nEdges);
+  Heap<Node> *heap = new Heap<Node>(nEdges);
 
   Node *current;
   int n = sizeof(nodeLabels) / sizeof(int);
@@ -380,7 +379,7 @@ void Graph::prim(int *nodeLabels)
   current = nodes->getItem(nodeLabels[0])->getData();
   current->setIn(0);
   current->setOut(0);
-  minHeap->enqueue(0, NULL, current);
+  heap->insert(0, NULL, current);
   Node *root = current;
 
   HashTable<Edge> *edges;
@@ -390,7 +389,7 @@ void Graph::prim(int *nodeLabels)
   int i = 0;
   while (true)
   {
-    current = minHeap->dequeue();
+    current = heap->remove(0);
 
     if (neighbor->getIn() == 0)
     {
@@ -412,14 +411,14 @@ void Graph::prim(int *nodeLabels)
           neighbor->setOut(weight);
           neighbor->setPredecessor(current);
 
-          minHeap->enqueue(weight, current, neighbor);
+          heap->insert(weight, current, neighbor);
         }
         itemEdge = edges->getNextItem(itemEdge);
       }
     }
   }
 
-  delete minHeap;
+  delete heap;
 
   genMinTree(root);
 }
@@ -431,7 +430,7 @@ void Graph::kruskal(int *nodeLabels)
     return;
   }
 
-  MinHeap<Node> *minHeap = new MinHeap<Node>(nEdges);
+  Heap<Node> *heap = new Heap<Node>(nEdges);
 
   HashTable<Edge> *edges;
   Item<Edge> *itemEdge;
@@ -452,7 +451,7 @@ void Graph::kruskal(int *nodeLabels)
 
       neighbor->setPredecessor(current);
 
-      minHeap->enqueue(weight, current, neighbor);
+      heap->insert(weight, current, neighbor);
     }
   }
 
@@ -461,7 +460,7 @@ void Graph::kruskal(int *nodeLabels)
   int i = 0;
   while (i < n)
   {
-    current = minHeap->dequeue();
+    current = heap->remove(0);
 
     if (current->getIn() == 0)
     {
@@ -474,7 +473,7 @@ void Graph::kruskal(int *nodeLabels)
     }
   }
 
-  delete minHeap;
+  delete heap;
 
   if (root != NULL)
   {

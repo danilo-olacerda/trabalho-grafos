@@ -4,7 +4,7 @@
 #include "Node.h"
 #include "DataStructures/HashTable.h"
 #include "DataStructures/Stack.h"
-#include "DataStructures/MinHeap.h"
+#include "DataStructures/Heap.h"
 #include "DataStructures/Queue.h"
 
 class Graph

@@ -10,11 +10,13 @@ private:
   T *predecessor;
 
 public:
-  HeapElement(int key, T *data, T *predecessor);
+  HeapElement(double key, T *predecessor, T *data);
 
-  int getKey();
+  double getKey();
   T *getData();
   T *getPredecessor();
 };
+
+#include "../../src/DataStructures/heapElement.tpp"
 
 #endif // HEAPELEMENT_H

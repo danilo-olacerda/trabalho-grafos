@@ -1,3 +1,5 @@
+/*
+
 #include "stdlib.h"
 #include "../../include/graphMetrics.h"
 #include "../../include/Graph.h"
@@ -233,3 +235,5 @@ void GrapMetrics::DFS(int u)
         currentEdge = edges->getNextItem(currentEdge);
     }
 }
+
+*/
