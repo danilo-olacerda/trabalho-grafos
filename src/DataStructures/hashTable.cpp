@@ -5,6 +5,10 @@ template <typename T>
 HashTable<T>::HashTable(int length)
 {
   array = new LinkedList<T>[length];
+  for (int i = 0; i < length)
+  {
+    array[i] = LinkedList();
+  }
   this->length = length;
 }
 

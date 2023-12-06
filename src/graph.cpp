@@ -16,6 +16,11 @@ Graph::~Graph()
   delete nodes;
 }
 
+HashTable<Node> *Graph::getNodes()
+{
+  return nodes;
+}
+
 int Graph::getOrder()
 {
   return order;
@@ -165,7 +170,7 @@ void Graph::dijkstra(int label1, int label2)
   Item<Node> *itemNode = nodes->getFirstItem();
   while (itemNode != NULL)
   {
-    itemNode->getData()->setOut(DBL_MAX);
+    itemNode->getData()->setOut(__DBL_MAX__);
     itemNode = nodes->getNextItem(itemNode);
   }
 
@@ -262,7 +267,7 @@ void Graph::floyd(int label1, int label2)
         Item<Edge> *edge = edges->getItem(arrayNodes[j]->getLabel());
         if (edge == NULL)
         {
-          weight = DBL_MAX;
+          weight = __DBL_MAX__;
         }
         else
         {
@@ -288,7 +293,7 @@ void Graph::floyd(int label1, int label2)
           y = weights[k][j];
           sum = x + y;
 
-          if (weights[i][j] > sum && x != DBL_MAX && y != DBL_MAX)
+          if (weights[i][j] > sum && x != __DBL_MAX__ && y != __DBL_MAX__)
           {
             weights[i][j] = sum;
           }

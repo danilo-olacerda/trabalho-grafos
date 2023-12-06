@@ -13,6 +13,22 @@ Node::Node(int label)
   predecessor = NULL;
 }
 
+Node::Node(int label, int x, int y)
+{
+  this->label = label;
+  forwardEdges = new HashTable<Edge>(4);
+  backwardEdges = new HashTable<Edge>(4);
+  inDegree = 0;
+  outDegree = 0;
+  in = -1;
+  out = -1;
+  predecessor = NULL;
+
+  pos = new double[2];
+  pos[0] = x;
+  pos[1] = y;
+}
+
 Node::~Node()
 {
   delete forwardEdges;
@@ -61,6 +77,11 @@ Node *Node::getPredecessor()
 void Node::setPredecessor(Node *predecessorPonteiro)
 {
   this->predecessor = predecessorPonteiro;
+}
+
+double *Node::getPos()
+{
+  return pos;
 }
 
 void Node::addEdge(int neighbor, Node *neighborPointer, bool isForward)
