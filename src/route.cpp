@@ -1,12 +1,7 @@
 #include "stdlib.h"
 #include "../include/Route.h"
 
-Solution::Solution(Graph *g, int routeNumber, float capacityTruck)
+Route::Route(int capacityTruck)
 {
-  this->g = g;
-  this->routeNumber = routeNumber;
-  this->truckNumber = truckNumber;
-  this->capacityTruck = capacityTruck;
+  this->capacity = capacityTruck;
 }
-
-float **get

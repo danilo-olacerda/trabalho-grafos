@@ -18,4 +18,6 @@ public:
   void setNext(Item<T> *next);
 };
 
+#include "../../src/DataStructures/item.tpp"
+
 #endif // ITEM_H

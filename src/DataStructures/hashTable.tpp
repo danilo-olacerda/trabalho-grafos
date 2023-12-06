@@ -5,9 +5,9 @@ template <typename T>
 HashTable<T>::HashTable(int length)
 {
   array = new LinkedList<T>[length];
-  for (int i = 0; i < length)
+  for (int i = 0; i < length; i++)
   {
-    array[i] = LinkedList();
+    array[i] = LinkedList<T>();
   }
   this->length = length;
 }
@@ -17,7 +17,7 @@ HashTable<T>::~HashTable()
 {
   for (int i = 0; i < length; i++)
   {
-    delete array[i];
+    // delete array[i];
   }
   delete[] array;
 }
@@ -52,8 +52,6 @@ Item<T> *HashTable<T>::getItem(int key)
     }
     item = item->getNext();
   }
-
-  return 1;
 
   return NULL;
 }

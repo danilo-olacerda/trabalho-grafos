@@ -2,6 +2,7 @@
 #include <iostream>
 #include <limits.h>
 #include "../include/Graph.h"
+#include "../include/Edge.h"
 
 Graph::Graph(bool isOriented)
 {
@@ -170,7 +171,7 @@ void Graph::dijkstra(int label1, int label2)
   Item<Node> *itemNode = nodes->getFirstItem();
   while (itemNode != NULL)
   {
-    itemNode->getData()->setOut(__DBL_MAX__);
+    itemNode->getData()->setOut(DBL_MAX);
     itemNode = nodes->getNextItem(itemNode);
   }
 
@@ -267,7 +268,7 @@ void Graph::floyd(int label1, int label2)
         Item<Edge> *edge = edges->getItem(arrayNodes[j]->getLabel());
         if (edge == NULL)
         {
-          weight = __DBL_MAX__;
+          weight = DBL_MAX;
         }
         else
         {
@@ -293,7 +294,7 @@ void Graph::floyd(int label1, int label2)
           y = weights[k][j];
           sum = x + y;
 
-          if (weights[i][j] > sum && x != __DBL_MAX__ && y != __DBL_MAX__)
+          if (weights[i][j] > sum && x != DBL_MAX && y != DBL_MAX)
           {
             weights[i][j] = sum;
           }
@@ -383,7 +384,7 @@ void Graph::prim(int *nodeLabels)
   HashTable<Edge> *edges;
   Item<Edge> *itemEdge;
   Edge *edge;
-  Node *neighbor;
+  Node *neighbor = NULL;
   int i = 0;
   while (true)
   {

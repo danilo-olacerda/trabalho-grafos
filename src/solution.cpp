@@ -3,13 +3,14 @@
 
 Solution::Solution(Graph *g, int routeNumber, double capacityTruck)
 {
+  cout << capacityTruck << "Variavel não está sendo usada";
   this->g = g;
   order = g->getOrder();
   this->routeNumber = routeNumber;
-  route = new Route[routeNumber];
+  Route *route = new Route(routeNumber);
   for (int i = 0; i < 4; ++i)
   {
-    route[i] = Route(capacityTruck);
+    route[i] = Route(routeNumber);
   }
 
   distances = new double *[order];
@@ -18,20 +19,23 @@ Solution::Solution(Graph *g, int routeNumber, double capacityTruck)
     distances[i] = new double[order];
   }
 
-  Node *itemNodeOuter = g->getNodes()->getFirstItem();
+  int i = 0, j = 0;
+  Item<Node> *itemNodeOuter = g->getNodes()->getFirstItem();
   while (itemNodeOuter != NULL)
   {
-    Node *itemNodeInner = g->getNodes()->getFirstItem();
+    Item<Node> *itemNodeInner = g->getNodes()->getFirstItem();
     while (itemNodeInner != NULL)
     {
-      float posI = itemNodeOuter->getPos();
-      float posJ = itemNodeInner->getPos();
+      double *posI = itemNodeOuter->getData()->getPos();
+      double *posJ = itemNodeInner->getData()->getPos();
       distances[i][j] = sqrt(pow(posI[0] - posJ[0], 2) + pow(posI[1] - posJ[1], 2));
 
-      Node *itemNodeInner = g->getNodes()->getNextItem(itemNodeInner);
+      itemNodeInner = g->getNodes()->getNextItem(itemNodeInner);
+      j++;
     }
 
     itemNodeOuter = g->getNodes()->getNextItem(itemNodeOuter);
+    i++;
   }
 }
 
@@ -43,13 +47,14 @@ Solution::~Solution()
   }
   delete[] distances;
 
-  for (int i = 0; i < ; i++)
+  for (int i = 0; i < order; i++)
   {
-    delete routes[i];
+    // delete routes[i];
   }
   delete[] routes;
 }
 
 Route *Solution::getRoutes()
 {
+  return routes;
 }

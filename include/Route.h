@@ -10,7 +10,7 @@ private:
   int capacity;
 
 public:
-  Route(int capacity)
+  Route(int capacity);
 };
 
 #endif // ROUTE_H

@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "../include/Node.h"
+#include "../include/Edge.h"
 
 Node::Node(int label)
 {

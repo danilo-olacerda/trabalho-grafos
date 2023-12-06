@@ -1,7 +1,6 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include "./Edge.h"
 #include "DataStructures/HashTable.h"
 
 class Edge;

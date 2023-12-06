@@ -22,7 +22,7 @@ public:
     Graph(bool isOriented);
     ~Graph();
 
-    HashTable<Node> *Graph::getNodes();
+    HashTable<Node> *getNodes();
     int getOrder();
     int getNEdges();
 

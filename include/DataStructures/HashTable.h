@@ -3,8 +3,6 @@
 
 #include "LinkedList.h"
 #include "Item.h"
-#include "../Node.h"
-#include "../Edge.h"
 
 template <typename T>
 class HashTable
@@ -26,5 +24,7 @@ public:
   Item<T> *getFirstItem();
   Item<T> *getNextItem(Item<T> *item);
 };
+
+#include "../../src/DataStructures/hashTable.tpp"
 
 #endif // HASHTABLE_H

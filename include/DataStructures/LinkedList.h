@@ -21,4 +21,6 @@ public:
   void removeItemFromList(int key, int *status);
 };
 
+#include "../../src/DataStructures/linkedList.tpp"
+
 #endif // LINKEDLIST_H
