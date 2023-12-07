@@ -281,7 +281,7 @@ void Graph::floyd(int label1, int label2)
       weights[i][j] = weight;
     }
   }
-  
+
   double x, y, sum;
   for (int k = 0; k < order; ++k)
   {

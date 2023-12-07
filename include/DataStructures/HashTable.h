@@ -8,7 +8,7 @@ template <typename T>
 class HashTable
 {
 private:
-  LinkedList<T> *array;
+  LinkedList<T> **array;
   int length;
 
 public:

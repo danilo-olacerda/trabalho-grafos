@@ -3,10 +3,10 @@
 template <typename T>
 HashTable<T>::HashTable(int length)
 {
-  array = new LinkedList<T>[length];
+  array = new LinkedList<T> *[length];
   for (int i = 0; i < length; i++)
   {
-    array[i] = LinkedList<T>();
+    array[i] = new LinkedList<T>();
   }
   this->length = length;
 }
@@ -16,7 +16,7 @@ HashTable<T>::~HashTable()
 {
   for (int i = 0; i < length; i++)
   {
-    // delete array[i];
+    delete array[i];
   }
   delete[] array;
 }
