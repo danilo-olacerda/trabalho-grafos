@@ -1,23 +1,26 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include "HeapElement.h"
+#include "Item.h"
 
 template <typename T>
 class Queue
 {
 private:
-  HeapElement<T> **array;
+  Item<T> *first;
+  Item<T> *last;
   int length;
-  int offset;
 
 public:
   Queue();
   ~Queue();
 
+  bool isEmpty();
+
   void enqueue(T *data);
   T *dequeue();
-  bool isEmpty() { return length == 0; };
 };
+
+#include "../../src/DataStructures/queue.tpp"
 
 #endif // QUEUE_H
