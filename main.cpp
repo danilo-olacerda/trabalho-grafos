@@ -4,178 +4,117 @@
 #include <fstream>
 #include <string>
 using namespace std;
+#include <sstream>
 
-/*
-    Obs1: Ajustar a leitura de acordo com a semÂntica do arquivo do T2
+int main() {
+    // Nome do arquivo de entrada
+    std::string nome_do_arquivo_entrada = "B34.txt";
 
-    Obs2:
-    •./execGrupoX <arquivo_entrada> <arquivo_saida> <Opc_Direc> <Opc_Peso_Aresta> <Opc_Peso_Nos>, onde
-    < arquivo_entrada> é o nome do arquivo que contém as informações do grafo, < arquivo_saida> é o arquivo
-    onde será gravado o grafo armazenado na memória ao término
+    // Abrir o arquivo de entrada para leitura
+    std::ifstream arquivo_entrada(nome_do_arquivo_entrada);
 
-        - Obs2.1: as Opc serão do tipo int 0 ou 1, 0 para não e 1 para sim. Executar a criação do grafo de acordo com o solicitado.
-
-    Obs3: Após cada saída das funcionalidas, o usuário terá a opção de salvar ou não o resultado no arquivo de saída
-
-    Obs4: A main vai ser uma rotina de leitura do arquivo e após isso um while com switch case aguardando o usuário escolher entre as funcionalidades ou interromper a execução
-
-*/
-// int main()
-// {
-//     int order = 6;
-
-//     Graph *graph = new Graph();
-
-//     graph->addNode(1);
-// }
-
-char Escolha(char option)
-{
-    char c=option;
-    cout<<"As seguintes funcionalidades estão disponiveis, escolha uma delas ou 's' para sair"<<endl;
-    cout<<"para algumas escolhas, vai ser preciso escolher vertices como parametro(posteriormente)"<<endl<<endl;
-    cout<<"a: Fecho transitivo direto de um vértice"<<endl;
-    cout<<"b: Fecho transitivo indireto de um vértice"<<endl;
-    cout<<"c: O caminho mínimo entre dois vértices usando algoritmo de Djkstra "<<endl;
-    cout<<"d: O caminho mínimo entre dois vértices usando algoritmo de Floyd"<<endl;
-    cout<<"e: Uma Árvore Geradora Mínima sobre o subgrafo vértice-induzido por X usando o algoritmo de Prim;"<<endl;
-    cout<<"f: Uma Árvore Geradora Mínima sobre o subgrafo vértice-induzido por X usando o algoritmo de Kruskal"<<endl;
-    cout<<"g: A árvore dada pela ordem de caminhamento em profundidade destacando as arestas de retorno"<<endl;
-    cout<<"h: Uma ordenação topológica em D ou a informação de que D não é um grafo acíclico direcionado"<<endl;
-    cout<<"i: O raio, o diâmetro, o centro e a periferia do grafo"<<endl;
-    cout<<"j: O conjunto de vértices de articulação"<<endl;
-    cin>>c;
-    cout<<endl;
-
-
-    return c;
-}
-void imprimeSaida(char escolha)
-{
-    // char necessário para adicionar ao arquivo qual das funcionalidades foi usada antes de adicionar o resultado
-    char salvar;
-    cout<<"deseja salvar esse resultado? (s = sim / n = nao)"<<endl;
-    cin>>salvar;
-    if(salvar=='s')
-    {
-        cout<<"resultado salvo!"<<endl;
-        //adicionar no arquivo de saída
-    }
-}
-int main()
-{
-    char option;
-    int saida=0;
-
-    
-    // Nome do arquivo, para criar novo
-    //std::string arquivo = "teste.txt";
-
-    // Abrir o arquivo para escrita
-    std::ofstream arquivo_saida("../output/teste.txt");
-
-    // Verificar se o arquivo foi aberto
-    if (!arquivo_saida.is_open()) {
-        std::cerr << "Erro ao criar o arquivo." << std::endl;
+    // Verificar se o arquivo foi aberto com sucesso
+    if (!arquivo_entrada.is_open()) {
+        std::cerr << "Erro ao abrir o arquivo de entrada." << std::endl;
         return 1; // Saída com erro
     }
 
-    // Escrever o conteúdo do arquivo
-    arquivo_saida << "Arq saída de grafos" << std::endl;
-    arquivo_saida << "Teste de operações" << std::endl;
+    // Nome do arquivo de saída
+    std::string nome_do_arquivo_saida = "B34saida.txt";
 
-    // Fechar o arquivo
+    // Abrir o arquivo de saída para escrita
+    std::ofstream arquivo_saida(nome_do_arquivo_saida);
+
+    // Verificar se o arquivo foi aberto com sucesso
+    if (!arquivo_saida.is_open()) {
+        std::cerr << "Erro ao abrir o arquivo de saida." << std::endl;
+        return 1; // Saída com erro
+    }
+
+    // Leitura e impressão do nome da instância
+    std::string linha;
+    std::getline(arquivo_entrada, linha);
+    arquivo_saida << linha << std::endl;
+
+    // Leitura do inteiro "No of trucks"
+    int K;
+    std::getline(arquivo_entrada, linha);
+    std::istringstream iss_K(linha.substr(39)); // Ignorando "No of trucks: "
+    iss_K >> K;
+    arquivo_saida << "Valor de K: " << K << std::endl;
+
+      // Leitura do campo "Dimension"
+    int n;
+    std::getline(arquivo_entrada, linha);
+    std::getline(arquivo_entrada, linha);
+    std::istringstream iss_Dimension(linha.substr(11)); // Ignorando "Dimension: "
+    iss_Dimension >> n;
+    arquivo_saida << "Valor de n: " << n << std::endl;
+
+     // Leitura do campo "CAPACITY"
+    int q;
+    std::getline(arquivo_entrada, linha);
+    std::getline(arquivo_entrada, linha);
+    std::istringstream iss_Capacity(linha.substr(10)); // Ignorando "Dimension: "
+    iss_Capacity >> q;
+    arquivo_saida << "Capacidade: " << q << std::endl;
+    
+    // Leitura dos coordenadas a partir de "NODE_COORD_SECTION"
+
+    getline(arquivo_entrada, linha);
+    
+    int Xcoord[n];
+    int Ycoord[n];
+    int cap[n];
+    int i,x,y;
+    
+    for(int j=0;j<n;j++)
+    {
+        std::getline(arquivo_entrada, linha);
+        std::istringstream iss(linha);
+        //::cout<< linha << std::endl;
+        iss >> i >> x >> y; // vai preencher todos os nós de 1 até n, o 0 vai ser o deposito
+        Xcoord [i] = x;
+        Ycoord [i] = y;
+    }
+
+    // Leitura das demandas a partir de "Demand_Section"
+    getline(arquivo_entrada, linha);
+    std::cout<< linha << std::endl;
+    for(int j=0;j<n;j++)
+    {
+        int c;
+        std::getline(arquivo_entrada, linha);
+        std::istringstream iss(linha);
+        //std::cout<< linha << std::endl;
+        iss >> i >> c; // vai preencher todos os nós de 1 até n, o 0 vai ser o deposito
+        cap [i] = c;
+    }
+
+    // Leitura do depósito
+    getline(arquivo_entrada, linha);
+    std::cout<< linha << std::endl;
+    getline(arquivo_entrada, linha);
+    std::istringstream iss(linha);
+    iss >> Xcoord[0];
+    getline(arquivo_entrada, linha);
+    std::istringstream iss2(linha);
+    iss2 >> Ycoord[0];
+    cap[0]=-1;
+
+    // imprime todos os dados
+
+    for(int j=0; j<=n; j++)
+    {
+        std::cout<< j <<" "<< Xcoord[j]<< " " << Ycoord[j]<< " " << cap [j]<< std::endl;
+
+    }
+
+    // Fechar os arquivos
+    arquivo_entrada.close();
     arquivo_saida.close();
 
-    //Verificar
-    //std::cout << "Arquivo \"" << arquivo << "\" criado com sucesso." << std::endl;
+    std::cout << "Leitura e processamento concluídos com sucesso." << std::endl;
 
-
-    cout << "Arquivo carregado, escolha uma das funcionalidades: " << endl;
-
-    // while (saida==0)
-    // {
-    //     option=Escolha(option);
-    
-    // switch (option)
-    // {
-    // case 'a':
-    //     /*Parâmetro: um Id de um vértice de um grafo direcionado;
-    //     Saída: o fecho transitivo direto deste vértice. 
-        
-    //     imprimeSaida(option)*/
-    //     break;
-    // case 'b':
-    //     /* Parâmetro: um Id de um vértice de um grafo direcionado;
-    //     Saída: o fecho transitivo indireto deste vértice. 
-        
-    //     imprimeSaida(option)*/
-    //     break;
-    // case 'c':
-    //     /*  Parâmetro: dois IDs de vértices do grafo;
-    //         Saída: o caminho mínimo entre estes dois vértices usando algoritmo de Djkstra; 
-            
-    //         imprimeSaida(option)*/
-    //     break;
-    // case 'd':
-    //     /*  Parâmetro: dois IDs de vértices do grafo;
-    //         Saída: o caminho mínimo entre estes dois vértices usando algoritmo de Floyd; 
-            
-    //         imprimeSaida(option)*/
-    //     break;
-    // case 'e':
-    //     /*  Parâmetro: um subconjunto X de vértices do grafo;
-    //         Saída: uma Árvore Geradora Mínima sobre o subgrafo vértice-induzido por X usando o algoritmo de Prim; 
-            
-    //         imprimeSaida(option)*/
-    //     break;
-    // case 'f':
-    //     /*  Parâmetro: um subconjunto X de vértices do grafo;
-    //         Saída: uma Árvore Geradora Mínima sobre o subgrafo vértice-induzido por X usando o algoritmo de
-    //         Kruskal; 
-            
-    //         imprimeSaida(option)*/
-    //     break;
-    // case 'g':
-    //     /*  Parâmetro: um ID de vértice;
-    //         Saída: a árvore dada pela ordem de caminhamento em profundidade a partir de nó dado parâmetro,
-    //         destacando as arestas de retorno; 
-            
-    //         imprimeSaida(option)*/
-    //     break;
-    // case 'h':
-    //     /*  Parâmetro: o próprio grafo acíclico direcionado D;
-    //         Saída: uma ordenação topológica em D ou a informação de que D não é um grafo acíclico
-    //         direcionado.
-         
-    //      imprimeSaida(option)
-    //      */
-    //     break;
-    // case 'i':
-    //     /*  Parâmetro: o grafo (direcionado ou não direcionado) ponderado nas arestas
-    //         Saída: O raio, o diâmetro, o centro e a periferia do grafo.
-            
-    //         imprimeSaida(option)
-    //         */
-    //     break;
-    // case 'j':
-    //     /*  Parâmetro: o grafo não direcionado
-    //         Saída: O conjunto de vértices de articulação.
-            
-    //         imprimeSaida(option)
-    //         */
-    //     break;                
-    // case 's':
-    //     saida = 1;
-    //     cout<<"encerrando"<<endl;
-    //     break;
-
-    // default:
-    //     saida=1;
-    //     break;
-    // }
-    //     if(saida!=1)
-    //         cout << "deseja executar mais alguma funcionalidade? " << endl;
-    // }
-    return 0;
+    return 0; // Saída bem-sucedida
 }

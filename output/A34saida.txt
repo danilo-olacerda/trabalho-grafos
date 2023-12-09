@@ -1,0 +1,4 @@
+NAME : A-n34-k5
+Valor de K: 5
+Valor de n: 34
+Capacidade: 100
