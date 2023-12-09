@@ -69,10 +69,10 @@ int main()
 
     
     // Nome do arquivo, para criar novo
-    std::string arquivo = "teste.txt";
+    //std::string arquivo = "teste.txt";
 
     // Abrir o arquivo para escrita
-    std::ofstream arquivo_saida(arquivo);
+    std::ofstream arquivo_saida("../output/teste.txt");
 
     // Verificar se o arquivo foi aberto
     if (!arquivo_saida.is_open()) {
@@ -88,7 +88,7 @@ int main()
     arquivo_saida.close();
 
     //Verificar
-    std::cout << "Arquivo \"" << arquivo << "\" criado com sucesso." << std::endl;
+    //std::cout << "Arquivo \"" << arquivo << "\" criado com sucesso." << std::endl;
 
 
     cout << "Arquivo carregado, escolha uma das funcionalidades: " << endl;
