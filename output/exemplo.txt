@@ -1,0 +1,10 @@
+Este é um arquivo de texto criado em C.
+Adicionando mais uma linha ao arquivo.
+Este é um arquivo de texto criado em C++.
+Adicionando mais uma linha ao arquivo.
+Este é um arquivo de texto criado em C++.
+Adicionando mais uma linha ao arquivo.
+Este é um arquivo de texto criado em C++.
+Adicionando mais uma linha ao arquivo.
+Este é um arquivo de texto criado em C++.
+Adicionando mais uma linha ao arquivo.
