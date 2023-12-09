@@ -24,6 +24,11 @@ HashTable<Node> *Graph::getNodes()
   return nodes;
 }
 
+Node *Graph::getNode(int label)
+{
+  return nodes->getItem(label)->getData();
+}
+
 int Graph::getOrder()
 {
   return order;
@@ -166,7 +171,7 @@ void Graph::indirectTransitiveClosure(int label)
   }
 }
 
-void Graph::dijkstra(int label1, int label2)
+double Graph::dijkstra(int label1, int label2)
 {
   Heap<Node> *heap = new Heap<Node>(nEdges);
 
@@ -232,7 +237,7 @@ void Graph::dijkstra(int label1, int label2)
 
   delete stack;
 
-  // return 0; Mudar para a distancia
+  return 0; //Mudar para a distancia
 }
 
 void Graph::floyd(int label1, int label2)

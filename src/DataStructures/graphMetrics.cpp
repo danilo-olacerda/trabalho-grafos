@@ -1,8 +1,9 @@
-/*
-
 #include "stdlib.h"
+#include <algorithm>
+#include <vector>
 #include "../../include/graphMetrics.h"
 #include "../../include/Graph.h"
+#include "../../include/Edge.h"
 
 GrapMetrics::GrapMetrics(Graph *graph)
 {
@@ -25,18 +26,18 @@ GrapMetrics::~GrapMetrics()
     delete[] articulationPoints;
 }
 
-int GrapMetrics::calcRadius()
+double GrapMetrics::calcRadius()
 {
-    int min = 0;
+    double min = 0;
 
     int size = this->graph->getOrder();
 
     for (int i = 0; i < size; i++)
     {
-        int max = 0;
+        double max = 0;
         for (int j = 0; j < size; j++)
         {
-            int distance = this->graph->dijkstra(i, j);
+            double distance = this->graph->dijkstra(i, j);
             if (distance > max)
             {
                 max = distance;
@@ -51,18 +52,17 @@ int GrapMetrics::calcRadius()
     return min;
 }
 
-int GrapMetrics::calcDiameter()
+double GrapMetrics::calcDiameter()
 {
-    int max = 0;
+    double max = 0;
 
     int size = this->graph->getOrder();
 
     for (int i = 0; i < size; i++)
     {
-        int max = 0;
         for (int j = 0; j < size; j++)
         {
-            int distance = this->graph->dijkstra(i, j);
+            double distance = this->graph->dijkstra(i, j);
             if (distance > max)
             {
                 max = distance;
@@ -76,8 +76,8 @@ int GrapMetrics::calcDiameter()
 int *GrapMetrics::calcCenter()
 {
     int size = this->graph->getOrder();
-    int radius = this->calcRadius();
-    int *eccentricities = new int[size];
+    double radius = this->calcRadius();
+    double *eccentricities = new double[size];
     int centerCount = 0;
 
     for (int i = 0; i < size; i++)
@@ -87,10 +87,10 @@ int *GrapMetrics::calcCenter()
 
     for (int i = 0; i < size; i++)
     {
-        int maxDistance = 0;
+        double maxDistance = 0;
         for (int j = 0; j < size; j++)
         {
-            int distance = this->graph->dijkstra(i, j);
+            double distance = this->graph->dijkstra(i, j);
             if (distance > maxDistance)
             {
                 maxDistance = distance;
@@ -125,8 +125,8 @@ int *GrapMetrics::calcCenter()
 int *GrapMetrics::calcPeriphery()
 {
     int size = this->graph->getOrder();
-    int diameter = this->calcDiameter();
-    int *eccentricities = new int[size];
+    double diameter = this->calcDiameter();
+    double *eccentricities = new double[size];
     int peripheryCount = 0;
 
     for (int i = 0; i < size; i++)
@@ -136,10 +136,10 @@ int *GrapMetrics::calcPeriphery()
 
     for (int i = 0; i < size; i++)
     {
-        int maxDistance = 0;
+        double maxDistance = 0;
         for (int j = 0; j < size; j++)
         {
-            int distance = this->graph->dijkstra(i, j);
+            double distance = this->graph->dijkstra(i, j);
             if (distance > maxDistance)
             {
                 maxDistance = distance;
@@ -171,9 +171,9 @@ int *GrapMetrics::calcPeriphery()
     return peripheryVertices;
 }
 
-int GrapMetrics::calcArticulationVertices()
+int *GrapMetrics::calcArticulationVertices()
 {
-    int articulationVertices = new int[graph->getOrder()];
+    vector<int>* articulationVertices = new vector<int>;
     int size = graph->getOrder();
 
     for (int i = 0; i < size; i++)
@@ -195,11 +195,17 @@ int GrapMetrics::calcArticulationVertices()
     {
         if (articulationPoints[i])
         {
-            articulationVertices.push_back(i);
+            articulationVertices->push_back(i);
         }
     }
 
-    return articulationVertices;
+    int* array = new int[articulationVertices->size()];
+
+    for (int i = 0; i < articulationVertices->size(); i++) {
+        array[i] = articulationVertices->at(i);
+    }
+
+    return array;
 }
 
 void GrapMetrics::DFS(int u)
@@ -235,5 +241,3 @@ void GrapMetrics::DFS(int u)
         currentEdge = edges->getNextItem(currentEdge);
     }
 }
-
-*/

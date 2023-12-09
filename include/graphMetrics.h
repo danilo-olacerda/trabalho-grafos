@@ -17,11 +17,11 @@ private:
     int time;
     void DFS(int u);
 public:
-    int calcRadius();
-    int calcDiameter();
+    double calcRadius();
+    double calcDiameter();
     int *calcCenter();
     int *calcPeriphery();
-    int calcArticulationVertices();
+    int *calcArticulationVertices();
 };
 
 #endif // GRAPMETRICS_H

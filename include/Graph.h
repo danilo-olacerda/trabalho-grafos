@@ -29,13 +29,15 @@ public:
     void addNode(int label);
     void removeNode(int label);
 
+    Node *getNode(int label);
+
     void addEdge(int tail, int head);
     void removeEdge(int tail, int head);
 
     void directTransitiveClosure(int label);
     void indirectTransitiveClosure(int label);
 
-    void dijkstra(int label1, int label2);
+    double dijkstra(int label1, int label2);
     void floyd(int label1, int label2);
 
     void prim(int *nodeLabels);

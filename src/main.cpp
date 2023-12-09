@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstdlib>
 using namespace std;
 
 /*
@@ -22,22 +23,22 @@ using namespace std;
 
 char Escolha(char option)
 {
-    char c=option;
-    cout<<"As seguintes funcionalidades estão disponiveis, escolha uma delas ou 's' para sair"<<endl;
-    cout<<"para algumas escolhas, vai ser preciso escolher vertices como parametro(posteriormente)"<<endl<<endl;
-    cout<<"a: Fecho transitivo direto de um vértice"<<endl;
-    cout<<"b: Fecho transitivo indireto de um vértice"<<endl;
-    cout<<"c: O caminho mínimo entre dois vértices usando algoritmo de Djkstra "<<endl;
-    cout<<"d: O caminho mínimo entre dois vértices usando algoritmo de Floyd"<<endl;
-    cout<<"e: Uma Árvore Geradora Mínima sobre o subgrafo vértice-induzido por X usando o algoritmo de Prim;"<<endl;
-    cout<<"f: Uma Árvore Geradora Mínima sobre o subgrafo vértice-induzido por X usando o algoritmo de Kruskal"<<endl;
-    cout<<"g: A árvore dada pela ordem de caminhamento em profundidade destacando as arestas de retorno"<<endl;
-    cout<<"h: Uma ordenação topológica em D ou a informação de que D não é um grafo acíclico direcionado"<<endl;
-    cout<<"i: O raio, o diâmetro, o centro e a periferia do grafo"<<endl;
-    cout<<"j: O conjunto de vértices de articulação"<<endl;
-    cin>>c;
-    cout<<endl;
-
+    char c = option;
+    cout << "As seguintes funcionalidades estao disponiveis, escolha uma delas ou 's' para sair" << endl;
+    cout << "para algumas escolhas, vai ser preciso escolher vertices como parametro (posteriormente)" << endl
+         << endl;
+    cout << "a: Fecho transitivo direto de um vertice" << endl;
+    cout << "b: Fecho transitivo indireto de um vertice" << endl;
+    cout << "c: O caminho minimo entre dois vertices usando algoritmo de Djkstra " << endl;
+    cout << "d: O caminho minimo entre dois vertices usando algoritmo de Floyd" << endl;
+    cout << "e: Uma arvore Geradora Minima sobre o subgrafo vertice-induzido por X usando o algoritmo de Prim;" << endl;
+    cout << "f: Uma arvore Geradora Minima sobre o subgrafo vertice-induzido por X usando o algoritmo de Kruskal" << endl;
+    cout << "g: A arvore dada pela ordem de caminhamento em profundidade destacando as arestas de retorno" << endl;
+    cout << "h: Uma ordenacao topologica em D ou a informacao de que D nao eh um grafo aciclico direcionado" << endl;
+    cout << "i: O raio, o diametro, o centro e a periferia do grafo" << endl;
+    cout << "j: O conjunto de vertices de articulacao" << endl;
+    cin >> c;
+    cout << endl;
 
     return c;
 }
@@ -46,22 +47,21 @@ void imprimeSaida(char escolha)
     cout << escolha;
     // char necessário para adicionar ao arquivo qual das funcionalidades foi usada antes de adicionar o resultado
     char salvar;
-    cout<<"deseja salvar esse resultado? (s = sim / n = nao)"<<endl;
-    cin>>salvar;
-    if(salvar=='s')
+    cout << "deseja salvar esse resultado? (s = sim / n = nao)" << endl;
+    cin >> salvar;
+    if (salvar == 's')
     {
-        cout<<"resultado salvo!"<<endl;
-        //adicionar no arquivo de saída
+        cout << "resultado salvo!" << endl;
+        // adicionar no arquivo de saída
     }
 }
 int main()
 {
     char option = 'a';
-    int saida=0;
+    int saida = 0;
 
-    cout << saida << option;
+    system("cls");
 
-    
     // Nome do arquivo, para criar novo
     std::string arquivo = "teste.txt";
 
@@ -69,7 +69,8 @@ int main()
     std::ofstream arquivo_saida(arquivo);
 
     // Verificar se o arquivo foi aberto
-    if (!arquivo_saida.is_open()) {
+    if (!arquivo_saida.is_open())
+    {
         std::cerr << "Erro ao criar o arquivo." << std::endl;
         return 1; // Saída com erro
     }
@@ -81,95 +82,92 @@ int main()
     // Fechar o arquivo
     arquivo_saida.close();
 
-    //Verificar
+    // Verificar
     std::cout << "Arquivo \"" << arquivo << "\" criado com sucesso." << std::endl;
 
+    while (saida == 0)
+    {
+        option = Escolha(option);
 
-    cout << "Arquivo carregado, escolha uma das funcionalidades: " << endl;
+        switch (option)
+        {
+        case 'a':
+            /*Parâmetro: um Id de um vértice de um grafo direcionado;
+            Saída: o fecho transitivo direto deste vértice.
 
-    // while (saida==0)
-    // {
-    //     option=Escolha(option);
-    
-    // switch (option)
-    // {
-    // case 'a':
-    //     /*Parâmetro: um Id de um vértice de um grafo direcionado;
-    //     Saída: o fecho transitivo direto deste vértice. 
-        
-    //     imprimeSaida(option)*/
-    //     break;
-    // case 'b':
-    //     /* Parâmetro: um Id de um vértice de um grafo direcionado;
-    //     Saída: o fecho transitivo indireto deste vértice. 
-        
-    //     imprimeSaida(option)*/
-    //     break;
-    // case 'c':
-    //     /*  Parâmetro: dois IDs de vértices do grafo;
-    //         Saída: o caminho mínimo entre estes dois vértices usando algoritmo de Djkstra; 
-            
-    //         imprimeSaida(option)*/
-    //     break;
-    // case 'd':
-    //     /*  Parâmetro: dois IDs de vértices do grafo;
-    //         Saída: o caminho mínimo entre estes dois vértices usando algoritmo de Floyd; 
-            
-    //         imprimeSaida(option)*/
-    //     break;
-    // case 'e':
-    //     /*  Parâmetro: um subconjunto X de vértices do grafo;
-    //         Saída: uma Árvore Geradora Mínima sobre o subgrafo vértice-induzido por X usando o algoritmo de Prim; 
-            
-    //         imprimeSaida(option)*/
-    //     break;
-    // case 'f':
-    //     /*  Parâmetro: um subconjunto X de vértices do grafo;
-    //         Saída: uma Árvore Geradora Mínima sobre o subgrafo vértice-induzido por X usando o algoritmo de
-    //         Kruskal; 
-            
-    //         imprimeSaida(option)*/
-    //     break;
-    // case 'g':
-    //     /*  Parâmetro: um ID de vértice;
-    //         Saída: a árvore dada pela ordem de caminhamento em profundidade a partir de nó dado parâmetro,
-    //         destacando as arestas de retorno; 
-            
-    //         imprimeSaida(option)*/
-    //     break;
-    // case 'h':
-    //     /*  Parâmetro: o próprio grafo acíclico direcionado D;
-    //         Saída: uma ordenação topológica em D ou a informação de que D não é um grafo acíclico
-    //         direcionado.
-         
-    //      imprimeSaida(option)
-    //      */
-    //     break;
-    // case 'i':
-    //     /*  Parâmetro: o grafo (direcionado ou não direcionado) ponderado nas arestas
-    //         Saída: O raio, o diâmetro, o centro e a periferia do grafo.
-            
-    //         imprimeSaida(option)
-    //         */
-    //     break;
-    // case 'j':
-    //     /*  Parâmetro: o grafo não direcionado
-    //         Saída: O conjunto de vértices de articulação.
-            
-    //         imprimeSaida(option)
-    //         */
-    //     break;                
-    // case 's':
-    //     saida = 1;
-    //     cout<<"encerrando"<<endl;
-    //     break;
+            imprimeSaida(option)*/
+            break;
+        case 'b':
+            /* Parâmetro: um Id de um vértice de um grafo direcionado;
+            Saída: o fecho transitivo indireto deste vértice.
 
-    // default:
-    //     saida=1;
-    //     break;
-    // }
-    //     if(saida!=1)
-    //         cout << "deseja executar mais alguma funcionalidade? " << endl;
-    // }
+            imprimeSaida(option)*/
+            break;
+        case 'c':
+            /*  Parâmetro: dois IDs de vértices do grafo;
+                Saída: o caminho mínimo entre estes dois vértices usando algoritmo de Djkstra;
+
+                imprimeSaida(option)*/
+            break;
+        case 'd':
+            /*  Parâmetro: dois IDs de vértices do grafo;
+                Saída: o caminho mínimo entre estes dois vértices usando algoritmo de Floyd;
+
+                imprimeSaida(option)*/
+            break;
+        case 'e':
+            /*  Parâmetro: um subconjunto X de vértices do grafo;
+                Saída: uma Árvore Geradora Mínima sobre o subgrafo vértice-induzido por X usando o algoritmo de Prim;
+
+                imprimeSaida(option)*/
+            break;
+        case 'f':
+            /*  Parâmetro: um subconjunto X de vértices do grafo;
+                Saída: uma Árvore Geradora Mínima sobre o subgrafo vértice-induzido por X usando o algoritmo de
+                Kruskal;
+
+                imprimeSaida(option)*/
+            break;
+        case 'g':
+            /*  Parâmetro: um ID de vértice;
+                Saída: a árvore dada pela ordem de caminhamento em profundidade a partir de nó dado parâmetro,
+                destacando as arestas de retorno;
+
+                imprimeSaida(option)*/
+            break;
+        case 'h':
+            /*  Parâmetro: o próprio grafo acíclico direcionado D;
+                Saída: uma ordenação topológica em D ou a informação de que D não é um grafo acíclico
+                direcionado.
+
+             imprimeSaida(option)
+             */
+            break;
+        case 'i':
+            /*  Parâmetro: o grafo (direcionado ou não direcionado) ponderado nas arestas
+                Saída: O raio, o diâmetro, o centro e a periferia do grafo.
+
+                imprimeSaida(option)
+                */
+            break;
+        case 'j':
+            /*  Parâmetro: o grafo não direcionado
+                Saída: O conjunto de vértices de articulação.
+
+                imprimeSaida(option)
+                */
+            break;
+        case 's':
+            saida = 1;
+            cout << "Execucao finalizada." << endl;
+            break;
+
+        default:
+            saida = 1;
+            break;
+        }
+        if (saida != 1)
+            cout << "Deseja executar mais alguma funcionalidade ? " << endl;
+    }
     return 0;
 }
