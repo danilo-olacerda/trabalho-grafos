@@ -14,7 +14,8 @@ Heap<T>::~Heap()
   delete[] array;
 }
 
-int getFather(int i)
+template <typename T>
+int Heap<T>::getFather(int i)
 {
   return (i - (i % 2 == 0 ? -2 : -1)) / 2;
 }

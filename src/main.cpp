@@ -1,5 +1,4 @@
-#include "stdio.hpp"
-// #include "../include/Graph.h"
+#include "../include/Graph.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -20,14 +19,6 @@ using namespace std;
     Obs4: A main vai ser uma rotina de leitura do arquivo e após isso um while com switch case aguardando o usuário escolher entre as funcionalidades ou interromper a execução
 
 */
-// int main()
-// {
-//     int order = 6;
-
-//     Graph *graph = new Graph();
-
-//     graph->addNode(1);
-// }
 
 char Escolha(char option)
 {
@@ -52,6 +43,7 @@ char Escolha(char option)
 }
 void imprimeSaida(char escolha)
 {
+    cout << escolha;
     // char necessário para adicionar ao arquivo qual das funcionalidades foi usada antes de adicionar o resultado
     char salvar;
     cout<<"deseja salvar esse resultado? (s = sim / n = nao)"<<endl;
@@ -64,8 +56,10 @@ void imprimeSaida(char escolha)
 }
 int main()
 {
-    char option;
+    char option = 'a';
     int saida=0;
+
+    cout << saida << option;
 
     
     // Nome do arquivo, para criar novo

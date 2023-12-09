@@ -17,6 +17,7 @@ public:
 
   void insert(double key, T *nodePointer, T *data);
   T *remove(int i);
+  int getFather(int i);
 };
 
 #include "../../src/DataStructures/heap.tpp"

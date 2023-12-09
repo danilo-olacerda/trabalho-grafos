@@ -1,15 +1,15 @@
 #include "stdlib.h"
-#include "../../include/DataStructures/Stack.h"
 
 template <typename T>
-Stack<T>::Stack()
+Queue<T>::Queue()
 {
   first = NULL;
+  last = NULL;
   length = 0;
 }
 
 template <typename T>
-Stack<T>::~Stack()
+Queue<T>::~Queue()
 {
   Item<T> *item = first;
   while (item != NULL)
@@ -21,23 +21,24 @@ Stack<T>::~Stack()
 }
 
 template <typename T>
-bool Stack<T>::isEmpty()
+bool Queue<T>::isEmpty()
 {
   return length == 0;
 }
 
 template <typename T>
-void Stack<T>::push(T *data)
+void Queue<T>::enqueue(T *data)
 {
   Item<T> *item = new Item(0, data);
-  item->setNext(first);
-  first = item;
+  item->setNext(NULL);
+  last->setNext(item);
+  last = item;
 
   ++length;
 }
 
 template <typename T>
-T *Stack<T>::pop()
+T *Queue<T>::dequeue()
 {
   T *data = first->getData();
   Item<T> *temp = first->getNext();

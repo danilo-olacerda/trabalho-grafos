@@ -20,4 +20,6 @@ public:
   T *pop();
 };
 
+#include "../../src/DataStructures/stack.tpp"
+
 #endif // STACK_H

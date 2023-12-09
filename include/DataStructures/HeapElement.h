@@ -5,7 +5,7 @@ template <typename T>
 class HeapElement
 {
 private:
-  int key;
+  double key;
   T *data;
   T *predecessor;
 
