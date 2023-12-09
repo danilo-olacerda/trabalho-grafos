@@ -114,3 +114,7 @@ void Node::removeEdge(int neighbor, bool isForward, int *status)
   }
   // Não conferimos o status, pois a validação feita em graph.cpp garante que o head existe
 }
+
+double Node::getCustomerDemand() {
+  return demand;
+}

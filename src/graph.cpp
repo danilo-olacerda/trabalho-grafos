@@ -192,6 +192,8 @@ double Graph::dijkstra(int label1, int label2)
   Item<Edge> *itemEdge = edges->getFirstItem();
   Edge *edge;
 
+  double totalDistance = 0;
+
   while (destiny->getPredecessor() == NULL)
   {
     current = heap->remove(0);
@@ -216,6 +218,11 @@ double Graph::dijkstra(int label1, int label2)
         heap->insert(dist, current, neighbor);
 
         itemEdge = edges->getNextItem(itemEdge);
+
+        if (neighbor == destiny)
+        {
+          totalDistance = dist;
+        }
       }
     }
   }
@@ -237,7 +244,7 @@ double Graph::dijkstra(int label1, int label2)
 
   delete stack;
 
-  return 0; //Mudar para a distancia
+  return totalDistance;
 }
 
 void Graph::floyd(int label1, int label2)
@@ -634,4 +641,12 @@ void Graph::topologicalSort()
   }
 
   delete sort;
+}
+
+int Graph::getNumDeClientes() {
+  return order - 1;
+}
+
+double Graph::getCustomerDemand(int label) {
+  return nodes->getItem(label)->getData()->getCustomerDemand();
 }

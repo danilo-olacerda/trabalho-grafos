@@ -22,6 +22,8 @@ public:
     Graph(bool isOriented);
     ~Graph();
 
+    double getCustomerDemand(int label);
+    int getNumDeClientes();
     HashTable<Node> *getNodes();
     int getOrder();
     int getNEdges();

@@ -22,6 +22,7 @@ private:
     Node *predecessor;
 
     double *pos;
+    double demand;
 
 public:
     Node(int label);
@@ -45,6 +46,7 @@ public:
 
     void addEdge(int neighbor, Node *neighborPointer, bool isForward);
     void removeEdge(int neighbor, bool isForward, int *status);
+    double getCustomerDemand();
 };
 
 #endif // NODE_H
