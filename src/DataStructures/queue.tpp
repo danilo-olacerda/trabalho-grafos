@@ -29,7 +29,7 @@ bool Queue<T>::isEmpty()
 template <typename T>
 void Queue<T>::enqueue(T *data)
 {
-  Item<T> *item = new Item(0, data);
+  Item<T> *item = new Item<T>(0, data);
   item->setNext(NULL);
   last->setNext(item);
   last = item;

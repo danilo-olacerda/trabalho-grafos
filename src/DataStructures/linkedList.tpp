@@ -29,7 +29,7 @@ Item<T> *LinkedList<T>::getFirstItemInList()
 template <typename T>
 void LinkedList<T>::addItemInList(int key, T *data)
 {
-  Item<T> *item = new Item(key, data);
+  Item<T> *item = new Item<T>(key, data);
   if (length == 0)
   {
     first = last = item;

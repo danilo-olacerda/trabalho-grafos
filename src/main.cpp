@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include "../include/Graph.h"
 #include <iostream>
 #include <fstream>
@@ -205,7 +204,7 @@ int main2(int argc, char *argv[]) {
 
     // Verificar se o arquivo foi aberto com sucesso
     if (!arquivo_saida.is_open()) {
-        cerr << "Erro ao abrir o arquivo de saida." << strerror(errno) << endl;
+        cerr << "Erro ao abrir o arquivo de saida." << endl;
         return 1; // Saída com erro
     }
     // Leitura e impressão do nome da instância
@@ -381,13 +380,20 @@ int main2(int argc, char *argv[]) {
 
 int main(int argc, char *argv[])
 {
-    if (argc == 6)
+
+    argc = 3; // para testar a main1
+
+    if (argc == 3)
     {
         main1(argc, argv);
     }
-    else
+    else if (argc == 7)
     {
         main2(argc, argv);
+    } else {
+        cout << "Números de argumentos inválidos." << endl;
     }
+
+
     return 0;
 }

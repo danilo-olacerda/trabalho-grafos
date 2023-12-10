@@ -28,7 +28,7 @@ void Heap<T>::insert(double key, T *predecessor, T *data)
     return;
   }
 
-  array[length] = new HeapElement(key, predecessor, data);
+  array[length] = new HeapElement<T>(key, predecessor, data);
   int iSon = length;
   int iFather = getFather(length);
   while (iFather >= 0)

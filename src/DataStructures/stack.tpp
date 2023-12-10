@@ -28,7 +28,7 @@ bool Stack<T>::isEmpty()
 template <typename T>
 void Stack<T>::push(T *data)
 {
-  Item<T> *item = new Item(0, data);
+  Item<T> *item = new Item<T>(0, data);
   item->setNext(first);
   first = item;
 
