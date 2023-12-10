@@ -1,8 +1,11 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "../include/Graph.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <sstream>
+#include <vector>
 using namespace std;
 
 /*
@@ -55,35 +58,37 @@ void imprimeSaida(char escolha)
         // adicionar no arquivo de saída
     }
 }
-int main()
+
+int main1(int argc, char *argv[])
 {
+    cout << argc << argv << endl;
     char option = 'a';
     int saida = 0;
 
     system("cls");
 
     // Nome do arquivo, para criar novo
-    std::string arquivo = "teste.txt";
+    string arquivo = "output.txt";
 
     // Abrir o arquivo para escrita
-    std::ofstream arquivo_saida(arquivo);
+    ofstream arquivo_saida(arquivo);
 
     // Verificar se o arquivo foi aberto
     if (!arquivo_saida.is_open())
     {
-        std::cerr << "Erro ao criar o arquivo." << std::endl;
+        cerr << "Erro ao criar o arquivo." << endl;
         return 1; // Saída com erro
     }
 
     // Escrever o conteúdo do arquivo
-    arquivo_saida << "Arq saída de grafos" << std::endl;
-    arquivo_saida << "Teste de operações" << std::endl;
+    arquivo_saida << "Arq saída de grafos" << endl;
+    arquivo_saida << "Teste de operações" << endl;
 
     // Fechar o arquivo
     arquivo_saida.close();
 
     // Verificar
-    std::cout << "Arquivo \"" << arquivo << "\" criado com sucesso." << std::endl;
+    cout << "Arquivo \"" << arquivo << "\" criado com sucesso." << endl;
 
     while (saida == 0)
     {
@@ -168,6 +173,221 @@ int main()
         }
         if (saida != 1)
             cout << "Deseja executar mais alguma funcionalidade ? " << endl;
+    }
+    return 0;
+}
+
+int main2(int argc, char *argv[]) {
+
+    cout << argc << argv << endl;
+
+    int control;
+    int k;
+    int gold1=0;
+    
+    // Nome do arquivo de entrada
+    string nome_do_arquivo_entrada = "X280.txt";
+
+    // Abrir o arquivo de entrada para leitura
+    ifstream arquivo_entrada(nome_do_arquivo_entrada);
+
+    // Verificar se o arquivo foi aberto com sucesso
+    if (!arquivo_entrada.is_open()) {
+        cerr << "Erro ao abrir o arquivo de entrada." << endl;
+        return 1; // Saída com erro
+    }
+
+    // Nome do arquivo de saída
+    string nome_do_arquivo_saida = "Golden1saida.txt";
+
+    // Abrir o arquivo de saída para escrita
+    ofstream arquivo_saida(nome_do_arquivo_saida,ofstream::out | ofstream::trunc);
+
+    // Verificar se o arquivo foi aberto com sucesso
+    if (!arquivo_saida.is_open()) {
+        cerr << "Erro ao abrir o arquivo de saida." << strerror(errno) << endl;
+        return 1; // Saída com erro
+    }
+    // Leitura e impressão do nome da instância
+    string linha;
+    string instancia;
+    getline(arquivo_entrada, linha);
+
+    size_t firstNonWhiteSpace = linha.find_first_not_of(" \t");
+    size_t lastNonWhiteSpace = linha.find_last_not_of(" \t");
+
+    // Verificar se a linha é não vazia
+    if (firstNonWhiteSpace != string::npos && lastNonWhiteSpace != string::npos) {
+    // Extrair a parte significativa da linha
+    instancia = linha.substr(firstNonWhiteSpace, lastNonWhiteSpace - firstNonWhiteSpace + 1);
+    cout<<instancia<<endl;}
+    cout<< linha<<endl;
+    // Filtrando qual instância será lida
+    if (linha == "NAME : A-n34-k5" || linha=="NAME : A-n48-k7" || linha=="NAME : B-n34-k5"|| linha=="NAME : B-n50-k8") 
+    {
+        cout << "Leitura AB" << endl;
+        control=0;
+        cout<<control<<endl;
+    } 
+    else if (linha == "NAME : M-n101-k10" || linha == "NAME : M-n151-k12") 
+    {
+        control=2;
+        cout << "Leitura M" << endl;
+        cout<<control<<endl;
+    } 
+    else if (linha.find("n101-k25") != string::npos)
+    {
+            cout << "Leitura X k25" << endl;
+            k=25;
+            control=1;
+            cout<<control<<k<<endl;
+    }
+    else if( linha.find("280-k17")!= string::npos) 
+    {
+        cout << "Leitura X k17" << endl;
+        k=17;
+        control=1;
+        cout<<control<<k<<endl;
+    } 
+    else if (linha == "NAME : Golden_1")
+    {
+            cout << "Leitura Golden k9" << endl;
+            k=9;
+            control=1;
+            gold1=1;
+            cout<<control<<k<<endl;
+    }
+    else if( linha == "NAME : Golden_17") 
+    {
+        cout << "Leitura Golden k22" << endl;
+        k=22;
+        control=1;
+        cout<<control<<k<<endl;
+    } 
+    else 
+    {
+        cout << "Nao e possivel ler essa instancia" << endl;
+        cout << linha <<  endl;
+        return 1;
+    }
+    
+    arquivo_saida << linha << endl;
+
+    // Leitura do inteiro "No of trucks"
+    if(control==0)
+    {
+        k=0;
+        getline(arquivo_entrada, linha);
+        istringstream iss_K(linha.substr(39)); // Ignorando "No of trucks: "
+        iss_K >> k;
+        arquivo_saida << "Valor de k: " << k << endl;
+    }
+    else if(control==1)
+    {   k=0; //Mudar
+        getline(arquivo_entrada, linha);
+        arquivo_saida << "Valor de K: " << k << endl;
+    }
+    else
+    {
+        getline(arquivo_entrada, linha);
+        istringstream iss_K(linha.substr(45)); // Ignorando "No of trucks: "
+        iss_K >> k;
+        arquivo_saida << "Valor de K: " << k << endl;
+    }
+    
+    
+      // Leitura do campo "Dimension"
+    int n;
+    getline(arquivo_entrada, linha);
+    getline(arquivo_entrada, linha);
+    istringstream iss_Dimension(linha.substr(11)); // Ignorando "Dimension: "
+    iss_Dimension >> n;
+    arquivo_saida << "Valor de n: " << n << endl;
+
+     // Leitura do campo "CAPACITY"
+    int q;
+    getline(arquivo_entrada, linha);
+    getline(arquivo_entrada, linha);
+    istringstream iss_Capacity(linha.substr(10)); // Ignorando "Dimension: "
+    iss_Capacity >> q;
+    arquivo_saida << "Capacidade: " << q << endl;
+    
+    // Leitura dos coordenadas a partir de "NODE_COORD_SECTION"
+
+    if(gold1==1) // corrige a leitura da instancia golden 1
+    {getline(arquivo_entrada, linha);}
+
+    getline(arquivo_entrada, linha);
+
+    vector<float> Xcoord(n);
+    vector<float> Ycoord(n);
+    vector<int> cap(n);
+
+    int i;
+    float x,y;
+    
+    for(int j=0;j<n;j++)
+    {
+        getline(arquivo_entrada, linha);
+        istringstream iss(linha);
+        //::cout<< linha << endl;
+        iss >> i >> x >> y; // vai preencher todos os nós de 1 até n, o 0 vai ser o deposito
+        Xcoord [i] = x;
+        Ycoord [i] = y;
+        cout<< i << " "<< x << " "<< y  << " "<< endl;
+
+    }
+
+    // Leitura das demandas a partir de "Demand_Section"
+    getline(arquivo_entrada, linha);
+    cout<< linha << endl;
+    for(int j=0;j<n;j++)
+    {
+        int c;
+        getline(arquivo_entrada, linha);
+        istringstream iss(linha);
+        //cout<< linha << endl;
+        iss >> i >> c; // vai preencher todos os nós de 1 até n, o 0 vai ser o deposito
+        cap [i] = c;
+    }
+
+    // Leitura do depósito
+    getline(arquivo_entrada, linha);
+    cout<< linha << endl;
+    getline(arquivo_entrada, linha);
+    istringstream iss(linha);
+    iss >> Xcoord[0];
+    getline(arquivo_entrada, linha);
+    istringstream iss2(linha);
+    iss2 >> Ycoord[0];
+    cap[0]=-1;
+
+    // imprime todos os dados
+
+    for(int j=0; j<=n; j++)
+    {
+        cout<< j <<" "<< Xcoord[j]<< " " << Ycoord[j]<< " " << cap [j]<< endl;
+
+    }
+
+    // Fechar os arquivos
+    arquivo_entrada.close();
+    arquivo_saida.close();
+
+    cout << "Leitura e processamento concluidos com sucesso." << endl;
+
+    return 0; // Saída bem-sucedida
+}
+
+int main(int argc, char *argv[])
+{
+    if (argc == 6)
+    {
+        main1(argc, argv);
+    }
+    else
+    {
+        main2(argc, argv);
     }
     return 0;
 }
