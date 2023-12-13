@@ -1,0 +1,7 @@
+
+NAME : A-n34-k5
+Valor de k: 5
+Valor de n: 34
+Capacidade: 100
+Distancia total percorrida em paralelo: 1994.78
+Distancia total percorrida em serie: 883.687
