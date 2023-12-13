@@ -383,11 +383,11 @@ int main(int argc, char *argv[])
 
     argc = 3; // para testar a main1
 
-    if (argc == 3)
+    if (argc == 7)
     {
         main1(argc, argv);
     }
-    else if (argc == 7)
+    else if (argc == 3)
     {
         main2(argc, argv);
     } else {
