@@ -7,6 +7,8 @@
 #include <vector>
 using namespace std;
 
+#include "../include/No.h"
+
 /*
     Obs1: Ajustar a leitura de acordo com a semÂntica do arquivo do T2
 
@@ -185,7 +187,7 @@ int main2(int argc, char *argv[]) {
     int gold1=0;
     
     // Nome do arquivo de entrada
-    string nome_do_arquivo_entrada = "Golden17.txt";
+    string nome_do_arquivo_entrada = "A34.txt";
 
     // Abrir o arquivo de entrada para leitura
     ifstream arquivo_entrada(nome_do_arquivo_entrada);
@@ -320,9 +322,11 @@ int main2(int argc, char *argv[]) {
 
     n=n+1; // Incluindo nó depósito
 
-    vector<float> Xcoord(n);
-    vector<float> Ycoord(n);
-    vector<int> cap(n);
+    vector<No> listaNos;
+
+     vector<float> Xcoord(n);
+    / vector<float> Ycoord(n);
+    // vector<int> cap(n);
 
     int i;
     float x,y;
@@ -372,6 +376,12 @@ int main2(int argc, char *argv[]) {
 
     }
 
+
+    //Algoritmo Guloso:
+
+    //Verifica a Solução
+
+    
     // Fechar os arquivos
     arquivo_entrada.close();
     arquivo_saida.close();

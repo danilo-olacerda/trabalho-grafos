@@ -1,4 +1,4 @@
-NAME : Golden_17
-Valor de K: 0
-Valor de n: 241
-Capacidade: 200
+NAME : A-n34-k5
+Valor de k: 5
+Valor de n: 34
+Capacidade: 100
