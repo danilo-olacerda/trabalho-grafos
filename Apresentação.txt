@@ -1,0 +1,61 @@
+Apresentação
+
+Capa: Grupo 12
+
+Integrantes: Danilo Lacerda, Davi Laranjo e Gabriel Salles
+
+Tópico 1:
+
+O Problema de Roteamento de Veículos Capacitado (PRVC) é uma versão do PRV e consiste em encontrar um conjunto de rotas a serem seguidas por uma frota de veículos homogêneos, os quais devem atender a um conjunto de clientes. O objetivo é minimizar o custo total das rotas respeitando as seguintes restrições: 
+
+i) as rotas devem iniciar e terminar no mesmo centro de distribuição; 
+
+ii) cada cliente deve ser visitado uma única vez e sua demanda deve ser atendida integralmente por apenas um veículo, nos mostrando que esse problema é uma variação do problema do caixeiro viajante
+
+iii) a soma das demandas dos clientes incluídos em uma rota não pode exceder a capacidade do veículo
+
+Fonte: https://bibliotecatede.uninove.br/handle/tede/1124#:~:text=O%20Problema%20de%20Roteamento%20de%20Ve%C3%ADculos%20Capacitado%20(PRVC)%20%C3%A9%20uma,a%20um%20conjunto%20de%20clientes.
+
+Tópico 2:
+
+Foi passado como requisito do trabalho que o grupo deveria desenvolver os seguintes algoritmos para solucionar o PRVC:
+1-Algoritmo Guloso
+2-Algoritmo Guloso Randomizado
+3-Algoritmo Guloso Randomizado Reativo
+
+Para as seguintes instâncias da literatura: 
+
+(print da tabela do trabalho)
+
+Fonte dos dados das instâncias: 
+http://vrp.galgos.inf.puc-rio.br/index.php/en/
+
+Parte de algoritmos propostos:
+
+Por conta de falhas na implementação da parte 1 do trabalho, e pela saída de um membro do grupo na reta final do desenvolvimento, o grupo viu a necessidade urgente de criar um outro código para a execução da parte 2, visto que a adaptação e correção do código da parte 1 demandaria um tempo indisponível. Tomamos em conjunto a decisão de reformular o código para atender as necessidades da parte 2, nos atentando fortemente para a natureza de cada tipo de instância fornecida e adaptando a leitura dos dados conforme necessário, para atender a todas as instâncias exigidas, com uma fiel leitura de cada instancia, partimos para o desenvolvimento do algoritmo guloso.
+
+-Algoritmo guloso:
+
+Tomamos a decisão de utilizar a heurística do vizinho mais próximo, por sua implementação mais ágil,e como critério para viabilidade de um candidato, associada à proximidade com o último nó da rota, avaliamos se o nó escolhido tinha uma demanda ainda disponível no caminhão da rota. Sendo os 2 critérios atendidos, o nó entraria na rota da solução proposta.
+
+Também procuramos uma forma de incluir uma análise entre um algoritmo que constrói as rotas em série ou em paralelo, sendo os dados dispostos na nossa análise de resultados.
+
+-Algoritmo Guloso Randomizado e Algoritmo Guloso Randomizado Reativo:
+
+Infelizmente por conta das dificuldades enfrentadas pelo grupo próximo ao fim do prazo, não foi possível implementar esses métodos de forma que gerassem soluções viáveis o suficiente para coleta de resultados, dentro do tempo disponível.
+
+Análise em comparação com a literatura: 
+
+Tabela gerada pelo Davi
+
+Tópico - Ambiente computacional:
+
+Pegar com o Danilo
+
+Tópico final: Conclusão
+
+Por conta de nosso resultado contemplar o Algoritmo Guloso com a construção das rotas em série ou em paralelo, nossa análise será baseada no resultado dessas duas variações:
+
+(Comparação e motivo de pq uma foi melhor que a outra para cada caso) 
+
+
