@@ -1,0 +1,4 @@
+NAME : Golden_17
+Valor de K: 0
+Valor de n: 241
+Capacidade: 200

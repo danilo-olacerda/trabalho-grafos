@@ -185,7 +185,7 @@ int main2(int argc, char *argv[]) {
     int gold1=0;
     
     // Nome do arquivo de entrada
-    string nome_do_arquivo_entrada = "X280.txt";
+    string nome_do_arquivo_entrada = "Golden17.txt";
 
     // Abrir o arquivo de entrada para leitura
     ifstream arquivo_entrada(nome_do_arquivo_entrada);
@@ -197,7 +197,7 @@ int main2(int argc, char *argv[]) {
     }
 
     // Nome do arquivo de saída
-    string nome_do_arquivo_saida = "Golden1saida.txt";
+    string nome_do_arquivo_saida = "A34saida.txt";
 
     // Abrir o arquivo de saída para escrita
     ofstream arquivo_saida(nome_do_arquivo_saida,ofstream::out | ofstream::trunc);
@@ -318,6 +318,8 @@ int main2(int argc, char *argv[]) {
 
     getline(arquivo_entrada, linha);
 
+    n=n+1; // Incluindo nó depósito
+
     vector<float> Xcoord(n);
     vector<float> Ycoord(n);
     vector<int> cap(n);
@@ -325,7 +327,7 @@ int main2(int argc, char *argv[]) {
     int i;
     float x,y;
     
-    for(int j=0;j<n;j++)
+    for(int j=1;j<n;j++)
     {
         getline(arquivo_entrada, linha);
         istringstream iss(linha);
@@ -333,20 +335,21 @@ int main2(int argc, char *argv[]) {
         iss >> i >> x >> y; // vai preencher todos os nós de 1 até n, o 0 vai ser o deposito
         Xcoord [i] = x;
         Ycoord [i] = y;
-        cout<< i << " "<< x << " "<< y  << " "<< endl;
+        // cout<< i << " "<< x << " "<< y  << " "<< endl;
 
     }
 
     // Leitura das demandas a partir de "Demand_Section"
     getline(arquivo_entrada, linha);
     cout<< linha << endl;
-    for(int j=0;j<n;j++)
+    for(int j=1;j<n;j++)
     {
         int c;
         getline(arquivo_entrada, linha);
         istringstream iss(linha);
         //cout<< linha << endl;
         iss >> i >> c; // vai preencher todos os nós de 1 até n, o 0 vai ser o deposito
+
         cap [i] = c;
     }
 
@@ -363,9 +366,9 @@ int main2(int argc, char *argv[]) {
 
     // imprime todos os dados
 
-    for(int j=0; j<=n; j++)
+    for(int j=0; j<n; j++)
     {
-        cout<< j <<" "<< Xcoord[j]<< " " << Ycoord[j]<< " " << cap [j]<< endl;
+       cout<< j <<" "<< Xcoord[j]<< " " << Ycoord[j]<< " " << cap [j]<< endl;
 
     }
 
